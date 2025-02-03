@@ -27,6 +27,9 @@ export function FishCard(props: FishCardProps) {
                 <Text style={styles.text}>{props.traditionalName}</Text>
                 <Text style={styles.text}>{props.name}</Text>
             </View>
+            <View style={styles.locateView}>
+                <Text style={[styles.locateText, styles.text]}>Iraraley</Text>
+            </View>
             <View style={styles.categoryView}>
                 <Text style={[styles.categoryText, styles.text]}>{props.category}</Text>
             </View>
@@ -62,6 +65,21 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 10,
         top: 150,
+    },
+    locateView: {
+        width: 80,
+        height: 40,
+        backgroundColor: "#FFF9F5",
+        borderRadius: 50,
+        position: "absolute",
+        right: 100,
+        top: 150,
+        opacity: 0.9,
+    },
+    locateText: {
+        alignContent: "center",
+        textAlign: "center",
+        lineHeight: 40,
     },
     categoryView: {
         width: 80,
