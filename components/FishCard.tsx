@@ -25,7 +25,6 @@ export function FishCard(props: FishCardProps) {
             />
             <View style={styles.nameView}>
                 <Text style={styles.text}>{props.traditionalName}</Text>
-                <Text style={styles.text}>{props.name}</Text>
             </View>
             <View style={styles.locateView}>
                 <Text style={[styles.locateText, styles.text]}>Iraraley</Text>
@@ -58,13 +57,19 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
     },
     text: {
-        fontSize: 18,
-        paddingBottom: 5,
+        alignContent: "center",
+        textAlign: "center",
+        lineHeight: 40,
     },
     nameView: {
+        minWidth: 80,
+        height: 40,
+        backgroundColor: "#EFF9F5",
+        borderRadius: 50,
         position: "absolute",
         left: 10,
         top: 150,
+        opacity: 0.9,
     },
     locateView: {
         width: 80,
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
     categoryView: {
         width: 70,
         height: 40,
-        backgroundColor: "#FAF8F5",
+        backgroundColor: "#AAF8F5",
         borderRadius: 50,
         position: "absolute",
         right: 10,
