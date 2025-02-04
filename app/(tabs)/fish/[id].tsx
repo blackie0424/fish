@@ -97,21 +97,18 @@ const styles = StyleSheet.create({
     },
     descriptionView: {
         width: 200,
-        height: 40,
+        height: 35,
         borderRadius: 50,
-        borderColor:"red",
-        borderWidth: 1,
         opacity: 0.9,
-        alignContent: "center",
+        alignItems: "center",
         justifyContent: "center",
         position: "relative",
-        marginBottom:100
-        
+        marginBottom:100,
+        backgroundColor: "#FFF9F5",
+
     },
     descriptionText: {
-        alignContent: "center",
         textAlign: "center",
-        lineHeight: 40,
         fontSize:20,
     },
 });

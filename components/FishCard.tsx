@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF9F5",
         borderRadius: 50,
         position: "absolute",
-        right: 100,
+        right: 85,
         top: 150,
         opacity: 0.9,
     },
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         lineHeight: 40,
     },
     categoryView: {
-        width: 80,
+        width: 70,
         height: 40,
         backgroundColor: "#FAF8F5",
         borderRadius: 50,
