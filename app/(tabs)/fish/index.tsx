@@ -41,7 +41,7 @@ export default function HomeScreen() {
           data={fishs}
           renderItem={({ item }) => (
             <Pressable onPress={function () {
-              router.push("fish/" + item.id)
+              router.push(`/fish/${item.id}`)
             }}>
               <FishCard
                 id={item.id}

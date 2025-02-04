@@ -1,8 +1,6 @@
 import react from "react"
 import { View, StyleSheet, Dimensions, Text } from "react-native"
 
-
-
 export function Header() {
     return (
         <View style={styles.header}>
