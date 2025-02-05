@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Image, StyleSheet, Text, View, Button } from 'react-native';
 import { Link } from 'expo-router';
 
-
-
 export default function HomeScreen() {
   return (
     <View style={styles.container}>

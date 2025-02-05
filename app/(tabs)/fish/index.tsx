@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, Pressable } from "react-native";
 
-import { Header } from "@/components/Header";
 import { FishCard } from "@/components/FishCard";
 import { Loading } from "@/components/Loading";
 
@@ -32,7 +31,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Header />
       {isLoading ? (
         <Loading />
       ) : (

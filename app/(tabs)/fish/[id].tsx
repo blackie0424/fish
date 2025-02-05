@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
-import { Header } from "../../../components/Header";
 import { Loading } from "../../../components/Loading";
 import { FishCard } from "../../../components/FishCard";
 
@@ -36,7 +35,6 @@ export default function HomeScreen() {
 
     return (
         <View style={styles.container}>
-            <Header />
             {isLoading ? (
                 <Loading />
             ) : (
