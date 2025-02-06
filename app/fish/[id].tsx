@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
-import { Loading } from "../../../components/Loading";
-import { FishCard } from "../../../components/FishCard";
+import { Loading } from "@/components/Loading";
+import { FishCard } from "@/components/FishCard";
 
 
 
