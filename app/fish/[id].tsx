@@ -45,12 +45,11 @@ export default function HomeScreen() {
                         <View>
                             <FishCard
                                 id={item.id}
-                                traditionalName={item.traditional_name}
                                 name={item.name ?? ""}
                                 category={item.type ?? ""}
                                 imgUri={item.image ?? ""}
                             />
-                            
+
                             <View style={styles.advanceView}>
                                 {/* 分布地區的資料 */}
                                 <View style={styles.descriptionView}>
@@ -61,8 +60,8 @@ export default function HomeScreen() {
                                     <Text style={styles.descriptionText}>kamoamong da</Text>
                                 </View>
                             </View>
-                            
-                            
+
+
                             <Text>{fishData[0].description}</Text>
                         </View>
                     )}
@@ -84,8 +83,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#003F5E"
     },
-    advanceView:{
-        height:300,
+    advanceView: {
+        height: 300,
         margin: 10,
         padding: 10,
         backgroundColor: "#E5C29F",
@@ -101,12 +100,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
-        marginBottom:100,
+        marginBottom: 100,
         backgroundColor: "#FFF9F5",
 
     },
     descriptionText: {
         textAlign: "center",
-        fontSize:20,
+        fontSize: 20,
     },
 });

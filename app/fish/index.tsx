@@ -43,7 +43,6 @@ export default function HomeScreen() {
             }}>
               <FishCard
                 id={item.id}
-                traditionalName={item.traditional_name}
                 name={item.name ?? ""}
                 category={item.type ?? ""}
                 imgUri={item.image ?? ""}

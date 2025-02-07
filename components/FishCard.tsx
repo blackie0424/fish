@@ -6,7 +6,6 @@ import { Loading } from "./Loading";
 interface FishCardProps {
     id: number;
     name: string;
-    traditionalName: string;
     category: string;
     imgUri: string;
 }
@@ -24,7 +23,7 @@ export function FishCard(props: FishCardProps) {
                 onError={() => setIsImageLoading(false)}
             />
             <View style={styles.nameView}>
-                <Text style={styles.text}>{props.traditionalName}</Text>
+                <Text style={styles.text}>{props.name}</Text>
             </View>
             <View style={styles.locateView}>
                 <Text style={[styles.locateText, styles.text]}>Iraraley</Text>
