@@ -4,7 +4,7 @@ import { StyleSheet, View, FlatList, Pressable } from "react-native";
 import { FishCard } from "@/components/FishCard";
 import { Loading } from "@/components/Loading";
 
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 
 
 export default function HomeScreen() {
@@ -21,7 +21,7 @@ export default function HomeScreen() {
       const res = await fetch("https://tao-among.vercel.app/prefix/api/fish");
       if (!res.ok) throw new Error("something error!");
       const data = await res.json();
-      setFishs(data);
+      setFishs(data.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -52,6 +52,11 @@ export default function HomeScreen() {
           )}
         />
       )}
+      <View style={styles.add}>
+        <Link style={styles.addText} href="/fish/add">
+          +
+        </Link>
+      </View>
     </View>
   );
 }
@@ -63,4 +68,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#003F5E"
   },
+  add: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 10,
+    padding: 10,
+    backgroundColor: "green",
+    borderRadius: 100,
+    width: 100,
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  addText: {
+    fontSize: 60,
+  }
 });

@@ -10,7 +10,7 @@ import { FishCard } from "@/components/FishCard";
 
 export default function HomeScreen() {
     const { id } = useLocalSearchParams(); // 取得網址中的 id
-    const URL = "https://tao-among.vercel.app/prefix/apifish/" + id;
+    const URL = "https://tao-among.vercel.app/prefix/api/fish/" + id;
 
     const [fishData, setFishData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ export default function HomeScreen() {
             const res = await fetch(URL)
             if (!res.ok) throw new Error("something error!" + id);
             const data = await res.json();
-            setFishData(Array.isArray(data) ? data : [data]);
+            setFishData(Array.isArray(data.data) ? data.data : [data.data]);
 
         } catch (error) {
             console.error(error);
@@ -108,4 +108,5 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 20,
     },
+
 });
