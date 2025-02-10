@@ -10,7 +10,7 @@ import { FishCard } from "@/components/FishCard";
 
 export default function HomeScreen() {
     const { id } = useLocalSearchParams(); // 取得網址中的 id
-    const URL = "https://tao-among.vercel.app/apifish/" + id;
+    const URL = "https://tao-among.vercel.app/prefix/apifish/" + id;
 
     const [fishData, setFishData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);

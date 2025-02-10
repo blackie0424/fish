@@ -18,7 +18,7 @@ export default function HomeScreen() {
 
   const getFishs = async () => {
     try {
-      const res = await fetch("https://tao-among.vercel.app/fishs");
+      const res = await fetch("https://tao-among.vercel.app/prefix/api/fish");
       if (!res.ok) throw new Error("something error!");
       const data = await res.json();
       setFishs(data);
