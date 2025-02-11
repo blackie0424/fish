@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Button } from "react-native";
 
 export default function AddFishScreen() {
+
+    const url = "https://tao-among.vercel.app/prefix/api/fish";
+
     const [fishName, setFishName] = useState("");
-    const [location, setSelectedLocation] = useState(null);
+    const [locate, setSelectedLocation] = useState(null);
     const [fishType, setSelectedType] = useState(null);
     const [selectedProcessing, setSelectedProcessing] = useState(null);
 
@@ -12,19 +15,39 @@ export default function AddFishScreen() {
     const processingOptions = ["去鱗", "不去鱗", "剝皮"];
 
     const handleSubmit = () => {
+        console.log("check...");
         if (!fishName.trim()) {
             alert("請輸入魚的名稱");
             return;
         }
 
-        const newFish = {
-            name: fishName,
-            type: fishType, // 可為 null
-            locate: location,
+        const newFish = new FormData();
+        newFish.append("name", fishName);
+        newFish.append("type", fishType ? fishType : ""); // 如果可能為 null，確保它是空字串
+        newFish.append("locate", locate);
+        newFish.append("image", "default.png");
+        newFish.append("process", selectedProcessing);
+
+
+        for (let [key, value] of newFish.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+        const requestOptions = {
+            method: "POST",
+            body: newFish,
+            redirect: "follow"
         };
 
-        console.log("新增的魚類資料：", newFish);
-        alert("魚類已新增！");
+        fetch(url, requestOptions)
+            .then(async (response) => {
+                console.log("Response status:", response.status);
+                const text = await response.text(); // 直接讀取回應內容，避免 JSON 解析錯誤
+                console.log("Response text:", text);
+                return JSON.parse(text); // 確保 JSON 解析
+            })
+            .then((data) => console.log("Success:", data))
+            .catch((error) => console.error("Error:", error));
+
     };
 
     return (
@@ -47,7 +70,7 @@ export default function AddFishScreen() {
                     {locations.map((loc) => (
                         <TouchableOpacity
                             key={loc}
-                            style={[styles.button, location === loc && styles.selectedButton]}
+                            style={[styles.button, locate === loc && styles.selectedButton]}
                             onPress={() => setSelectedLocation(loc)}
                         >
                             <Text style={styles.buttonText}>{loc}</Text>
