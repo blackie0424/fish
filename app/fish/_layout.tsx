@@ -2,25 +2,21 @@ import { Stack } from 'expo-router';
 import React from 'react';
 
 
-export default function StackLayout() {
-
+export default function FishStackLayout() {
   return (
-    <Stack>
+    <Stack screenOptions={{
+      title: "nivasilan ko a among",
+      headerShown: false,
+      headerBackButtonDisplayMode: "minimal"
+    }}>
       <Stack.Screen
         name="index"
-        options={{
-          title: "nivasilan ko a among",
-          headerShown: true,
-          headerBackButtonDisplayMode: "minimal"
-        }}
       />
       <Stack.Screen
         name="[id]"
-        options={{
-          title: "nivasilan ko a among",
-          headerShown: true,
-          headerBackButtonDisplayMode: "minimal"
-        }}
+      />
+      <Stack.Screen
+        name="add"
       />
     </Stack >
   );

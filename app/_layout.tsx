@@ -30,7 +30,13 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ contentStyle: { backgroundColor: "#f0f0f0" } }}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false, }} />
+        <Stack.Screen name="fish" options={{
+          headerShown: true,
+          title: "nivasilan ko a among",
+          headerBackButtonDisplayMode: "minimal"
+        }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

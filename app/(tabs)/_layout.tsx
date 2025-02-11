@@ -1,16 +1,18 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 
-export default function StackLayout() {
+export default function tabsStackLayout() {
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={
+      {
+        title: "nivasilan ko a among",
+        headerShown: false,
+        headerBackButtonDisplayMode: "minimal"
+      }
+    }>
       <Stack.Screen
         name="index"
-        options={{
-          headerShown: false,
-          headerBackTitle: "",
-        }}
       />
     </Stack>
   );
