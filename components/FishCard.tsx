@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, StyleSheet, Image, Text, Dimensions } from "react-native";
 
 import { Loading } from "./Loading";
+import { Image as ExpoImage } from "expo-image";
+
 
 interface FishCardProps {
     id: number;
@@ -16,11 +18,13 @@ export function FishCard(props: FishCardProps) {
     return (
         <View style={styles.cardView}>
             {isImageLoading && <Loading backgroundColor="transparent" color="#ff0000" />}
-            <Image
+            <ExpoImage
                 source={{ uri: props.imgUri }}
                 style={styles.image}
                 onLoad={() => setIsImageLoading(false)}
                 onError={() => setIsImageLoading(false)}
+                cachePolicy="disk"
+                contentFit="cover"
             />
             <View style={styles.nameView}>
                 <Text style={styles.text}>{props.name}</Text>
