@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
     section: {
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "left",
         marginBottom: 20,
     },
     button: {
