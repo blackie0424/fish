@@ -23,6 +23,7 @@ export default function AddFishScreen() {
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 {/* 魚名稱輸入框 */}
+                <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
                 <TextInput
                     style={styles.input}
                     value={fishName}
@@ -30,15 +31,20 @@ export default function AddFishScreen() {
                     placeholder="ngaran no among"
                 />
                 <View style={styles.separator} />
+                <Text style={styles.title}>屬於哪一個部落的文化知識</Text>
                 <SelectionGroup options={locations} selected={locate} onSelect={setSelectedLocation} />
                 <View style={styles.separator} />
+                <Text style={styles.title}>oyod kano rahet</Text>
                 <SelectionGroup options={types} selected={fishType} onSelect={setSelectedType} />
                 <View style={styles.separator} />
+                <Text style={styles.title}>魚的處理方式</Text>
                 <SelectionGroup options={processingOptions} selected={selectedProcessing} onSelect={setSelectedProcessing} />
 
             </ScrollView>
             {/* 確定按鈕 */}
-            <Button title="確定" onPress={handleSubmit} />
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>分享</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -52,6 +58,9 @@ const styles = StyleSheet.create({
     scrollContainer: {
         padding: 20,
     },
+    title: {
+        marginBottom: 10,
+    },
     input: {
         height: 40,
         borderWidth: 1,
@@ -64,5 +73,17 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#999",
         marginVertical: 10,
-    }
+    },
+    button: {
+        backgroundColor: "#007AFF", // 藍色
+        paddingVertical: 12,
+        borderRadius: 25, // 圓角
+        alignItems: "center",
+        marginBottom: 200
+    },
+    buttonText: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "bold",
+    },
 });
