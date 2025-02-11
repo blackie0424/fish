@@ -10,9 +10,9 @@ export default function AddFishScreen() {
     const [fishType, setSelectedType] = useState(null);
     const [selectedProcessing, setSelectedProcessing] = useState(null);
 
-    const locations = ["朗島", "東清", "野銀", "紅頭", "漁人", "椰油"];
+    const locations = ["Iraraley", "Iranmeylek", "Ivalino", "Imorod", "Iratay", "Yayo"];
     const types = ["oyod", "rahet"];
-    const processingOptions = ["去鱗", "不去鱗", "剝皮"];
+    const processingOptions = ["isisan", "jingisisi", "kolitan"];
 
     const handleSubmit = () => {
         console.log("check...");
