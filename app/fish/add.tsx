@@ -3,8 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Button
 
 export default function AddFishScreen() {
     const [fishName, setFishName] = useState("");
-    const [selectedLocation, setSelectedLocation] = useState(null);
-    const [selectedType, setSelectedType] = useState(null);
+    const [location, setSelectedLocation] = useState(null);
+    const [fishType, setSelectedType] = useState(null);
     const [selectedProcessing, setSelectedProcessing] = useState(null);
 
     const locations = ["朗島", "東清", "野銀", "紅頭", "漁人", "椰油"];
@@ -47,7 +47,7 @@ export default function AddFishScreen() {
                     {locations.map((loc) => (
                         <TouchableOpacity
                             key={loc}
-                            style={[styles.button, selectedLocation === loc && styles.selectedButton]}
+                            style={[styles.button, location === loc && styles.selectedButton]}
                             onPress={() => setSelectedLocation(loc)}
                         >
                             <Text style={styles.buttonText}>{loc}</Text>
@@ -61,8 +61,8 @@ export default function AddFishScreen() {
                     {types.map((type) => (
                         <TouchableOpacity
                             key={type}
-                            style={[styles.button, selectedType === type && styles.selectedButton]}
-                            onPress={() => setSelectedType(selectedType === type ? null : type)} // 可取消選擇
+                            style={[styles.button, fishType === type && styles.selectedButton]}
+                            onPress={() => setSelectedType(fishType === type ? null : type)} // 可取消選擇
                         >
                             <Text style={styles.buttonText}>{type}</Text>
                         </TouchableOpacity>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     section: {
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "center",
+        justifyContent: "left",
         marginBottom: 20,
     },
     button: {
