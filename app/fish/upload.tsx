@@ -49,16 +49,17 @@ const ImageUpload = () => {
 
         const requestOptions = {
             method: "POST",
-            body: formData,
-            redirect: "follow"
+            body: formData
         };
 
         try {
             const response = await fetch(url, requestOptions);
+            const responseData = await response.json(); // 解析 JSON
             if (response.ok) {
-                alert('上傳成功');
+                console.log(responseData); // 確保 responseData 有資料
+                alert(`上傳成功，檔案名稱：${responseData.data}`);
             } else {
-                alert('上傳失敗!!!!!');
+                alert(`上傳失敗: ${responseData.message}`);
             }
         } catch (error) {
             console.error(error);
