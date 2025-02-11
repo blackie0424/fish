@@ -44,7 +44,7 @@ const deviceWidth = Math.round(Dimensions.get("window").width);
 const styles = StyleSheet.create({
     cardView: {
         width: deviceWidth - 10,
-        height: 210,
+        height: 220,
         borderRadius: 20,
         backgroundColor: "#E5C29F",
         alignItems: "center",
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: deviceWidth - 10,
-        height: 136,
+        height: 160,
         resizeMode: "cover",
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         position: "absolute",
         left: 10,
-        top: 150,
+        top: 170,
         opacity: 0.9,
     },
     locateView: {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         position: "absolute",
         right: 85,
-        top: 150,
+        top: 170,
         opacity: 0.9,
     },
     locateText: {
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         position: "absolute",
         right: 10,
-        top: 150,
+        top: 170,
         opacity: 0.9,
     },
     categoryText: {
