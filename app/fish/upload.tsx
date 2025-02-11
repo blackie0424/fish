@@ -17,7 +17,7 @@ const ImageUpload = () => {
 
         // 開啟圖片選擇器
         const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ['images'],
             allowsEditing: true,
             aspect: [16, 9],
             quality: 0.5,
@@ -35,7 +35,6 @@ const ImageUpload = () => {
             return;
         }
 
-        console.log("!!!" + imageUri);
         const uri = imageUri;
         const localUri = uri.replace('file://', ''); // 處理 URI 的問題
         const filename = localUri.split('/').pop(); // 取得檔名
@@ -56,7 +55,6 @@ const ImageUpload = () => {
             const response = await fetch(url, requestOptions);
             const responseData = await response.json(); // 解析 JSON
             if (response.ok) {
-                console.log(responseData); // 確保 responseData 有資料
                 alert(`上傳成功，檔案名稱：${responseData.data}`);
             } else {
                 alert(`上傳失敗: ${responseData.message}`);
