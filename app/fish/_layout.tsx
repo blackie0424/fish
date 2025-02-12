@@ -1,32 +1,45 @@
-import { Stack } from 'expo-router';
 import React from 'react';
 import { Button } from 'react-native';
-import { useRouter } from 'expo-router';
-
-
+import { useRouter, usePathname } from 'expo-router';
+import { Tabs } from 'expo-router';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 export default function FishStackLayout() {
   const router = useRouter();
+  const pathname = usePathname();
+
 
   return (
-    <Stack screenOptions={{
+    <Tabs screenOptions={{
       title: "nivasilan ko a among",
       headerShown: true,
-      headerBackButtonDisplayMode: "minimal"
+      headerBackButtonDisplayMode: "minimal",
     }}>
-      <Stack.Screen
+      <Tabs.Screen
         name="index"
+        options={{
+          href: null,
+        }}
       />
-      <Stack.Screen
-        name="[id]"
-      />
-      <Stack.Screen
+      <Tabs.Screen
         name="create"
+        options={{
+          href: null,
+        }}
       />
-      <Stack.Screen
+      <Tabs.Screen
+        name="[id]"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
         name="upload"
         options={{
+          title: "",
+          tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color="black" />,
+          tabBarStyle: { display: "none" },
           headerRight: () => (
             <Button
               onPress={() => router.push("/fish/upload?triggerUpload=true")}  // 點擊後執行的操作
@@ -36,6 +49,6 @@ export default function FishStackLayout() {
           ),
         }}
       />
-    </Stack >
+    </Tabs >
   );
 }

@@ -52,11 +52,6 @@ export default function HomeScreen() {
           )}
         />
       )}
-      <View style={styles.add}>
-        <Link style={styles.addText} href="/fish/upload">
-          +
-        </Link>
-      </View>
     </View>
   );
 }
@@ -67,21 +62,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#003F5E"
-  },
-  add: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    margin: 10,
-    padding: 10,
-    backgroundColor: "green",
-    borderRadius: 100,
-    width: 100,
-    height: 100,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  addText: {
-    fontSize: 60,
   }
 });
