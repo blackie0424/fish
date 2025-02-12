@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 const API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
 export default function useAddFish() {
@@ -7,7 +8,7 @@ export default function useAddFish() {
     const [locate, setSelectedLocation] = useState<string | null>(null);
     const [fishType, setSelectedType] = useState<string | null>(null);
     const [selectedProcessing, setSelectedProcessing] = useState<string | null>(null);
-    const [image, setImage] = useState("default.png");
+    const [imageName, setImageName] = useState("");
 
 
     const handleSubmit = async () => {
@@ -20,7 +21,7 @@ export default function useAddFish() {
         fish.append("name", fishName);
         fish.append("type", fishType ?? "");
         fish.append("locate", locate ?? "");
-        fish.append("image", image);
+        fish.append("image", imageName || "default.png");
         fish.append("process", selectedProcessing ?? "");
 
         console.log("🚀 Sending data:", Object.fromEntries(fish.entries()));
@@ -48,7 +49,7 @@ export default function useAddFish() {
         locate, setSelectedLocation,
         fishType, setSelectedType,
         selectedProcessing, setSelectedProcessing,
-        image, setImage,
+        imageName, setImageName,
         handleSubmit,
     };
 }

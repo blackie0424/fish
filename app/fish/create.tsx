@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Button } from "react-native";
 
 import SelectionGroup from "@/components/SelectGroup";
-import useAddFish from "@/hooks/useCreateFish";
+import useCreateFish from "@/hooks/useCreateFish";
 
-export default function AddFishScreen() {
+import { useLocalSearchParams } from "expo-router";
 
+
+export default function CreateFishScreen() {
     const {
         fishName, setFishName,
         locate, setSelectedLocation,
         fishType, setSelectedType,
-        image, setImage,
         selectedProcessing, setSelectedProcessing,
+        imageName, setImageName,
         handleSubmit,
-    } = useAddFish();
-
+    } = useCreateFish();
+    const params = useLocalSearchParams();
+    useEffect(() => {
+        if (params.imageName) {
+            setImageName(params.imageName);
+        }
+    }, [params.imageName]);
     const locations = ["Iraraley", "Iranmeylek", "Ivalino", "Imorod", "Iratay", "Yayo"];
     const types = ["oyod", "rahet"];
     const processingOptions = ["isisan", "jingisisi", "kolitan"];
@@ -39,7 +46,6 @@ export default function AddFishScreen() {
                 <View style={styles.separator} />
                 <Text style={styles.title}>魚的處理方式</Text>
                 <SelectionGroup options={processingOptions} selected={selectedProcessing} onSelect={setSelectedProcessing} />
-
             </ScrollView>
             {/* 確定按鈕 */}
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>

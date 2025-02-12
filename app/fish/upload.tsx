@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Button, Image, Platform } from 'react-native';
+import { View, Button, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { useRouter } from 'expo-router';
 
 const ImageUpload = () => {
     const url = "http://tao-among.vercel.app/prefix/api/upload";
     const [imageUri, setImageUri] = useState<string | null>(null);
+    const router = useRouter();
 
     // 這是處理選擇圖片的函數
     const pickImage = async () => {
@@ -56,6 +58,10 @@ const ImageUpload = () => {
             const responseData = await response.json(); // 解析 JSON
             if (response.ok) {
                 alert(`上傳成功，檔案名稱：${responseData.data}`);
+                router.push({
+                    pathname: "/fish/create",
+                    params: { imageName: `${responseData.data}` },
+                })
             } else {
                 alert(`上傳失敗: ${responseData.message}`);
             }

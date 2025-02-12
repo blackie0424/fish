@@ -53,13 +53,8 @@ export default function HomeScreen() {
         />
       )}
       <View style={styles.add}>
-        <Link style={styles.addText} href="/fish/add">
+        <Link style={styles.addText} href="/fish/upload">
           +
-        </Link>
-      </View>
-      <View style={styles.upload}>
-        <Link style={styles.uploadText} href="/fish/upload">
-          Fish
         </Link>
       </View>
     </View>
@@ -86,23 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  upload: {
-    position: "absolute",
-    bottom: 100,
-    right: 0,
-    margin: 10,
-    padding: 10,
-    backgroundColor: "yellow",
-    borderRadius: 100,
-    width: 100,
-    height: 100,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   addText: {
     fontSize: 60,
-  },
-  uploadText: {
-    fontSize: 30
   }
 });
