@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useRouter } from 'expo-router';
+
 
 
 const API_URL = "https://tao-among.vercel.app/prefix/api/fish";
@@ -9,7 +11,7 @@ export default function useAddFish() {
     const [fishType, setSelectedType] = useState<string | null>(null);
     const [selectedProcessing, setSelectedProcessing] = useState<string | null>(null);
     const [imageName, setImageName] = useState<string>("");
-
+    const route = useRouter();
 
     const handleSubmit = async () => {
         if (!fishName.trim()) {
@@ -39,6 +41,7 @@ export default function useAddFish() {
             if (!response.ok) throw new Error("API 回應錯誤");
 
             alert("魚資料已成功新增！");
+            route.push("/fish");
         } catch (error) {
             console.error("❌ Error:", error);
         }
