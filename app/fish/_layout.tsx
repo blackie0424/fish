@@ -30,7 +30,7 @@ export default function FishStackLayout() {
           headerRight: () => (
             <Button
               onPress={() => router.push("/fish/upload?triggerUpload=true")}  // 點擊後執行的操作
-              title="上傳圖片"
+              title="下一步"
               color="blue"
             />
           ),
