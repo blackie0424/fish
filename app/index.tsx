@@ -28,29 +28,27 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#003F5E"
+    backgroundColor: "#003F5E",
   },
   textView: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   linkText: {
-    fontSize: 24,
-    left: '20%',
-    bottom: '10%',
+    fontSize: 36,
     color: "#FAF8F5",
-
-
+    textAlign: 'center'
   },
   imageView: {
     width: '100%',
-    flex: 4,
-    resizeMode: 'contain',
-    bottom: 30,
-
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   }
 });
