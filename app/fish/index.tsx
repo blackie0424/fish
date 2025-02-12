@@ -21,7 +21,7 @@ export default function HomeScreen() {
       const res = await fetch("https://tao-among.vercel.app/prefix/api/fish");
       if (!res.ok) throw new Error("something error!");
       const data = await res.json();
-      setFishs(data.data);
+      setFishs(data.data.reverse());
     } catch (error) {
       console.error(error);
     } finally {
