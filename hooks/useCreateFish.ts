@@ -8,7 +8,7 @@ export default function useAddFish() {
     const [locate, setSelectedLocation] = useState<string | null>(null);
     const [fishType, setSelectedType] = useState<string | null>(null);
     const [selectedProcessing, setSelectedProcessing] = useState<string | null>(null);
-    const [imageName, setImageName] = useState("");
+    const [imageName, setImageName] = useState<string>("");
 
 
     const handleSubmit = async () => {

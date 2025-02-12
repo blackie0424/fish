@@ -18,7 +18,7 @@ export default function CreateFishScreen() {
     } = useCreateFish();
     const params = useLocalSearchParams();
     useEffect(() => {
-        if (params.imageName) {
+        if (typeof params.imageName === "string") {
             setImageName(params.imageName);
         }
     }, [params.imageName]);
