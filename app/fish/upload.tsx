@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Button, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+
 
 const ImageUpload = () => {
     const url = "http://tao-among.vercel.app/prefix/api/upload";
     const [imageUri, setImageUri] = useState<string | null>(null);
     const router = useRouter();
+    const params = useLocalSearchParams();
+
+    useEffect(() => {
+        // 如果從 _layout.tsx 傳來的參數是 "uploadNow"，則自動執行上傳
+        if (params.triggerUpload === "true") {
+            uploadImage();
+        }
+    }, [params]);
 
     // 這是處理選擇圖片的函數
     const pickImage = async () => {
@@ -75,7 +84,6 @@ const ImageUpload = () => {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
             <Button title="選擇圖片" onPress={pickImage} />
-            <Button title="上傳圖片" onPress={uploadImage} />
         </View>
     );
 };

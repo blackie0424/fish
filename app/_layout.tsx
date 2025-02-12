@@ -32,7 +32,7 @@ export default function RootLayout() {
       <Stack screenOptions={{ contentStyle: { backgroundColor: "#f0f0f0" } }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false, }} />
         <Stack.Screen name="fish" options={{
-          headerShown: true,
+          headerShown: false,
           title: "nivasilan ko a among",
           headerBackButtonDisplayMode: "minimal"
         }}
