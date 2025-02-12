@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Button } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from "react-native";
 
 import SelectionGroup from "@/components/SelectGroup";
 import useCreateFish from "@/hooks/useCreateFish";
@@ -22,31 +22,26 @@ export default function CreateFishScreen() {
             setImageName(params.imageName);
         }
     }, [params.imageName]);
-    const locations = ["Iraraley", "Iranmeylek", "Ivalino", "Imorod", "Iratay", "Yayo"];
+    const locations = ["Imorod", "Iratay", "Yayo", "Iraraley", "Iranmeylek", "Ivalino"];
     const types = ["oyod", "rahet"];
     const processingOptions = ["isisan", "jingisisi", "kolitan"];
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                {/* 魚名稱輸入框 */}
-                <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
-                <TextInput
-                    style={styles.input}
-                    value={fishName}
-                    onChangeText={setFishName}
-                    placeholder="ngaran no among"
-                />
-                <View style={styles.separator} />
-                <Text style={styles.title}>屬於哪一個部落的文化知識</Text>
-                <SelectionGroup options={locations} selected={locate} onSelect={setSelectedLocation} />
-                <View style={styles.separator} />
-                <Text style={styles.title}>oyod kano rahet</Text>
-                <SelectionGroup options={types} selected={fishType} onSelect={setSelectedType} />
-                <View style={styles.separator} />
-                <Text style={styles.title}>魚的處理方式</Text>
-                <SelectionGroup options={processingOptions} selected={selectedProcessing} onSelect={setSelectedProcessing} />
-            </ScrollView>
+            {/* 魚名稱輸入框 */}
+            <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
+            <TextInput
+                style={styles.input}
+                value={fishName}
+                onChangeText={setFishName}
+                placeholder="ngaran no among"
+            />
+            <Text style={styles.title}>屬於哪一個部落的文化知識</Text>
+            <SelectionGroup options={locations} selected={locate} onSelect={setSelectedLocation} />
+            <Text style={styles.title}>oyod kano rahet</Text>
+            <SelectionGroup options={types} selected={fishType} onSelect={setSelectedType} />
+            <Text style={styles.title}>魚的處理方式</Text>
+            <SelectionGroup options={processingOptions} selected={selectedProcessing} onSelect={setSelectedProcessing} />
             {/* 確定按鈕 */}
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>分享</Text>
@@ -55,14 +50,14 @@ export default function CreateFishScreen() {
     );
 }
 
+const deviceWidth = Dimensions.get("window").width;
+
 // 樣式
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
-    },
-    scrollContainer: {
-        padding: 20,
+        padding: 10,
     },
     title: {
         marginBottom: 10,
@@ -75,21 +70,18 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 20,
     },
-    separator: {
-        borderBottomWidth: 1,
-        borderBottomColor: "#999",
-        marginVertical: 10,
-    },
     button: {
         backgroundColor: "#007AFF", // 藍色
         paddingVertical: 12,
-        borderRadius: 25, // 圓角
+        borderRadius: 18, // 圓角
         alignItems: "center",
-        marginBottom: 200
+        marginBottom: 200,
+        width: deviceWidth * 0.8,
+        alignSelf: "center"
     },
     buttonText: {
         color: "white",
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "bold",
     },
 });
