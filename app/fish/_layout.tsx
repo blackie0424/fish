@@ -5,9 +5,9 @@ import { Tabs } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
+
 export default function FishStackLayout() {
   const router = useRouter();
-  const pathname = usePathname();
 
 
   return (
@@ -42,11 +42,22 @@ export default function FishStackLayout() {
           tabBarStyle: { display: "none" },
           headerRight: () => (
             <Button
-              onPress={() => router.push("/fish/upload?triggerUpload=true")}  // 點擊後執行的操作
+              onPress={() => router.push("/fish/upload?triggerUpload=true")}
               title="下一步"
               color="blue"
             />
           ),
+          headerLeft: () => (
+            <FontAwesome
+              name="times"
+              size={32}
+              color="black"
+              style={{
+                left: 10
+              }}
+              onPress={() => router.push("/fish")}
+            />
+          )
         }}
       />
     </Tabs >
