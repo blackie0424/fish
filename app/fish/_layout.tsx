@@ -26,6 +26,18 @@ export default function FishStackLayout() {
         name="create"
         options={{
           href: null,
+          tabBarStyle: { display: "none" },
+          headerLeft: () => (
+            <FontAwesome
+              name="times"
+              size={32}
+              color="black"
+              style={{
+                left: 10
+              }}
+              onPress={() => router.push("/fish")}
+            />
+          )
         }}
       />
       <Tabs.Screen
