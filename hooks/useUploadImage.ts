@@ -39,7 +39,10 @@ export default function useUploadImage() {
                 alert(`上傳成功，檔案名稱：${responseData.data}`);
                 router.push({
                     pathname: "/fish/create",
-                    params: { imageName: `${responseData.data}` },
+                    params: {
+                        imageName: `${responseData.data}`,
+                        imageUri: imageUri
+                    },
                 })
             } else {
                 alert(`上傳失敗: ${responseData.message}`);

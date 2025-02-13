@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions } from "react-native";
 
 import SelectionGroup from "@/components/SelectGroup";
 import useCreateFish from "@/hooks/useCreateFish";
@@ -22,12 +22,17 @@ export default function CreateFishScreen() {
             setImageName(params.imageName);
         }
     }, [params.imageName]);
+    const imageUri = String(params.imageUri);
     const locations = ["Imorod", "Iratay", "Yayo", "Iraraley", "Iranmeylek", "Ivalino"];
     const types = ["oyod", "rahet"];
     const processingOptions = ["isisan", "jingisisi", "kolitan"];
 
     return (
         <View style={styles.container}>
+
+
+            {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
+            <View style={styles.separator} />
             {/* 魚名稱輸入框 */}
             <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
             <TextInput
@@ -58,6 +63,16 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
         padding: 10,
+    },
+    preview: {
+        width: "100%",
+        height: 200,
+        resizeMode: "cover"
+    },
+    separator: {
+        borderBottomWidth: 1,
+        borderBottomColor: "#999",
+        marginVertical: 10,
     },
     title: {
         marginBottom: 10,
