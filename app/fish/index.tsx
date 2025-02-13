@@ -4,17 +4,24 @@ import { StyleSheet, View, FlatList, Pressable } from "react-native";
 import { FishCard } from "@/components/FishCard";
 import { Loading } from "@/components/Loading";
 
-import { useRouter, Link } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 
 export default function HomeScreen() {
   const [fishs, setFishs] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  // 用來判斷是否需要刷新資料
+  const { refresh } = useLocalSearchParams();
 
   useEffect(() => {
+    setIsLoading(true);
     getFishs();
-  }, []);
+    // 清除 refresh 狀態，避免一直重新請求
+    if (refresh === "true") {
+      router.replace("/fish");  // 跳轉到相同頁面來移除 refresh 狀態
+    }
+  }, [refresh]);
 
   const getFishs = async () => {
     try {

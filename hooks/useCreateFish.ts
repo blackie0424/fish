@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 
 const API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
-export default function useAddFish() {
+export default function useCreateFish() {
     const [fishName, setFishName] = useState("");
     const [locate, setSelectedLocation] = useState<string | null>(null);
     const [fishType, setSelectedType] = useState<string | null>(null);
@@ -41,7 +41,7 @@ export default function useAddFish() {
             if (!response.ok) throw new Error("API 回應錯誤");
 
             alert("魚資料已成功新增！");
-            route.push("/fish");
+            route.push("/fish?refresh=true");
         } catch (error) {
             console.error("❌ Error:", error);
         }
