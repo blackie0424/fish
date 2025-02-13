@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { ImageProvider } from '@/context/ImageContext';
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -28,20 +30,22 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ contentStyle: { backgroundColor: "#f0f0f0" } }}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false, }} />
-        <Stack.Screen name="fish" options={{
-          headerShown: false,
-          title: "nivasilan ko a among",
-          headerBackButtonDisplayMode: "minimal"
-        }}
-        />
-        <Stack.Screen name="+not-found" />
-        <Stack.Screen name="index" options={{ headerShown: false, }} />
+    <ImageProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack screenOptions={{ contentStyle: { backgroundColor: "#f0f0f0" } }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false, }} />
+          <Stack.Screen name="fish" options={{
+            headerShown: false,
+            title: "nivasilan ko a among",
+            headerBackButtonDisplayMode: "minimal"
+          }}
+          />
+          <Stack.Screen name="+not-found" />
+          <Stack.Screen name="index" options={{ headerShown: false, }} />
 
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </ImageProvider>
   );
 }

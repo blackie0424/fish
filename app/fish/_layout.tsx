@@ -54,7 +54,7 @@ export default function FishStackLayout() {
           tabBarStyle: { display: "none" },
           headerRight: () => (
             <Button
-              onPress={() => router.push("/fish/upload?triggerUpload=true")}
+              onPress={() => router.push("/fish/create?triggerUpload=true")}
               title="下一步"
               color="blue"
             />

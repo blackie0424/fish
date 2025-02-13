@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, Button, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams } from 'expo-router';
 import useUploadImage from '@/hooks/useUploadImage';
+import { useImage } from '@/context/ImageContext';
 
 
 const ImageUpload = () => {
     const { imageUri, setImageUri, uploadImage } = useUploadImage();
+    const { imageUriForAll, setImageUriForAll } = useImage();
 
     const params = useLocalSearchParams();
     useEffect(() => {
@@ -34,13 +36,13 @@ const ImageUpload = () => {
         });
 
         if (!result.canceled) {
-            setImageUri(result.assets[0].uri);
+            setImageUriForAll(result.assets[0].uri);
         }
     };
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {imageUri && <Image source={{ uri: imageUri }} style={{ width: "100%", height: 200 }} />}
+            {imageUriForAll && <Image source={{ uri: imageUriForAll }} style={{ width: "100%", height: 200, resizeMode: "contain" }} />}
             <Button title="選擇圖片" onPress={pickImage} />
         </View>
     );

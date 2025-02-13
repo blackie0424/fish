@@ -5,9 +5,11 @@ import SelectionGroup from "@/components/SelectGroup";
 import useCreateFish from "@/hooks/useCreateFish";
 
 import { useLocalSearchParams } from "expo-router";
-
+import { useImage } from '@/context/ImageContext';
 
 export default function CreateFishScreen() {
+    const { imageUriForAll } = useImage();
+
     const {
         fishName, setFishName,
         locate, setSelectedLocation,
@@ -31,7 +33,7 @@ export default function CreateFishScreen() {
         <View style={styles.container}>
 
 
-            {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
+            {imageUriForAll && <Image source={{ uri: imageUriForAll }} style={styles.preview} />}
             <View style={styles.separator} />
             {/* 魚名稱輸入框 */}
             <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     preview: {
         width: "100%",
         height: 200,
-        resizeMode: "cover"
+        resizeMode: "contain"
     },
     separator: {
         borderBottomWidth: 1,
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         padding: 10,
         borderRadius: 5,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     button: {
         backgroundColor: "#007AFF", // 藍色
