@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions } from "react-native";
 
 import SelectionGroup from "@/components/SelectGroup";
@@ -6,10 +6,13 @@ import useCreateFish from "@/hooks/useCreateFish";
 
 import { useLocalSearchParams } from "expo-router";
 import { useImage } from '@/context/ImageContext';
+import useUploadImage from '@/hooks/useUploadImage';
+
 
 export default function CreateFishScreen() {
-    const { imageUriForAll } = useImage();
 
+    const params = useLocalSearchParams();
+    const { uploadImage } = useUploadImage();
     const {
         fishName, setFishName,
         locate, setSelectedLocation,
@@ -18,7 +21,22 @@ export default function CreateFishScreen() {
         imageName, setImageName,
         handleSubmit,
     } = useCreateFish();
-    const params = useLocalSearchParams();
+
+    useEffect(() => {
+        const uploadAndSetImage = async () => {
+            if (params.triggerUpload === "true") {
+                const uploadedImageName = await uploadImage();
+                console.log("uploadedImageName is :" + uploadedImageName);
+                setImageName(uploadedImageName);
+            }
+        };
+
+        uploadAndSetImage();
+    }, [params]);
+
+    const { imageUriForAll } = useImage();
+
+
     useEffect(() => {
         if (typeof params.imageName === "string") {
             setImageName(params.imageName);
@@ -32,7 +50,7 @@ export default function CreateFishScreen() {
     return (
         <View style={styles.container}>
 
-
+            {/* ✅ 預覽圖片 */}
             {imageUriForAll && <Image source={{ uri: imageUriForAll }} style={styles.preview} />}
             <View style={styles.separator} />
             {/* 魚名稱輸入框 */}
