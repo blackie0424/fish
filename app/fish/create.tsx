@@ -42,13 +42,6 @@ export default function CreateFishScreen() {
     }, [params]);
 
     const { imageUriForAll } = useImage();
-
-
-    useEffect(() => {
-        if (typeof params.imageName === "string") {
-            setImageName(params.imageName);
-        }
-    }, [params.imageName]);
     const imageUri = String(params.imageUri);
     const locations = ["Imorod", "Iratay", "Yayo", "Iraraley", "Iranmeylek", "Ivalino"];
     const types = ["oyod", "rahet"];
