@@ -40,7 +40,7 @@ const ImageUpload = () => {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
+            {imageUri && <Image source={{ uri: imageUri }} style={{ width: "100%", height: 200 }} />}
             <Button title="選擇圖片" onPress={pickImage} />
         </View>
     );
