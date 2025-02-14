@@ -31,13 +31,16 @@ export default function FishStackLayout() {
           tabBarStyle: { display: "none" },
           headerLeft: () => (
             <FontAwesome
-              name="times"
+              name="arrow-left"
               size={32}
               color="black"
               style={{
                 left: 10
               }}
-              onPress={() => router.push("/fish")}
+              onPress={() => {
+                setImageUriForAll("");
+                router.push("/fish/pickImage");
+              }}
             />
           )
         }}
