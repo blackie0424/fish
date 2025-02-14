@@ -22,7 +22,7 @@ export default function CreateFishScreen() {
         locate, setSelectedLocation,
         fishType, setSelectedType,
         selectedProcessing, setSelectedProcessing,
-        imageName, setImageName,
+        setImageName,
         isDisalbed, setDisalbeButton,
         handleSubmit,
     } = useCreateFish();
@@ -32,6 +32,7 @@ export default function CreateFishScreen() {
             hasUploaded.current = true;
             setDisalbeButton(true); // 開始上傳，按鈕不可按
             uploadImage().then((res) => {
+                console.log("after upload get res info:" + res);
                 setImageName(res || "default.png"); // 確保有值
             }).catch((err) => {
                 console.error("圖片上傳失敗", err);
@@ -56,7 +57,6 @@ export default function CreateFishScreen() {
             <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
             <TextInput
                 style={styles.input}
-                value={fishName}
                 onChangeText={setFishName}
                 placeholder="ngaran no among"
             />
