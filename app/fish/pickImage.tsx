@@ -6,8 +6,8 @@ import useUploadImage from '@/hooks/useUploadImage';
 import { useImage } from '@/context/ImageContext';
 
 
-const ImageUpload = () => {
-    const { imageUri, setImageUri, uploadImage } = useUploadImage();
+const pickImagePage = () => {
+    const { uploadImage } = useUploadImage();
     const { imageUriForAll, setImageUriForAll } = useImage();
 
     const params = useLocalSearchParams();
@@ -48,4 +48,4 @@ const ImageUpload = () => {
     );
 };
 
-export default ImageUpload;
+export default pickImagePage;

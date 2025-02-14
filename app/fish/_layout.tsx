@@ -47,7 +47,7 @@ export default function FishStackLayout() {
         }}
       />
       <Tabs.Screen
-        name="upload"
+        name="pickImage"
         options={{
           title: "",
           tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color="black" />,
