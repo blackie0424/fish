@@ -4,18 +4,18 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions 
 import SelectionGroup from "@/components/SelectGroup";
 import useCreateFish from "@/hooks/useCreateFish";
 
-import { useLocalSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useImage } from '@/context/ImageContext';
 import useUploadImage from '@/hooks/useUploadImage';
-import { useRef } from "react";
 
 
 
 export default function CreateFishScreen() {
-    const hasUploaded = useRef(false); // 追蹤是否已上傳
     const { imageUriForAll } = useImage();
 
-    const params = useLocalSearchParams();
+    const router = useRouter();
+    const { isUpload } = useLocalSearchParams();
+
     const { uploadImage } = useUploadImage();
     const {
         fishName, setFishName,
@@ -28,20 +28,21 @@ export default function CreateFishScreen() {
     } = useCreateFish();
 
     useEffect(() => {
-        if (!hasUploaded.current) {
-            hasUploaded.current = true;
-            setDisalbeButton(true); // 開始上傳，按鈕不可按
-            uploadImage().then((res) => {
-                console.log("after upload get res info:" + res);
-                setImageName(res || "default.png"); // 確保有值
-            }).catch((err) => {
-                console.error("圖片上傳失敗", err);
-                setImageName("default.png");
-            }).finally(() => {
-                setDisalbeButton(false); // 上傳完成，無論成功與否都開啟按鈕
-            });
+        setDisalbeButton(true); // 開始上傳，按鈕不可按
+        uploadImage().then((res) => {
+            console.log("after upload get res info:" + res);
+            setImageName(res || "default.png"); // 確保有值
+        }).catch((err) => {
+            console.error("圖片上傳失敗", err);
+            setImageName("default.png");
+        }).finally(() => {
+            setDisalbeButton(false); // 上傳完成，無論成功與否都開啟按鈕
+        });
+        if (isUpload === "true") {
+            router.replace("/fish/create");
         }
-    }, []);
+
+    }, [isUpload]);
 
     const locations = ["Imorod", "Iratay", "Yayo", "Iraraley", "Iranmeylek", "Ivalino"];
     const types = ["oyod", "rahet"];
