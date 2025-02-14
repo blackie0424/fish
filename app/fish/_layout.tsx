@@ -9,7 +9,7 @@ import { useImage } from '@/context/ImageContext';
 
 export default function FishStackLayout() {
   const router = useRouter();
-  const { setImageUriForAll } = useImage();
+  const { imageUriForAll, setImageUriForAll } = useImage();
 
 
   return (
@@ -67,7 +67,13 @@ export default function FishStackLayout() {
           tabBarStyle: { display: "none" },
           headerRight: () => (
             <Button
-              onPress={() => router.push("/fish/create")}
+              onPress={() => {
+                if (imageUriForAll === "" || imageUriForAll === null) {
+                  alert('請先選擇一張圖片!');
+                } else {
+                  router.push("/fish/create")
+                }
+              }}
               title="下一步"
               color="blue"
             />

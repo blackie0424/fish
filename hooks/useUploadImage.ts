@@ -9,10 +9,7 @@ export default function useUploadImage() {
 
     // 這是上傳圖片的函數
     const uploadImage = async () => {
-        if (!imageUriForAll) {
-            alert('請先選擇一張圖片!');
-            return "default.png";
-        }
+        
 
         const localUri = imageUriForAll.replace('file://', ''); // 處理 URI 的問題
         const filename = localUri.split('/').pop(); // 取得檔名
