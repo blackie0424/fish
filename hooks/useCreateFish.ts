@@ -38,6 +38,12 @@ export default function useCreateFish() {
             const text = await response.text();
             console.log("Response text:", text);
 
+            setFishName("");
+            setSelectedLocation(null);
+            setSelectedType(null);
+            setSelectedProcessing(null);
+            setImageName("");
+
             if (!response.ok) throw new Error("API 回應錯誤");
 
             alert("魚資料已成功新增！");
