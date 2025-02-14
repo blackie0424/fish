@@ -4,10 +4,12 @@ import { useRouter, usePathname } from 'expo-router';
 import { Tabs } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
+import { useImage } from '@/context/ImageContext';
 
 
 export default function FishStackLayout() {
   const router = useRouter();
+  const { setImageUriForAll } = useImage();
 
 
   return (
@@ -78,7 +80,10 @@ export default function FishStackLayout() {
               style={{
                 left: 10
               }}
-              onPress={() => router.push("/fish")}
+              onPress={() => {
+                setImageUriForAll("");
+                router.push("/fish");
+              }}
             />
           )
         }}
