@@ -13,8 +13,8 @@ import { useRef } from "react";
 
 export default function CreateFishScreen() {
     const hasUploaded = useRef(false); // 追蹤是否已上傳
+    const { imageUriForAll } = useImage();
 
-    const [isUploading, setIsUploading] = useState(true);
     const params = useLocalSearchParams();
     const { uploadImage } = useUploadImage();
     const {
@@ -23,26 +23,25 @@ export default function CreateFishScreen() {
         fishType, setSelectedType,
         selectedProcessing, setSelectedProcessing,
         imageName, setImageName,
+        isDisalbed, setDisalbeButton,
         handleSubmit,
     } = useCreateFish();
 
     useEffect(() => {
         if (params.triggerUpload === "true" && !hasUploaded.current) {
             hasUploaded.current = true;
-            setIsUploading(true); // 開始上傳，按鈕不可按
+            setDisalbeButton(true); // 開始上傳，按鈕不可按
             uploadImage().then((res) => {
                 setImageName(res || "default.png"); // 確保有值
             }).catch((err) => {
                 console.error("圖片上傳失敗", err);
                 setImageName("default.png");
             }).finally(() => {
-                setIsUploading(false); // 上傳完成，無論成功與否都開啟按鈕
+                setDisalbeButton(false); // 上傳完成，無論成功與否都開啟按鈕
             });
         }
     }, [params]);
 
-    const { imageUriForAll } = useImage();
-    const imageUri = String(params.imageUri);
     const locations = ["Imorod", "Iratay", "Yayo", "Iraraley", "Iranmeylek", "Ivalino"];
     const types = ["oyod", "rahet"];
     const processingOptions = ["isisan", "jingisisi", "kolitan"];
@@ -69,9 +68,9 @@ export default function CreateFishScreen() {
             <SelectionGroup options={processingOptions} selected={selectedProcessing} onSelect={setSelectedProcessing} />
             {/* 確定按鈕 */}
             <TouchableOpacity
-                style={[styles.button, isUploading && { backgroundColor: "#ccc" }]}
-                onPress={isUploading ? null : handleSubmit} // 如果 isUploading 為 true，就讓 onPress 變 null
-                disabled={isUploading} // 直接使用 disabled 屬性
+                style={[styles.button, isDisalbed && { backgroundColor: "#ccc" }]}
+                onPress={isDisalbed ? null : handleSubmit} // 如果 isUploading 為 true，就讓 onPress 變 null
+                disabled={isDisalbed} // 直接使用 disabled 屬性
             >
                 <Text style={styles.buttonText}>分享</Text>
             </TouchableOpacity>

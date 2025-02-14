@@ -11,6 +11,8 @@ export default function useCreateFish() {
     const [fishType, setSelectedType] = useState<string | null>(null);
     const [selectedProcessing, setSelectedProcessing] = useState<string | null>(null);
     const [imageName, setImageName] = useState<string>("");
+    const [isDisalbed, setDisalbeButton] = useState(true);
+
     const route = useRouter();
 
     const handleSubmit = async () => {
@@ -43,6 +45,7 @@ export default function useCreateFish() {
             setSelectedType(null);
             setSelectedProcessing(null);
             setImageName("");
+            setDisalbeButton(true);
 
             if (!response.ok) throw new Error("API 回應錯誤");
 
@@ -59,6 +62,7 @@ export default function useCreateFish() {
         fishType, setSelectedType,
         selectedProcessing, setSelectedProcessing,
         imageName, setImageName,
+        isDisalbed, setDisalbeButton,
         handleSubmit,
     };
 }
