@@ -28,7 +28,7 @@ export default function CreateFishScreen() {
     } = useCreateFish();
 
     useEffect(() => {
-        if (params.triggerUpload === "true" && !hasUploaded.current) {
+        if (!hasUploaded.current) {
             hasUploaded.current = true;
             setDisalbeButton(true); // 開始上傳，按鈕不可按
             uploadImage().then((res) => {
@@ -41,7 +41,7 @@ export default function CreateFishScreen() {
                 setDisalbeButton(false); // 上傳完成，無論成功與否都開啟按鈕
             });
         }
-    }, [params]);
+    }, []);
 
     const locations = ["Imorod", "Iratay", "Yayo", "Iraraley", "Iranmeylek", "Ivalino"];
     const types = ["oyod", "rahet"];
