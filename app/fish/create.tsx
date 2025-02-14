@@ -57,6 +57,7 @@ export default function CreateFishScreen() {
             <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
             <TextInput
                 style={styles.input}
+                value={fishName}
                 onChangeText={setFishName}
                 placeholder="ngaran no among"
             />
