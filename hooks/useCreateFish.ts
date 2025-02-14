@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useRouter } from 'expo-router';
+import { useImage } from '@/context/ImageContext';
+
 
 
 
@@ -14,6 +16,8 @@ export default function useCreateFish() {
     const [isDisalbed, setDisalbeButton] = useState(true);
 
     const route = useRouter();
+    const { setImageUriForAll } = useImage();
+
 
     const handleSubmit = async () => {
         if (!fishName.trim()) {
@@ -46,6 +50,7 @@ export default function useCreateFish() {
             setSelectedProcessing(null);
             setImageName("");
             setDisalbeButton(true);
+            setImageUriForAll("");
 
             if (!response.ok) throw new Error("API 回應錯誤");
 
