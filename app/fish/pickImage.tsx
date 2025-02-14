@@ -1,22 +1,12 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import { View, Button, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useLocalSearchParams } from 'expo-router';
-import useUploadImage from '@/hooks/useUploadImage';
 import { useImage } from '@/context/ImageContext';
 
 
 const pickImagePage = () => {
-    const { uploadImage } = useUploadImage();
     const { imageUriForAll, setImageUriForAll } = useImage();
 
-    const params = useLocalSearchParams();
-    useEffect(() => {
-        // 如果從 _layout.tsx 傳來的參數是 "uploadNow"，則自動執行上傳
-        if (params.triggerUpload === "true") {
-            uploadImage();
-        }
-    }, [params]);
 
     // 這是處理選擇圖片的函數
     const pickImage = async () => {
