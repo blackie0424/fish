@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, FlatList, Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
@@ -8,7 +8,7 @@ import useGetFishs from "@/hooks/useGetFishs"
 
 
 export default function HomeScreen() {
-  const { fishs, isLoading, setIsLoading, getFishsFromAPI } = useGetFishs();
+  const { fishs, isLoading, getFishsFromAPI } = useGetFishs();
   const router = useRouter();
   // 用來判斷是否需要刷新資料
   const { refresh } = useLocalSearchParams();
@@ -20,8 +20,6 @@ export default function HomeScreen() {
       router.replace("/fish");  // 跳轉到相同頁面來移除 refresh 狀態
     }
   }, [refresh]);
-
-
 
   return (
     <View style={styles.container}>
