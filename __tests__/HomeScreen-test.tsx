@@ -1,11 +1,12 @@
-import { render } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 
 import HomeScreen from '@/app/index';
 
 describe('<HomeScreen />', () => {
     test('Text renders correctly on HomeScreen', () => {
-        const { getByText } = render(<HomeScreen />);
-
-        getByText('nivasilan ko a among!');
+        render(<HomeScreen />);
+        const linkText = 'nivasilan ko a among';
+        const linkElement = screen.getByText(linkText);
+        expect(linkElement).toBeTruthy();
     });
 });
