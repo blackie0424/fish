@@ -4,13 +4,11 @@ import { useImage } from '@/context/ImageContext';
 
 
 export default function useUploadImage() {
-    const API_URL = "http://tao-among.vercel.app/prefix/api/upload";
+    const API_URL = `${process.env.EXPO_PUBLIC_API_URL}upload`;
     const { imageUriForAll } = useImage();
 
     // 這是上傳圖片的函數
     const uploadImage = async () => {
-        
-
         const localUri = imageUriForAll.replace('file://', ''); // 處理 URI 的問題
         const filename = localUri.split('/').pop(); // 取得檔名
         console.log("imageUriForAll is:" + imageUriForAll);
