@@ -5,7 +5,7 @@ import { useImage } from '@/context/ImageContext';
 
 
 
-const API_URL = "https://tao-among.vercel.app/prefix/api/fish";
+const API_URL = `${process.env.EXPO_PUBLIC_API_URL}fish`;
 
 export default function useCreateFish() {
     const [fishName, setFishName] = useState("");
