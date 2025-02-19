@@ -7,13 +7,13 @@ export default function useGetFishs() {
 
     const getFishsFromAPI = async () => {
         try {
-            const res = await fetch("https://tao-among.vercel.app/prefix/api/fish");
+            const res = await fetch(process.env.EXPO_PUBLIC_API_URL + "/fish");
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             const data = await res.json();
             setFishs(data.data.reverse());
         } catch (error) {
-            console.log("get fishs return error messages");
-            console.error("Fetch error: ", error.message);
+            console.log("Get fishs data has some problem!");
+            console.error(error);
         } finally {
             setIsLoading(false);
         }
