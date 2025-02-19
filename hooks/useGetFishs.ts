@@ -7,7 +7,7 @@ export default function useGetFishs() {
 
     const getFishsFromAPI = async () => {
         try {
-            const res = await fetch(process.env.EXPO_PUBLIC_API_URL + "/fish");
+            const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/fish`);
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             const data = await res.json();
             setFishs(data.data.reverse());
