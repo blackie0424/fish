@@ -7,7 +7,7 @@ export default function useGetFish() {
     const [fishId, setFishId] = useState(id);
     const [fishData, setFishData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const API_URL = "https://tao-among.vercel.app/prefix/api/fish/" + id;
+    const API_URL = `${process.env.EXPO_PUBLIC_API_URL}fish/${id}`;
 
     console.log("get fish id:" + id);
     const getFishDataFromAPI = async () => {
