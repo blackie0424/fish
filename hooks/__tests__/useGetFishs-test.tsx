@@ -1,12 +1,13 @@
-import { render, screen,act } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import useGetFishs from '../useGetFishs';
 
 const TestComponent = () => {
-    const { fishs, isLoading, getFishsFromAPI } = useGetFishs();
+    const { fishs, isLoading, error, getFishsFromAPI } = useGetFishs();
     return (
         <div>
             <span data-testid="loading">{isLoading.toString()}</span>
             <span data-testid="fishs">{fishs.length}</span>
+            <span data-testid="error">{error || 'no error'}</span>
             <button onClick={getFishsFromAPI}>Fetch</button>
         </div>
     );
@@ -32,6 +33,24 @@ describe('useGetFishs', () => {
 
         expect(screen.getByTestId('loading').textContent).toBe('false');
         expect(screen.getByTestId('fishs').textContent).toBe('1');
+    });
+
+    test('should keep fishs empty when fetching fails with 404', async () => {
+        global.fetch = jest.fn().mockResolvedValue({
+            ok: false,
+            status: 404,
+            statusText: 'Not Found',
+        });
+
+        render(<TestComponent />);
+        await act(async () => {
+            await screen.getByText('Fetch').click();
+        });
+
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('0');
+        expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+
     });
 
 });

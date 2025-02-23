@@ -4,6 +4,7 @@ import React, { useState } from "react";
 export default function useGetFishs() {
     const [fishs, setFishs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     const getFishsFromAPI = async () => {
         try {
@@ -13,7 +14,10 @@ export default function useGetFishs() {
             setFishs(data.data.reverse());
         } catch (error) {
             console.log("Get fishs data has some problem!");
-            console.error(error);
+            if (error.message === "HTTP error! status: 404") {
+                setError("找不到資料");
+            }
+            //setError(error.message);
         } finally {
             setIsLoading(false);
         }
@@ -21,7 +25,8 @@ export default function useGetFishs() {
 
     return {
         fishs,
-        isLoading, setIsLoading,
+        isLoading,
+        error,
         getFishsFromAPI,
     };
 }
