@@ -3,8 +3,6 @@ import Fish from '@/services/fishService';
 
 const Fishs_API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
-const Fish_By_ID_API_URL = "https://tao-among.vercel.app/prefix/api/fish/1";
-
 fetchMock.enableMocks();
 
 describe('API module', () => {
@@ -59,7 +57,7 @@ describe('API module', () => {
         await expect(Fish.getFishs()).rejects.toThrow('Network Error');
 
         expect(fetchMock).toHaveBeenCalledWith(
-            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
+            Fishs_API_URL, { method: 'GET' });
     });
 
     test('should throw specific error for Http Code is 404', async () => {
@@ -68,7 +66,7 @@ describe('API module', () => {
         await expect(Fish.getFishs()).rejects.toThrow('Fish list not found');
 
         expect(fetchMock).toHaveBeenCalledWith(
-            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
+            Fishs_API_URL, { method: 'GET' });
     });
 
     test('should throw specific error for Http Code is 500', async () => {
@@ -77,13 +75,14 @@ describe('API module', () => {
         await expect(Fish.getFishs()).rejects.toThrow('Server error occurred');
 
         expect(fetchMock).toHaveBeenCalledWith(
-            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
+            Fishs_API_URL, { method: 'GET' });
     });
 
     test('should throw generic HTTP error for non-404/500 status', async () => {
         fetchMock.mockResponseOnce('', { status: 403, statusText: 'Forbidden' }); // 模擬 403
         await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 403');
-        expect(fetchMock).toHaveBeenCalledWith('https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
+        expect(fetchMock).toHaveBeenCalledWith(
+            Fishs_API_URL, { method: 'GET' });
     });
 
 
