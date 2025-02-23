@@ -81,4 +81,12 @@ describe('API module', () => {
             'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
     });
 
+    test('should throw generic HTTP error for non-404/500 status', async () => {
+        fetchMock.mockResponseOnce('', { status: 403, statusText: 'Forbidden' }); // 模擬 403
+        await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 403');
+        expect(fetchMock).toHaveBeenCalledWith('https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
+    });
+
+
+
 });
