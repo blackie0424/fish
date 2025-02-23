@@ -1,6 +1,5 @@
-import Fish from '@/libs/Fish';
-require("@/libs/Fish")
 import fetchMock from 'jest-fetch-mock';
+import Fish from '@/services/fishService';
 
 const Fishs_API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
