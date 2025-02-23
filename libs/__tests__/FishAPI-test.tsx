@@ -47,8 +47,7 @@ describe('API module', () => {
 
         // 驗證 fetch 是否被正確呼叫
         expect(fetchMock).toHaveBeenCalledWith(
-            Fishs_API_URL, expect.objectContaining({ method: 'GET' })
-        );
+            Fishs_API_URL, expect.objectContaining({ method: 'GET' }));
 
         // 驗證回傳的資料是否與 mockFishs.data 相同
         expect(result).toEqual(mockFishs.data);
@@ -61,8 +60,16 @@ describe('API module', () => {
         await expect(Fish.getFishs()).rejects.toThrow('Network Error');
 
         expect(fetchMock).toHaveBeenCalledWith(
-            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' }
-        );
+            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
+    });
+
+    test('should throw specific error for Http Code is 404', async () => {
+        fetchMock.mockResponseOnce('', { status: 404, statusText: 'Fish list not found' }); // 模擬 404
+
+        await expect(Fish.getFishs()).rejects.toThrow('Fish list not found');
+
+        expect(fetchMock).toHaveBeenCalledWith(
+            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
     });
 
 });
