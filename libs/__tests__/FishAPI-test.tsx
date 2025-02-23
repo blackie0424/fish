@@ -72,4 +72,13 @@ describe('API module', () => {
             'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
     });
 
+    test('should throw specific error for Http Code is 500', async () => {
+        fetchMock.mockResponseOnce('', { status: 500, statusText: 'Server error occurred' }); // 模擬 500
+
+        await expect(Fish.getFishs()).rejects.toThrow('Server error occurred');
+
+        expect(fetchMock).toHaveBeenCalledWith(
+            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' });
+    });
+
 });
