@@ -7,6 +7,11 @@ export default function useGetFishs() {
     const [error, setError] = useState<string | null>(null);
 
     const getFishsFromAPI = async () => {
+
+        //重置設定
+        setError(null);
+        setIsLoading(true);
+
         try {
             const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/fish`);
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);

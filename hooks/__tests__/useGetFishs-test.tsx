@@ -53,4 +53,34 @@ describe('useGetFishs', () => {
 
     });
 
+    test('should reset error on second fetch', async () => {
+        // 第一次模擬 404
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: false,
+            status: 404,
+            statusText: 'Not Found',
+        });
+
+        render(<TestComponent />);
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第一次點擊
+        });
+
+        expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+
+        // 第二次模擬成功
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
+        });
+
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第二次點擊
+        });
+
+        // 如果沒重置，這會失敗，因為 error 還是 "找不到資料"
+        expect(screen.getByTestId('error').textContent).toBe('no error');
+        expect(screen.getByTestId('fishs').textContent).toBe('1');
+    });
+
 });
