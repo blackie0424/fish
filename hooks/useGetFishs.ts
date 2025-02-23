@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 export default function useGetFishs() {
-    const [fishs, setFishs] = useState(null);
+    const [fishs, setFishs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const getFishsFromAPI = async () => {
