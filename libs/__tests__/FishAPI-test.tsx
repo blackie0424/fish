@@ -54,4 +54,15 @@ describe('API module', () => {
         expect(result).toEqual(mockFishs.data);
     });
 
+    test('should throw an error when fetch fishs fails', async () => {
+        // 模擬網路錯誤
+        fetchMock.mockRejectOnce(new Error('Network Error'));
+
+        await expect(Fish.getFishs()).rejects.toThrow('Network Error');
+
+        expect(fetchMock).toHaveBeenCalledWith(
+            'https://tao-among.vercel.app/prefix/api/fish', { method: 'GET' }
+        );
+    });
+
 });

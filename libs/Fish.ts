@@ -10,7 +10,7 @@ const Fish = {
             return data.data;
         } catch (error) {
             console.log("Get fishs data has some problem!");
-            console.error(error);
+            throw error;
         }
     },
     getFish: async (id: Number) => {
