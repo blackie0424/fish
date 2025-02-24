@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import fishService from "@/services/fishService";
 
 export default function useGetFishs() {
     const [fishs, setFishs] = useState([]);
@@ -13,15 +14,13 @@ export default function useGetFishs() {
         setIsLoading(true);
 
         try {
-            const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/fish`);
-            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-            const data = await res.json();
-            setFishs(data.data.reverse());
+            const fishs = await fishService.getFishs();
+            setFishs(fishs.reverse());
         } catch (error) {
-            console.log("Get fishs data has some problem!");
-            if (error.message === "HTTP error! status: 404") {
+            console.log("Get fishs data has some problem 1");
+            if (error.message === "Fish list not found") {
                 setError("找不到資料");
-            } else if (error.message === "HTTP error! status: 500") {
+            } else if (error.message === "Server error occurred") {
                 setError("抱歉，系統出了點問題，請稍後再試");
             } else if (error.message === "Network Error") {
                 setError("網路錯誤，請檢查網路連線後再試");
