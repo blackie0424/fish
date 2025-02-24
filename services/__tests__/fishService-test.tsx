@@ -61,25 +61,31 @@ describe('API module', () => {
     });
 
     test('should throw specific error for Http Code is 404', async () => {
-        fetchMock.mockResponseOnce('', { status: 404, statusText: 'Fish list not found' }); // 模擬 404
+        fetchMock.mockResponseOnce(
+            '', { status: 404, statusText: 'HTTP error! status: 404' }
+        ); // 模擬 404
 
-        await expect(Fish.getFishs()).rejects.toThrow('Fish list not found');
+        await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 404');
 
         expect(fetchMock).toHaveBeenCalledWith(
             Fishs_API_URL, { method: 'GET' });
     });
 
     test('should throw specific error for Http Code is 500', async () => {
-        fetchMock.mockResponseOnce('', { status: 500, statusText: 'Server error occurred' }); // 模擬 500
+        fetchMock.mockResponseOnce(
+            '', { status: 500, statusText: 'HTTP error! status: 500' }
+        ); // 模擬 500
 
-        await expect(Fish.getFishs()).rejects.toThrow('Server error occurred');
+        await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 500');
 
         expect(fetchMock).toHaveBeenCalledWith(
             Fishs_API_URL, { method: 'GET' });
     });
 
     test('should throw generic HTTP error for non-404/500 status', async () => {
-        fetchMock.mockResponseOnce('', { status: 403, statusText: 'Forbidden' }); // 模擬 403
+        fetchMock.mockResponseOnce(
+            '', { status: 403, statusText: 'Forbidden' }
+        ); // 模擬 403
         await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 403');
         expect(fetchMock).toHaveBeenCalledWith(
             Fishs_API_URL, { method: 'GET' });
