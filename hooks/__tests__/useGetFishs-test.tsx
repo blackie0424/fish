@@ -180,4 +180,35 @@ describe('useGetFishs', () => {
         expect(screen.getByTestId('fishs').textContent).toBe('0');
     });
 
+    test('should save new fishs data when sencond fetch successful', async () => {
+        // 第一次成功
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
+        });
+
+        render(<TestComponent />);
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第一次點擊
+        });
+
+        expect(screen.getByTestId('error').textContent).toBe('no error');
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('1');
+
+        // 第二次成功
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }, { id: 2, name: 'Ivey' }] }),
+        });
+
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第二次點擊
+        });
+
+        expect(screen.getByTestId('error').textContent).toBe('no error');
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('2');
+    });
+
 });
