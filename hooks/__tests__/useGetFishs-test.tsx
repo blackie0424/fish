@@ -83,4 +83,36 @@ describe('useGetFishs', () => {
         expect(screen.getByTestId('fishs').textContent).toBe('1');
     });
 
+    test('should keep fishs empty when fetching fails with 500', async () => {
+        global.fetch = jest.fn().mockResolvedValue({
+            ok: false,
+            status: 500,
+            statusText: 'Internal Server Error',
+        });
+
+        render(<TestComponent />);
+        await act(async () => {
+            await screen.getByText('Fetch').click();
+        });
+
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('0');
+        expect(screen.getByTestId('error').textContent).toBe('抱歉，系統出了點問題，請稍後再試');
+
+    });
+
+    test('should keep fishs empty when fetching fails with itself', async () => {
+        global.fetch = jest.fn().mockRejectedValue(new Error("Network Error"));
+
+        render(<TestComponent />);
+        await act(async () => {
+            await screen.getByText('Fetch').click();
+        });
+
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('0');
+        expect(screen.getByTestId('error').textContent).toBe('網路錯誤，請檢查網路連線後再試');
+
+    });
+
 });

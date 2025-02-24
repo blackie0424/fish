@@ -21,8 +21,13 @@ export default function useGetFishs() {
             console.log("Get fishs data has some problem!");
             if (error.message === "HTTP error! status: 404") {
                 setError("找不到資料");
+            } else if (error.message === "HTTP error! status: 500") {
+                setError("抱歉，系統出了點問題，請稍後再試");
+            } else if (error.message === "Network Error") {
+                setError("網路錯誤，請檢查網路連線後再試");
+            } else {
+                setError("發生預期外的錯誤，請稍後再試");
             }
-            //setError(error.message);
         } finally {
             setIsLoading(false);
         }
