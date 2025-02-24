@@ -101,7 +101,7 @@ describe('useGetFishs', () => {
 
     });
 
-    test('should keep fishs empty when fetching fails with itself', async () => {
+    test('should keep fishs empty when fetch failure', async () => {
         global.fetch = jest.fn().mockRejectedValue(new Error("Network Error"));
 
         render(<TestComponent />);
