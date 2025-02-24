@@ -180,7 +180,7 @@ describe('useGetFishs', () => {
         expect(screen.getByTestId('fishs').textContent).toBe('0');
     });
 
-    test('should save new fishs data when sencond fetch successful', async () => {
+    test('should update fishs with new data on second successful fetch', async () => {
         // 第一次成功
         global.fetch = jest.fn().mockResolvedValueOnce({
             ok: true,
