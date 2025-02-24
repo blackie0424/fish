@@ -115,4 +115,69 @@ describe('useGetFishs', () => {
 
     });
 
+    test('should keep data on second fetch fail', async () => {
+        // 第一次模擬成功
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
+        });
+
+        render(<TestComponent />);
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第一次點擊
+        });
+
+        expect(screen.getByTestId('error').textContent).toBe('no error');
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('1');
+
+        // 第二次模擬404
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: false,
+            status: 404,
+            statusText: "Not Found"
+        });
+
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第二次點擊
+        });
+
+        expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('1');
+    });
+
+    test('should keep fishs empty when get 404 and 500 Http Code', async () => {
+        // 第一次模擬500
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: false,
+            status: 500,
+            statusText: "Internal Server Error"
+        });
+
+        render(<TestComponent />);
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第一次點擊
+        });
+
+        expect(screen.getByTestId('error').textContent).toBe('抱歉，系統出了點問題，請稍後再試');
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('0');
+
+        // 第二次模擬404
+        global.fetch = jest.fn().mockResolvedValueOnce({
+            ok: false,
+            status: 404,
+            statusText: "Not Found"
+        });
+
+        await act(async () => {
+            await screen.getByText('Fetch').click(); // 第二次點擊
+        });
+
+        expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+        expect(screen.getByTestId('loading').textContent).toBe('false');
+        expect(screen.getByTestId('fishs').textContent).toBe('0');
+    });
+
 });
