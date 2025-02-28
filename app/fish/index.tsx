@@ -29,7 +29,7 @@ export default function HomeScreen() {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={fishs}
-          renderItem={({ item }) => (
+          renderItem={({ item }: { item: { id: number; name: string; type: string; image: string } }) => (
             <Pressable onPress={function () {
               router.push(`/fish/${item.id}`)
             }}>
