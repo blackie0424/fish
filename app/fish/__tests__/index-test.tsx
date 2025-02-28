@@ -32,5 +32,19 @@ describe('HomeScreen', () => {
         expect(screen.queryByText('找不到資料')).toBeNull(); // 無錯誤
     });
 
+    test('should display empty list when fetch returns no data', async () => {
+        global.fetch.mockResolvedValue({
+            ok: true,
+            json: async () => ({ message: "success", data: [] }),
+        });
+
+        render(<HomeScreen />);
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+        });
+
+        expect(screen.queryByText('cilat')).toBeNull(); // 無資料
+        expect(screen.queryByText('找不到資料')).toBeNull(); // 無錯誤
+    });
 
 });
