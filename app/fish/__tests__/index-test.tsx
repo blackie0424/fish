@@ -8,7 +8,7 @@ jest.mock('expo-router', () => ({
     useLocalSearchParams: jest.fn(),
 }));
 
-describe('HomeScreen autoloading fish list', () => {
+describe('HomeScreen automatically loads the fish list', () => {
     // 每次測試前重置 mock
     beforeEach(() => {
         global.fetch = jest.fn();
@@ -17,7 +17,7 @@ describe('HomeScreen autoloading fish list', () => {
     });
 
     // 測試自動載入成功
-    test('should fetch and display fishs automatically on mount', async () => {
+    test('should display the fish list automatically when the user enters the page', async () => {
         global.fetch.mockResolvedValue({
             ok: true,
             json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
@@ -34,7 +34,7 @@ describe('HomeScreen autoloading fish list', () => {
         expect(screen.queryByText('目前沒有資料')).toBeNull(); // 沒有資料可以提供的情境未發生
     });
 
-    test('should display empty list when fetch returns no data', async () => {
+    test('should display a message when the user enters the page and no fish data is available', async () => {
         global.fetch.mockResolvedValue({
             ok: true,
             json: async () => ({ message: "success", data: [] }),
@@ -51,7 +51,7 @@ describe('HomeScreen autoloading fish list', () => {
         expect(screen.getByText('目前沒有資料')).toBeTruthy(); // 未發生沒有資料可以提供的情境
     });
 
-    test('should display error message when fetch fails get 500 response', async () => {
+    test('should display an error message when the user enters the page and the server fails', async () => {
         global.fetch.mockResolvedValue({
             ok: false,
             status: 500,
