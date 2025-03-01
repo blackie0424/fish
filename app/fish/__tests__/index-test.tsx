@@ -8,7 +8,7 @@ jest.mock('expo-router', () => ({
     useLocalSearchParams: jest.fn(),
 }));
 
-describe('HomeScreen', () => {
+describe('HomeScreen autoloading fish list', () => {
     // 每次測試前重置 mock
     beforeEach(() => {
         global.fetch = jest.fn();
@@ -29,7 +29,9 @@ describe('HomeScreen', () => {
         });
 
         expect(screen.getByText('cilat')).toBeTruthy(); // 檢查 FishCard 顯示
-        expect(screen.queryByText('找不到資料')).toBeNull(); // 無錯誤
+        expect(screen.queryByText('找不到資料')).toBeNull(); // 沒有資料可以提供的情境發生
+        expect(screen.queryByText('抱歉，系統出了點問題，請稍後再試')).toBeNull(); // 沒有500錯誤
+        expect(screen.queryByText('目前沒有資料')).toBeNull(); // 沒有404錯誤
     });
 
     test('should display empty list when fetch returns no data', async () => {
