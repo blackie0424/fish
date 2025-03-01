@@ -69,7 +69,7 @@ describe('HomeScreen automatically loads the fish list', () => {
         expect(screen.queryByText('目前沒有資料')).toBeNull(); // 未發生沒有資料可以提供的情境
     });
 
-    test('should display error message when fetch fails get 404 response', async () => {
+    test('should display an error message when the user enters the page and no data is found', async () => {
         global.fetch.mockResolvedValue({
             ok: false,
             status: 404,
