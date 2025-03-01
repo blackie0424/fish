@@ -4,6 +4,8 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 
 import { FishCard } from "@/components/FishCard";
 import { Loading } from "@/components/Loading";
+import SkeletonFishCard from "@/components/SkeletonFishCard"
+
 import useGetFishs from "@/hooks/useGetFishs"
 
 
@@ -21,10 +23,19 @@ export default function HomeScreen() {
     }
   }, [refresh]);
 
+  const skeletonData = Array(3).fill({});
+
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <Loading />
+        <View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={skeletonData}
+            renderItem={() => <SkeletonFishCard />}
+          />
+          <Loading style={styles.loadingOverlay} />
+        </View>
       ) : error ? (
         <Text>{error}</Text>
       ) : fishs.length === 0 ? (
@@ -57,5 +68,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#003F5E"
-  }
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: -25 }, { translateY: -25 }],
+  },
 });

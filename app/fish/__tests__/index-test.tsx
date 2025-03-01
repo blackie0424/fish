@@ -87,4 +87,21 @@ describe('HomeScreen automatically loads the fish list', () => {
         expect(screen.queryByText('目前沒有資料')).toBeNull(); // 未發生沒有資料可以提供的情境
     });
 
+    test('should display skeleton UI while loading fish data', async () => {
+        global.fetch.mockResolvedValue({
+            ok: true,
+            json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
+        });
+
+        render(<HomeScreen />);
+        expect(screen.getAllByTestId('skeleton-card').length).toBe(3); // 只驗證骨架屏
+
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+        });
+
+        expect(screen.getByText('cilat')).toBeTruthy();
+        expect(screen.queryByTestId('skeleton-card')).toBeNull();
+    });
+
 });
