@@ -25,8 +25,10 @@ export default function HomeScreen() {
     <View style={styles.container}>
       {isLoading ? (
         <Loading />
-      ) : fishs.length === 0 ? (
+      ) : error ? (
         <Text>{error}</Text>
+      ) : fishs.length === 0 ? (
+        <Text>目前沒有資料</Text>
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
