@@ -47,4 +47,20 @@ describe('HomeScreen', () => {
         expect(screen.queryByText('找不到資料')).toBeNull(); // 無錯誤
     });
 
+    test('should display error message when fetch fails', async () => {
+        global.fetch.mockResolvedValue({
+            ok: false,
+            status: 500,
+            statusText: 'Internal Server Error',
+        });
+
+        render(<HomeScreen />);
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 0));
+        });
+
+        expect(screen.queryByText('cilat')).toBeNull(); // 無資料
+        expect(screen.getByText('抱歉，系統出了點問題，請稍後再試')).toBeTruthy(); // 顯示錯誤
+    });
+
 });

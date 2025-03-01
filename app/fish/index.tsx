@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, FlatList, Pressable } from "react-native";
+import { StyleSheet, View, FlatList, Pressable, Text } from "react-native";
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
 import { FishCard } from "@/components/FishCard";
@@ -8,7 +8,7 @@ import useGetFishs from "@/hooks/useGetFishs"
 
 
 export default function HomeScreen() {
-  const { fishs, isLoading, getFishsFromAPI } = useGetFishs();
+  const { fishs, isLoading, getFishsFromAPI, error } = useGetFishs();
   const router = useRouter();
   // 用來判斷是否需要刷新資料
   const { refresh } = useLocalSearchParams();
@@ -25,6 +25,8 @@ export default function HomeScreen() {
     <View style={styles.container}>
       {isLoading ? (
         <Loading />
+      ) : fishs.length === 0 ? (
+        <Text>{error}</Text>
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -40,7 +42,6 @@ export default function HomeScreen() {
                 imgUri={item.image ?? ""}
               />
             </Pressable>
-
           )}
         />
       )}
