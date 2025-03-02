@@ -8,7 +8,7 @@ import SkeletonFishDetail from "@/components/SkeletonFishDetail";
 import useGetFish from "@/hooks/useGetFish";
 
 
-export default function HomeScreen() {
+export default function FishDetailScreen() {
     const { id } = useLocalSearchParams();
     const {
         fishId, setFishId,
