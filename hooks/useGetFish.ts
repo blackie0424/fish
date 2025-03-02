@@ -5,7 +5,7 @@ import { useLocalSearchParams } from "expo-router";
 export default function useGetFish() {
     const { id } = useLocalSearchParams(); // 取得網址中的 id
     const [fishId, setFishId] = useState(id);
-    const [fishData, setFishData] = useState<any[]>([]);
+    const [fishData, setFishData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const API_URL = `${process.env.EXPO_PUBLIC_API_URL}fish/${id}`;
 
@@ -16,7 +16,7 @@ export default function useGetFish() {
             console.log("call get fish api by fish id:" + fishId);
             if (!res.ok) throw new Error("something error!" + id);
             const data = await res.json();
-            setFishData(Array.isArray(data.data) ? data.data : [data.data]);
+            setFishData(data.data);
 
         } catch (error) {
             console.error(error);
@@ -27,7 +27,7 @@ export default function useGetFish() {
 
     const clearFishData = async () => {
         setFishId("");
-        setFishData([]);
+        setFishData(null);
         setIsLoading(false);
     }
 

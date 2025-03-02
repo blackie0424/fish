@@ -11,7 +11,7 @@ import useGetFish from "@/hooks/useGetFish";
 export default function FishDetailScreen() {
     const { id } = useLocalSearchParams();
     const {
-        fishId, setFishId,
+        setFishId,
         fishData, setFishData,
         isLoading, setIsLoading,
         getFishDataFromAPI, clearFishData
@@ -33,34 +33,29 @@ export default function FishDetailScreen() {
                     <Loading style={styles.loadingOverlay} />
                 </View>
             ) : (
-                <FlatList
-                    showsVerticalScrollIndicator={true}
-                    data={fishData}
-                    renderItem={({ item }) => (
-                        <View>
-                            <FishCard
-                                id={item.id}
-                                name={item.name ?? ""}
-                                category={item.type ?? ""}
-                                imgUri={item.image ?? ""}
-                            />
 
-                            <View style={styles.advanceView}>
-                                {/* 分布地區的資料 */}
-                                <View style={styles.descriptionView}>
-                                    <Text style={styles.descriptionText}>yanan da</Text>
-                                </View>
-                                {/* 游棲生態的資料 */}
-                                <View style={styles.descriptionView}>
-                                    <Text style={styles.descriptionText}>kamoamong da</Text>
-                                </View>
-                            </View>
+                <View>
+                    <FishCard
+                        id={fishData.id}
+                        name={fishData.name ?? ""}
+                        category={fishData.type ?? ""}
+                        imgUri={fishData.image ?? ""}
+                    />
 
-
-                            <Text>{fishData[0].description}</Text>
+                    <View style={styles.advanceView}>
+                        {/* 分布地區的資料 */}
+                        <View style={styles.descriptionView}>
+                            <Text style={styles.descriptionText}>yanan da</Text>
                         </View>
-                    )}
-                />
+                        {/* 游棲生態的資料 */}
+                        <View style={styles.descriptionView}>
+                            <Text style={styles.descriptionText}>kamoamong da</Text>
+                        </View>
+                    </View>
+
+                    <Text>{fishData.description}</Text>
+                </View>
+
             )}
 
         </View >
@@ -74,7 +69,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#003F5E"
+        backgroundColor: "#003F5E",
+        top: -50
+
     },
     advanceView: {
         height: 300,

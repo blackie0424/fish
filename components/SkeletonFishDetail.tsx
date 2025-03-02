@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#003F5E",
-        top: -60
     },
     skeletonCard: {
         width: deviceWidth - 10,
