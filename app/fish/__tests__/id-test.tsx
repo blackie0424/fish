@@ -1,6 +1,6 @@
 import { render, screen, act } from '@testing-library/react-native';
 import FishDetailScreen from '@/app/fish/[id]';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 
 // Mock expo-router
 jest.mock('expo-router', () => ({
@@ -18,7 +18,20 @@ describe('FishDetailScreen automatically loads the fish data', () => {
     test('should display the fish data automatically when the user enters the page', async () => {
         global.fetch.mockResolvedValue({
             ok: true,
-            json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
+            json: async () => (
+                {
+                    "message": "success",
+                    "data": {
+                        "id": 1,
+                        "name": "Ivey",
+                        "type": "oyod",
+                        "locate": "Iraraley",
+                        "image": "https:\/\/etycehppghhlxqpdvlga.supabase.co\/storage\/v1\/object\/public\/tao_among_storage\/images\/Ivey.png",
+                        "created_at": null,
+                        "updated_at": null
+                    }
+                }
+            ),
         });
 
         render(<FishDetailScreen />);
@@ -26,7 +39,9 @@ describe('FishDetailScreen automatically loads the fish data', () => {
             await new Promise(resolve => setTimeout(resolve, 0)); // 等待 useEffect
         });
 
-        expect(screen.getByText('cilat')).toBeTruthy(); // FishCard 顯示資料
+        expect(screen.getByText('Ivey')).toBeTruthy(); // FishCard 顯示資料
+        expect(screen.getByText('oyod')).toBeTruthy(); // FishCard 顯示資料
+        expect(screen.getByText('Iraraley')).toBeTruthy(); // FishCard 顯示資料
         expect(screen.queryByText('找不到資料')).toBeNull(); // 沒有404錯誤
         expect(screen.queryByText('抱歉，系統出了點問題，請稍後再試')).toBeNull(); // 沒有500錯誤
         expect(screen.queryByText('目前沒有資料')).toBeNull(); // 沒有資料可以提供的情境未發生
