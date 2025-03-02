@@ -4,6 +4,7 @@ import { useLocalSearchParams } from "expo-router";
 
 import { Loading } from "@/components/Loading";
 import { FishCard } from "@/components/FishCard";
+import SkeletonFishDetail from "@/components/SkeletonFishDetail";
 import useGetFish from "@/hooks/useGetFish";
 
 
@@ -27,7 +28,10 @@ export default function HomeScreen() {
     return (
         <View style={styles.container}>
             {isLoading ? (
-                <Loading />
+                <View>
+                    <SkeletonFishDetail />
+                    <Loading style={styles.loadingOverlay} />
+                </View>
             ) : (
                 <FlatList
                     showsVerticalScrollIndicator={true}
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#E5C29F",
         borderRadius: 20,
         shadowOpacity: 0.3,
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 2 }
     },
     descriptionView: {
         width: 200,
@@ -97,5 +101,10 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 20,
     },
-
+    loadingOverlay: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: [{ translateX: -25 }, { translateY: -25 }],
+    },
 });
