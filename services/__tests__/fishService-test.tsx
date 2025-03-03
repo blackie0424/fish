@@ -144,4 +144,17 @@ describe('API module', () => {
         expect(result).toBeNull();
     });
 
+    test('should throw an error when fetch the fish data fails', async () => {
+        const mockFishId = 1;
+
+        // 模擬網路錯誤
+        fetchMock.mockRejectOnce(new Error('Network Error'));
+
+        await expect(Fish.getFish(mockFishId)).rejects.toThrow('Network Error');
+
+        expect(fetchMock).toHaveBeenCalledWith(
+            `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' }
+        );
+    });
+
 });

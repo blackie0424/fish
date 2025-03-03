@@ -23,8 +23,7 @@ const Fish = {
             //ignore message
             return data.data;
         } catch (error) {
-            console.log("Get fish data has some problem!");
-            console.error(error);
+            throw error;
         }
     }
 }
