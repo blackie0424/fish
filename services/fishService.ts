@@ -20,6 +20,7 @@ const Fish = {
             const response = await fetch(API_URL + "/" + id, { method: "GET" });
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
+            //ignore message
             return data.data;
         } catch (error) {
             console.log("Get fish data has some problem!");

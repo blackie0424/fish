@@ -121,4 +121,27 @@ describe('API module', () => {
         expect(result).toEqual(mockFishs.data);
     });
 
+    test('should fetch empty fish data successfully for a non-existent ID', async () => {
+
+        const mockFishId = 10000001;
+        const mockFishs = {
+            "message": "data not found",
+            "data": null
+        }
+
+        fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
+
+        // 模擬 fetch 回傳的 API 資料
+        const result = await Fish.getFish(mockFishId);
+
+        // 驗證 fetch 是否被正確呼叫
+        expect(fetchMock).toHaveBeenCalledWith(
+            `${Fishs_API_URL}/${mockFishId}`, expect.objectContaining({ method: 'GET' }));
+
+        // 驗證回傳的資料是否與 mockFishs.data 相同
+        console.log(result);
+        expect(result).toEqual(mockFishs.data);
+        expect(result).toBeNull();
+    });
+
 });
