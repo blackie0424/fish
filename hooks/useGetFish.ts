@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { useLocalSearchParams } from "expo-router";
 
@@ -32,8 +32,8 @@ export default function useGetFish() {
     }
 
     return {
-        fishId, setFishId,
-        fishData, setFishData,
+        setFishId,
+        fishData,
         isLoading, setIsLoading,
         getFishDataFromAPI,
         clearFishData

@@ -12,7 +12,7 @@ export default function FishDetailScreen() {
     const { id } = useLocalSearchParams();
     const {
         setFishId,
-        fishData, setFishData,
+        fishData,
         isLoading, setIsLoading,
         getFishDataFromAPI, clearFishData
     } = useGetFish();
@@ -70,8 +70,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#003F5E",
-        top: -50
-
     },
     advanceView: {
         height: 300,
