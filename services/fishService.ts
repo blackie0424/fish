@@ -15,7 +15,7 @@ const Fish = {
             throw error;
         }
     },
-    getFish: async (id: Number) => {
+    getFish: async (id: number) => {
         try {
             const response = await fetch(API_URL + "/" + id, { method: "GET" });
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
