@@ -92,5 +92,33 @@ describe('API module', () => {
     });
 
 
+    test('should fetch fish data successfully for a valid ID', async () => {
+
+        const mockFishId = 1;
+        const mockFishs = {
+            "message": "success",
+            "data": {
+                "id": 1,
+                "name": "Ivey",
+                "type": "oyod",
+                "locate": "Iraraley",
+                "image": "https://etycehppghhlxqpdvlga.supabase.co/storage/v1/object/public/tao_among_storage/images/Ivey.png",
+                "created_at": null,
+                "updated_at": null
+            }
+        }
+
+        fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
+
+        // 模擬 fetch 回傳的 API 資料
+        const result = await Fish.getFish(mockFishId);
+
+        // 驗證 fetch 是否被正確呼叫
+        expect(fetchMock).toHaveBeenCalledWith(
+            `${Fishs_API_URL}/${mockFishId}`, expect.objectContaining({ method: 'GET' }));
+
+        // 驗證回傳的資料是否與 mockFishs.data 相同
+        expect(result).toEqual(mockFishs.data);
+    });
 
 });
