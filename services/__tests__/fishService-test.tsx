@@ -176,12 +176,24 @@ describe('API module', () => {
         // 模擬 Http code 500的錯誤
         fetchMock.mockResponseOnce(
             '', { status: 500, statusText: 'HTTP error! status: 500' }
-        ); 
+        );
 
         await expect(Fish.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 500');
 
         expect(fetchMock).toHaveBeenCalledWith(
             `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' });
+    });
+
+    test('should throw generic HTTP error for non-404/500 status when call getfish by fish ID', async () => {
+        const mockFishId = 1;
+        // 模擬 403 Htto code
+        fetchMock.mockResponseOnce(
+            '', { status: 403, statusText: 'Forbidden' }
+        );
+        await expect(Fish.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 403');
+        expect(fetchMock).toHaveBeenCalledWith(
+            `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' }
+        );
     });
 
 });
