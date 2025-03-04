@@ -33,7 +33,7 @@ export default function FishStackLayout() {
             <FontAwesome
               name="arrow-left"
               size={32}
-              color="black"
+              color="#fff"
               style={{
                 left: 10
               }}
@@ -53,7 +53,7 @@ export default function FishStackLayout() {
             <FontAwesome
               name="arrow-left"
               size={32}
-              color="black"
+              color="#fff"
               style={{
                 left: 10
               }}
@@ -66,7 +66,7 @@ export default function FishStackLayout() {
         name="pickImage"
         options={{
           title: "",
-          tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color="black" />,
+          tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color="#fff" />,
           tabBarStyle: { display: "none" },
           headerRight: () => (
             <Button
@@ -85,7 +85,7 @@ export default function FishStackLayout() {
             <FontAwesome
               name="times"
               size={32}
-              color="black"
+              color="#fff"
               style={{
                 left: 10
               }}
