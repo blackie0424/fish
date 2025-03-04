@@ -51,6 +51,28 @@ describe('API module', () => {
             expect(result).toEqual(mockFishs.data);
         });
 
+        test('should fetch empty fishes data successfully', async () => {
+
+            const mockFishs = {
+                "message": "No data available",
+                "data": null
+            }
+
+            fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
+
+            // 模擬 fetch 回傳的 API 資料
+            const result = await Fish.getFishs();
+
+            // 驗證 fetch 是否被正確呼叫
+            expect(fetchMock).toHaveBeenCalledWith(
+                Fishs_API_URL, expect.objectContaining({ method: 'GET' }));
+
+            // 驗證回傳的資料是否與 mockFishs.data 相同
+            console.log(result);
+            expect(result).toEqual(mockFishs.data);
+            expect(result).toBeNull();
+        });
+
         test('should throw an error when fetch fishs fails', async () => {
             // 模擬網路錯誤
             fetchMock.mockRejectOnce(new Error('Network Error'));
