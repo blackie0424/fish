@@ -157,4 +157,17 @@ describe('API module', () => {
         );
     });
 
+    test('should throw specific error for Http Code is 404 when call getFish by fish ID', async () => {
+        const mockFishId = 1;
+
+        fetchMock.mockResponseOnce(
+            '', { status: 404, statusText: 'HTTP error! status: 404' }
+        ); // 模擬 404
+
+        await expect(Fish.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 404');
+
+        expect(fetchMock).toHaveBeenCalledWith(
+            `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' });
+    });
+
 });
