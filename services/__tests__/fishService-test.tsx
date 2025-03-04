@@ -170,4 +170,18 @@ describe('API module', () => {
             `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' });
     });
 
+    test('should throw specific error for Http Code is 500 when call getFish by fish ID', async () => {
+        const mockFishId = 1;
+
+        // 模擬 Http code 500的錯誤
+        fetchMock.mockResponseOnce(
+            '', { status: 500, statusText: 'HTTP error! status: 500' }
+        ); 
+
+        await expect(Fish.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 500');
+
+        expect(fetchMock).toHaveBeenCalledWith(
+            `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' });
+    });
+
 });
