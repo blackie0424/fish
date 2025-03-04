@@ -23,11 +23,10 @@ const Fish = {
             }
             const data = await response.json();
 
-            //ignore message
-            console.log("Get the fish data has some problem in fishService.ts");
-
             return data.data;
         } catch (error) {
+            //ignore message
+            console.log("Get the fish data has some problem in fishService.ts");
             throw error;
         }
     }
