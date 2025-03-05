@@ -5,12 +5,15 @@ import { Tabs } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import { useImage } from '@/context/ImageContext';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 
 export default function FishStackLayout() {
   const router = useRouter();
   const { imageUriForAll, setImageUriForAll } = useImage();
-
+  const colorScheme = useColorScheme();
+  const backgroundColor = colorScheme === 'dark' ? '#003F5E' : '#FFFFFF';
+  const iconColor = backgroundColor === '#003F5E' ? '#FFFFFF' : '#000000';
 
   return (
     <Tabs screenOptions={{
@@ -32,8 +35,8 @@ export default function FishStackLayout() {
           headerLeft: () => (
             <FontAwesome
               name="arrow-left"
-              size={32}
-              color="#fff"
+              size={20}
+              color={iconColor}
               style={{
                 left: 10
               }}
@@ -52,8 +55,8 @@ export default function FishStackLayout() {
           headerLeft: () => (
             <FontAwesome
               name="arrow-left"
-              size={32}
-              color="#fff"
+              size={20}
+              color={iconColor}
               style={{
                 left: 10
               }}
@@ -66,7 +69,7 @@ export default function FishStackLayout() {
         name="pickImage"
         options={{
           title: "",
-          tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color="#fff" />,
+          tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color={iconColor} />,
           tabBarStyle: { display: "none" },
           headerRight: () => (
             <Button
@@ -78,14 +81,14 @@ export default function FishStackLayout() {
                 }
               }}
               title="下一步"
-              color="blue"
+              color={iconColor}
             />
           ),
           headerLeft: () => (
             <FontAwesome
               name="times"
               size={32}
-              color="#fff"
+              color={iconColor}
               style={{
                 left: 10
               }}
