@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, ScrollView } from "react-native";
 
 import SelectionGroup from "@/components/SelectGroup";
 import useCreateFish from "@/hooks/useCreateFish";
@@ -49,7 +49,7 @@ export default function CreateFishScreen() {
     const processingOptions = ["isisan", "jingisisi", "kolitan"];
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
             {/* ✅ 預覽圖片 */}
             {imageUriForAll && <Image source={{ uri: imageUriForAll }} style={styles.preview} />}
@@ -76,7 +76,7 @@ export default function CreateFishScreen() {
             >
                 <Text style={styles.buttonText}>分享</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -88,6 +88,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
         padding: 10,
+    },
+    contentContainer: {
+        paddingBottom: 20, // 確保按鈕和底部有空間
     },
     preview: {
         width: "100%",
