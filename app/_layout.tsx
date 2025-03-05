@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Tabs } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -32,18 +32,16 @@ export default function RootLayout() {
   return (
     <ImageProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{ contentStyle: { backgroundColor: "#f0f0f0" } }}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false, }} />
-          <Stack.Screen name="fish" options={{
+        <Tabs screenOptions={{ contentStyle: { backgroundColor: "#f0f0f0" } }}>
+          <Tabs.Screen name="index" options={{ headerShown: false, tabBarStyle: { display: "none" } }} />
+          <Tabs.Screen name="fish" options={{
             headerShown: false,
             title: "nivasilan ko a among",
-            headerBackButtonDisplayMode: "minimal"
+            headerBackButtonDisplayMode: "minimal",
+            tabBarStyle: { display: "none" },
           }}
           />
-          <Stack.Screen name="+not-found" />
-          <Stack.Screen name="index" options={{ headerShown: false, }} />
-
-        </Stack>
+        </Tabs>
         <StatusBar style="auto" />
       </ThemeProvider>
     </ImageProvider>
