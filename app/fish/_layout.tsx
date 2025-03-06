@@ -16,7 +16,7 @@ export default function FishStackLayout() {
   const iconColor = backgroundColor === '#003F5E' ? '#FFFFFF' : '#000000';
 
   const pathname = usePathname(); // 獲取當前路徑
-  console.log("~~~~~~~~~~~" + pathname);
+
   // 定義需要顯示「新增魚類」按鈕的頁面
   let showAddButton = false;
   if (pathname === "/fish/create" || pathname === "/fish/pickImage") {
@@ -25,7 +25,6 @@ export default function FishStackLayout() {
     showAddButton = true;
   }
 
-  console.log(showAddButton);
   return (
     <>
       <Stack screenOptions={{
