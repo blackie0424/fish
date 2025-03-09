@@ -1,11 +1,10 @@
-import FormData from 'form-data';
 import fetchMock from 'jest-fetch-mock';
 import Fish from '@/services/fishService';
-global.FormData = FormData as any;
 
 const Fishs_API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
 fetchMock.enableMocks();
+
 
 describe('API module', () => {
 
@@ -227,12 +226,12 @@ describe('API module', () => {
     describe('create Fish - create a fish data', () => {
         test('should create a  fish successfully', async () => {
 
-            //fish data
-            const fish: FormData = new FormData();
-            fish.append('name', 'tazokok');
-            fish.append('type', 'rahet');
-            fish.append('locate', 'Iraraley');
-            fish.append('image', 'https://etycehppghhlxqpdvlga.supabase.co/storage/v1/object/public/tao_among_storage/images/1739210561_tazokok.png');
+            const fish: object = {
+                name: 'tazokok',
+                type: 'rahet',
+                locate: 'Iraraley',
+                image: 'https://etycehppghhlxqpdvlga.supabase.co/storage/v1/object/public/tao_among_storage/images/1739210561_tazokok.png'
+            }
 
             //ressult
             const mockFish = {
@@ -255,24 +254,15 @@ describe('API module', () => {
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
-                Fishs_API_URL, expect.objectContaining({ method: 'POST' })
+                Fishs_API_URL, expect.objectContaining({
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // 驗證傳送的 body 與輸入資料一致
+                    body: JSON.stringify(fish)
+                })
             );
-
-            // 序列化 FormData 內容
-            const bodyString = await new Promise<string>((resolve, reject) => {
-                let data = '';
-                const body = fetchMock.mock.calls[0][1].body; // 從 fetchMock 獲取 body
-                body.on('data', (chunk) => (data += chunk.toString()));
-                body.on('end', () => resolve(data));
-                body.on('error', (err) => reject(err));
-                body.resume(); // 啟動流
-            });
-
-            // 驗證輸入內容（忽略 boundary）
-            expect(bodyString).toContain('Content-Disposition: form-data; name="name"\r\n\r\ntazokok');
-            expect(bodyString).toContain('Content-Disposition: form-data; name="type"\r\n\r\nrahet');
-            expect(bodyString).toContain('Content-Disposition: form-data; name="locate"\r\n\r\nIraraley');
-            expect(bodyString).toContain('Content-Disposition: form-data; name="image"\r\n\r\nhttps://etycehppghhlxqpdvlga.supabase.co/storage/v1/object/public/tao_among_storage/images/1739210561_tazokok.png');
 
             // 驗證回傳的資料是否與 mockFishs.data 相同
             expect(result).toEqual(mockFish.data);
@@ -280,12 +270,12 @@ describe('API module', () => {
 
         test('should create a  fish successfully when type , locate and image are empty', async () => {
 
-            //fish data
-            const fish: FormData = new FormData();
-            fish.append('name', 'tazokok');
-            fish.append('type', '');
-            fish.append('locate', '');
-            fish.append('image', '');
+            const fish: object = {
+                name: 'tazokok',
+                type: '',
+                locate: '',
+                image: ''
+            }
 
             //ressult
             const mockFish = {
@@ -308,27 +298,21 @@ describe('API module', () => {
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
-                Fishs_API_URL, expect.objectContaining({ method: 'POST', body: expect.any(FormData) })
+                Fishs_API_URL, expect.objectContaining({
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // 驗證傳送的 body 與輸入資料一致
+                    body: JSON.stringify(fish)
+                })
             );
 
-            // 序列化 FormData 內容
-            const bodyString = await new Promise<string>((resolve, reject) => {
-                let data = '';
-                const body = fetchMock.mock.calls[0][1].body; // 從 fetchMock 獲取 body
-                body.on('data', (chunk) => (data += chunk.toString()));
-                body.on('end', () => resolve(data));
-                body.on('error', (err) => reject(err));
-                body.resume(); // 啟動流
-            });
 
-            // 驗證輸入內容（忽略 boundary）
-            expect(bodyString).toContain('Content-Disposition: form-data; name="name"\r\n\r\ntazokok');
-            expect(bodyString).toContain('Content-Disposition: form-data; name="type"\r\n\r\n');
-            expect(bodyString).toContain('Content-Disposition: form-data; name="locate"\r\n\r\n');
-            expect(bodyString).toContain('Content-Disposition: form-data; name="image"\r\n\r\n');
             // 驗證回傳的資料是否與 mockFishs.data 相同
             expect(result).toEqual(mockFish.data);
         });
+
     });
 
 });

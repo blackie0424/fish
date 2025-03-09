@@ -29,11 +29,15 @@ const Fish = {
             throw error;
         }
     },
-    createFish: async (fish: FormData) => {
+    createFish: async (fish: object) => {
+
         try {
             const response = await fetch(API_URL, {
                 method: "POST",
-                body: fish,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(fish),
             });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -43,6 +47,7 @@ const Fish = {
             return result.data;
         } catch (error) {
             console.log("Create the fish has some problem in fishService.ts");
+
             throw error;
         }
     }
