@@ -1,5 +1,5 @@
 import fetchMock from 'jest-fetch-mock';
-import Fish from '@/services/fishService';
+import FishService from '@/services/fishService';
 
 const Fishs_API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
@@ -42,7 +42,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await Fish.getFishs();
+            const result = await FishService.getFishs();
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
@@ -62,7 +62,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await Fish.getFishs();
+            const result = await FishService.getFishs();
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
@@ -78,7 +78,7 @@ describe('API module', () => {
             // 模擬網路錯誤
             fetchMock.mockRejectOnce(new Error('Network Error'));
 
-            await expect(Fish.getFishs()).rejects.toThrow('Network Error');
+            await expect(FishService.getFishs()).rejects.toThrow('Network Error');
 
             expect(fetchMock).toHaveBeenCalledWith(
                 Fishs_API_URL, { method: 'GET' });
@@ -89,7 +89,7 @@ describe('API module', () => {
                 '', { status: 404, statusText: 'HTTP error! status: 404' }
             ); // 模擬 404
 
-            await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 404');
+            await expect(FishService.getFishs()).rejects.toThrow('HTTP error! status: 404');
 
             expect(fetchMock).toHaveBeenCalledWith(
                 Fishs_API_URL, { method: 'GET' });
@@ -100,7 +100,7 @@ describe('API module', () => {
                 '', { status: 500, statusText: 'HTTP error! status: 500' }
             ); // 模擬 500
 
-            await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 500');
+            await expect(FishService.getFishs()).rejects.toThrow('HTTP error! status: 500');
 
             expect(fetchMock).toHaveBeenCalledWith(
                 Fishs_API_URL, { method: 'GET' });
@@ -110,7 +110,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(
                 '', { status: 403, statusText: 'Forbidden' }
             ); // 模擬 403
-            await expect(Fish.getFishs()).rejects.toThrow('HTTP error! status: 403');
+            await expect(FishService.getFishs()).rejects.toThrow('HTTP error! status: 403');
             expect(fetchMock).toHaveBeenCalledWith(
                 Fishs_API_URL, { method: 'GET' });
         });
@@ -137,7 +137,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await Fish.getFish(mockFishId);
+            const result = await FishService.getFish(mockFishId);
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
@@ -158,7 +158,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await Fish.getFish(mockFishId);
+            const result = await FishService.getFish(mockFishId);
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
@@ -176,7 +176,7 @@ describe('API module', () => {
             // 模擬網路錯誤
             fetchMock.mockRejectOnce(new Error('Network Error'));
 
-            await expect(Fish.getFish(mockFishId)).rejects.toThrow('Network Error');
+            await expect(FishService.getFish(mockFishId)).rejects.toThrow('Network Error');
 
             expect(fetchMock).toHaveBeenCalledWith(
                 `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' }
@@ -190,7 +190,7 @@ describe('API module', () => {
                 '', { status: 404, statusText: 'HTTP error! status: 404' }
             ); // 模擬 404
 
-            await expect(Fish.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 404');
+            await expect(FishService.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 404');
 
             expect(fetchMock).toHaveBeenCalledWith(
                 `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' });
@@ -204,7 +204,7 @@ describe('API module', () => {
                 '', { status: 500, statusText: 'HTTP error! status: 500' }
             );
 
-            await expect(Fish.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 500');
+            await expect(FishService.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 500');
 
             expect(fetchMock).toHaveBeenCalledWith(
                 `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' });
@@ -216,7 +216,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(
                 '', { status: 403, statusText: 'Forbidden' }
             );
-            await expect(Fish.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 403');
+            await expect(FishService.getFish(mockFishId)).rejects.toThrow('HTTP error! status: 403');
             expect(fetchMock).toHaveBeenCalledWith(
                 `${Fishs_API_URL}/${mockFishId}`, { method: 'GET' }
             );
@@ -250,7 +250,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFish));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await Fish.createFish(fish);
+            const result = await FishService.createFish(fish);
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
@@ -294,7 +294,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFish));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await Fish.createFish(fish);
+            const result = await FishService.createFish(fish);
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
