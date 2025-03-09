@@ -277,6 +277,58 @@ describe('API module', () => {
             // 驗證回傳的資料是否與 mockFishs.data 相同
             expect(result).toEqual(mockFish.data);
         });
+
+        test('should create a  fish successfully when type , locate and image are empty', async () => {
+
+            //fish data
+            const fish: FormData = new FormData();
+            fish.append('name', 'tazokok');
+            fish.append('type', '');
+            fish.append('locate', '');
+            fish.append('image', '');
+
+            //ressult
+            const mockFish = {
+                "message": "fish created successfully",
+                "data": {
+                    "name": "tazokok",
+                    "type": "",
+                    "locate": "",
+                    "image": "",
+                    "updated_at": "2025-03-08T01:41:25.000000Z",
+                    "created_at": "2025-03-08T01:41:25.000000Z",
+                    "id": 90
+                }
+            }
+
+            fetchMock.mockResponseOnce(JSON.stringify(mockFish));
+
+            // 模擬 fetch 回傳的 API 資料
+            const result = await Fish.createFish(fish);
+
+            // 驗證 fetch 是否被正確呼叫
+            expect(fetchMock).toHaveBeenCalledWith(
+                Fishs_API_URL, expect.objectContaining({ method: 'POST', body: expect.any(FormData) })
+            );
+
+            // 序列化 FormData 內容
+            const bodyString = await new Promise<string>((resolve, reject) => {
+                let data = '';
+                const body = fetchMock.mock.calls[0][1].body; // 從 fetchMock 獲取 body
+                body.on('data', (chunk) => (data += chunk.toString()));
+                body.on('end', () => resolve(data));
+                body.on('error', (err) => reject(err));
+                body.resume(); // 啟動流
+            });
+
+            // 驗證輸入內容（忽略 boundary）
+            expect(bodyString).toContain('Content-Disposition: form-data; name="name"\r\n\r\ntazokok');
+            expect(bodyString).toContain('Content-Disposition: form-data; name="type"\r\n\r\n');
+            expect(bodyString).toContain('Content-Disposition: form-data; name="locate"\r\n\r\n');
+            expect(bodyString).toContain('Content-Disposition: form-data; name="image"\r\n\r\n');
+            // 驗證回傳的資料是否與 mockFishs.data 相同
+            expect(result).toEqual(mockFish.data);
+        });
     });
 
 });
