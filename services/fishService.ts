@@ -25,11 +25,28 @@ const Fish = {
 
             return data.data;
         } catch (error) {
-            //ignore message
             console.log("Get the fish data has some problem in fishService.ts");
             throw error;
         }
+    },
+    createFish: async (fish: FormData) => {
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                body: fish,
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log("Response text:", result.message);
+            return result.data;
+        } catch (error) {
+            console.log("Create the fish has some problem in fishService.ts");
+            throw error;
+        }
     }
+
 }
 
 export default Fish;
