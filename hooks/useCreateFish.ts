@@ -17,10 +17,17 @@ export default function useCreateFish() {
 
 
     const handleSubmit = async () => {
+
+
         if (!fishName.trim()) {
             alert("請輸入魚的名稱");
             return;
         }
+
+        setFishName(fishName);
+        setSelectedType(fishType);
+        setSelectedLocation(locate);
+        setSelectedProcessing(selectedProcessing);
 
         const fish = {
             name: fishName,
