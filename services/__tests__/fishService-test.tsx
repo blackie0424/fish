@@ -313,6 +313,29 @@ describe('API module', () => {
             expect(result).toEqual(mockFish.data);
         });
 
+        test('should throw an error when name is missing', async () => {
+            const fish: FishObject = {
+                type: '',
+                locate: '',
+                image: ''
+            }
+
+            expect(FishService.createFish(fish)).rejects.toThrow('The fish name is required.');
+        });
+
+        test('should throw an error when name is empty', async () => {
+
+            const fish: FishObject = {
+                name: '',
+                type: '',
+                locate: '',
+                image: ''
+            }
+
+            expect(FishService.createFish(fish)).rejects.toThrow('The fish name is required.');
+
+        });
+
     });
 
 });

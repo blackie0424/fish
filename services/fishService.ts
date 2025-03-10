@@ -1,3 +1,9 @@
+interface FishObject {
+    name: string; // 必填
+    type?: string; // 可選
+    locate?: string; // 可選
+    image?: string; // 可選
+}
 
 const API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
@@ -29,7 +35,9 @@ const Fish = {
             throw error;
         }
     },
-    createFish: async (fish: object) => {
+    createFish: async (fish: FishObject) => {
+
+        if (!fish.name || fish.name.trim() === '') throw new Error('The fish name is required.');
 
         try {
             const response = await fetch(API_URL, {
