@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useRouter } from 'expo-router';
 import { useImage } from '@/context/ImageContext';
 
-
-
-
-const API_URL = `${process.env.EXPO_PUBLIC_API_URL}fish`;
+import FishService from '@/services/fishService';
 
 export default function useCreateFish() {
     const [fishName, setFishName] = useState("");
@@ -25,25 +22,15 @@ export default function useCreateFish() {
             return;
         }
 
-        const fish = new FormData();
-        fish.append("name", fishName);
-        fish.append("type", fishType ?? "");
-        fish.append("locate", locate ?? "");
-        fish.append("image", imageName || "default.png");
-        fish.append("process", selectedProcessing ?? "");
-
-        console.log("🚀 Sending data:", Object.fromEntries(fish.entries()));
+        const fish = {
+            name: fishName,
+            type: fishType ?? "",
+            locate: locate ?? "",
+            image: imageName || "default.png"
+        };
 
         try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                body: fish,
-            });
-
-            console.log("Response status:", response.status);
-            const text = await response.text();
-            console.log("Response text:", text);
-
+            await FishService.createFish(fish);
             setFishName("");
             setSelectedLocation(null);
             setSelectedType(null);
@@ -51,13 +38,11 @@ export default function useCreateFish() {
             setImageName("");
             setDisalbeButton(true);
             setImageUriForAll("");
-
-            if (!response.ok) throw new Error("API 回應錯誤");
-
             alert("魚資料已成功新增！");
             route.push("/fish?refresh=true");
         } catch (error) {
-            console.error("❌ Error:", error);
+            alert('新增魚資料失敗，請稍後再試。');
+            route.push("/fish");
         }
     };
 
