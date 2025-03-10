@@ -37,7 +37,17 @@ export default function FishStackLayout() {
         <Stack.Screen
           name="index"
           options={{
-            href: null,
+            headerLeft: () => (
+              <FontAwesome
+                name="home"
+                size={26}
+                color={iconColor}
+                style={{
+                  left: 10
+                }}
+                onPress={() => router.push("/")}
+              />
+            )
           }}
         />
         <Stack.Screen
