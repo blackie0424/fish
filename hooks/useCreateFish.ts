@@ -23,7 +23,6 @@ export default function useCreateFish() {
             alert("請輸入魚的名稱");
             return;
         }
-
         setFishName(fishName);
         setSelectedType(fishType);
         setSelectedLocation(locate);
@@ -43,7 +42,6 @@ export default function useCreateFish() {
             setSelectedType(null);
             setSelectedProcessing(null);
             setImageName("");
-            setDisalbeButton(true);
             setImageUriForAll("");
             alert("魚資料已成功新增！");
             route.push("/fish?refresh=true");

@@ -4,7 +4,6 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions,
 import SelectionGroup from "@/components/SelectGroup";
 import useCreateFish from "@/hooks/useCreateFish";
 
-import { useRouter, useLocalSearchParams } from "expo-router";
 import { useImage } from '@/context/ImageContext';
 import useUploadImage from '@/hooks/useUploadImage';
 
@@ -12,9 +11,6 @@ import useUploadImage from '@/hooks/useUploadImage';
 
 export default function CreateFishScreen() {
     const { imageUriForAll } = useImage();
-
-    const router = useRouter();
-    const { isUpload } = useLocalSearchParams();
 
     const { uploadImage } = useUploadImage();
     const {
@@ -33,7 +29,7 @@ export default function CreateFishScreen() {
     useEffect(() => {
         if (!hasUploaded.current) {
             hasUploaded.current = true;
-            setDisalbeButton(true); // 開始上傳，按鈕不可按
+            setDisalbeButton(true); // 開始上傳，圖片上傳中，分享按鈕不可按
             uploadImage().then((res) => {
                 console.log("after upload get res info:" + res);
                 setImageName(res || "default.png"); // 確保有值
@@ -41,7 +37,7 @@ export default function CreateFishScreen() {
                 console.error("圖片上傳失敗", err);
                 setImageName("default.png");
             }).finally(() => {
-                setDisalbeButton(false); // 上傳完成，無論成功與否都開啟按鈕
+                setDisalbeButton(false); // 圖片上傳完成，無論上傳成功與否都開啟分享按鈕
             });
         }
     });
@@ -73,12 +69,15 @@ export default function CreateFishScreen() {
             {/* 確定按鈕 */}
             <TouchableOpacity
                 style={[styles.button, isDisalbed && { backgroundColor: "#ccc" }]}
-                onPress={isDisalbed ? null : handleSubmit} // 如果 isUploading 為 true，就讓 onPress 變 null
+                onPress={() => {
+                    setDisalbeButton(true);
+                    handleSubmit();
+                }}
                 disabled={isDisalbed} // 直接使用 disabled 屬性
             >
                 <Text style={styles.buttonText}>分享</Text>
             </TouchableOpacity>
-        </ScrollView>
+        </ScrollView >
     );
 }
 
