@@ -13,17 +13,11 @@ export default function useUploadImage() {
         const filename = localUri.split('/').pop(); // 取得檔名
         console.log("imageUriForAll is:" + imageUriForAll);
 
-        console.log("localUri is:" + localUri);
-        console.log("filename is:" + filename);
-
-
         const formData = new FormData();
         formData.append('image', {
             uri: localUri,
             name: filename
         });
-        console.log("Form Data uri is:" + formData.uri);
-        console.log("Form Data name is:" + formData.name);
 
         const requestOptions = {
             method: "POST",

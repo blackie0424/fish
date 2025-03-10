@@ -90,7 +90,7 @@ export default function FishStackLayout() {
                   if (imageUriForAll === "" || imageUriForAll === null) {
                     alert('請先選擇一張圖片!');
                   } else {
-                    router.push("/fish/create?isUpload=true")
+                    router.push("/fish/create")
                   }
                 }}
                 title="下一步"

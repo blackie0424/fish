@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, ScrollView } from "react-native";
 
 import SelectionGroup from "@/components/SelectGroup";
@@ -27,22 +27,24 @@ export default function CreateFishScreen() {
         handleSubmit,
     } = useCreateFish();
 
-    useEffect(() => {
-        setDisalbeButton(true); // 開始上傳，按鈕不可按
-        uploadImage().then((res) => {
-            console.log("after upload get res info:" + res);
-            setImageName(res || "default.png"); // 確保有值
-        }).catch((err) => {
-            console.error("圖片上傳失敗", err);
-            setImageName("default.png");
-        }).finally(() => {
-            setDisalbeButton(false); // 上傳完成，無論成功與否都開啟按鈕
-        });
-        if (isUpload === "true") {
-            router.replace("/fish/create");
-        }
+    // 使用 useRef 作為標誌，確保上傳只執行一次
+    const hasUploaded = useRef(false);
 
-    }, [isUpload]);
+    useEffect(() => {
+        if (!hasUploaded.current) {
+            hasUploaded.current = true;
+            setDisalbeButton(true); // 開始上傳，按鈕不可按
+            uploadImage().then((res) => {
+                console.log("after upload get res info:" + res);
+                setImageName(res || "default.png"); // 確保有值
+            }).catch((err) => {
+                console.error("圖片上傳失敗", err);
+                setImageName("default.png");
+            }).finally(() => {
+                setDisalbeButton(false); // 上傳完成，無論成功與否都開啟按鈕
+            });
+        }
+    });
 
     const locations = ["Imorod", "Iratay", "Yayo", "Iraraley", "Iranmeylek", "Ivalino"];
     const types = ["oyod", "rahet"];
