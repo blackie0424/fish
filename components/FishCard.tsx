@@ -32,7 +32,7 @@ export function FishCard(props: FishCardProps) {
             <View style={styles.locateView}>
                 <Text style={[styles.locateText, styles.text]}>{props.locate}</Text>
             </View>
-            <View style={styles.categoryView}>
+            <View style={props.type === "rahet" ? styles.rahetView : styles.oyodView}>
                 <Text style={[styles.categoryText, styles.text]}>{props.type}</Text>
             </View>
         </View>
@@ -89,10 +89,20 @@ const styles = StyleSheet.create({
         textAlign: "center",
         lineHeight: 40,
     },
-    categoryView: {
+    rahetView: {
         width: 70,
         height: 40,
         backgroundColor: "#AAF8F5",
+        borderRadius: 50,
+        position: "absolute",
+        right: 10,
+        top: 190,
+        opacity: 0.9,
+    },
+    oyodView: {
+        width: 70,
+        height: 40,
+        backgroundColor: "#FFD1DC",
         borderRadius: 50,
         position: "absolute",
         right: 10,
