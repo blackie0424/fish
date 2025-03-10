@@ -30,10 +30,10 @@ export function FishCard(props: FishCardProps) {
                 <Text style={styles.text}>{props.name}</Text>
             </View>
             <View style={styles.locateView}>
-                <Text style={[styles.locateText, styles.text]}>Iraraley</Text>
+                <Text style={[styles.locateText, styles.text]}>{props.locate}</Text>
             </View>
             <View style={styles.categoryView}>
-                <Text style={[styles.categoryText, styles.text]}>{props.category}</Text>
+                <Text style={[styles.categoryText, styles.text]}>{props.type}</Text>
             </View>
         </View>
     );

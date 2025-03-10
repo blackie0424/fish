@@ -51,7 +51,8 @@ export default function HomeScreen() {
               <FishCard
                 id={item.id}
                 name={item.name ?? ""}
-                category={item.type ?? ""}
+                type={item.type ?? ""}
+                locate={item.locate ?? ""}
                 imgUri={item.image ?? ""}
               />
             </Pressable>
