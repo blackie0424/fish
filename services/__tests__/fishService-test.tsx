@@ -5,6 +5,12 @@ const Fishs_API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
 fetchMock.enableMocks();
 
+type FishObject = {
+    name: string;
+    type?: string;
+    locate?: string;
+    image?: string;
+};
 
 describe('API module', () => {
 
@@ -226,7 +232,7 @@ describe('API module', () => {
     describe('create Fish - create a fish data', () => {
         test('should create a  fish successfully', async () => {
 
-            const fish: object = {
+            const fish: FishObject = {
                 name: 'tazokok',
                 type: 'rahet',
                 locate: 'Iraraley',
@@ -270,7 +276,7 @@ describe('API module', () => {
 
         test('should create a  fish successfully when type , locate and image are empty', async () => {
 
-            const fish: object = {
+            const fish: FishObject = {
                 name: 'tazokok',
                 type: '',
                 locate: '',
