@@ -141,14 +141,14 @@ export default function FishStackLayout() {
 const styles = StyleSheet.create({
   tabBar: {
     position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
+    bottom: 20,
+    right: 20,
+    width: 60,
     height: 60,
     justifyContent: "center",
     alignItems: "center",
-    borderTopWidth: 1,
-    borderTopColor: "#ccc",
+    borderRadius: 30,
+    backgroundColor: "rgba(0, 0, 0, 0.1)", // 輕微背景，視設計調整
   },
   addButton: {
     padding: 10,
