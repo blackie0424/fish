@@ -336,6 +336,20 @@ describe('API module', () => {
 
         });
 
+        test('should throw an error when create fish has fetch fails', async () => {
+            const fish: FishObject = {
+                name: 'tazokok',
+                type: 'rahet',
+                locate: 'Iraraley',
+                image: 'https://etycehppghhlxqpdvlga.supabase.co/storage/v1/object/public/tao_among_storage/images/1739210561_tazokok.png'
+            }
+            // 模擬網路錯誤
+            fetchMock.mockRejectOnce(new Error('Network Error'));
+
+            await expect(FishService.createFish(fish)).rejects.toThrow('Network Error');
+
+        });
+
     });
 
 });

@@ -55,7 +55,6 @@ const Fish = {
             return result.data;
         } catch (error) {
             console.log("Create the fish has some problem in fishService.ts");
-
             throw error;
         }
     }
