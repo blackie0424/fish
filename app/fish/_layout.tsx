@@ -143,12 +143,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     right: 20,
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
-    backgroundColor: "rgba(0, 0, 0, 0.1)", // 輕微背景，視設計調整
   },
   addButton: {
     padding: 10,
