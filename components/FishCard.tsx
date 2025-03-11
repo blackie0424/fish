@@ -36,7 +36,7 @@ export function FishCard(props: FishCardProps) {
                 <Text style={[styles.text, styles.categoryText]}>{props.type}</Text>
             </View>
             <View style={styles.processView}>
-                <Text style={[styles.text, styles.processText]}>jingisisi</Text>
+                <Text style={[styles.text, styles.processText]}>{props.process}</Text>
             </View>
         </View>
     );

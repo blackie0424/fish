@@ -44,7 +44,7 @@ export default function HomeScreen() {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={fishs}
-          renderItem={({ item }: { item: { id: number; name: string; type: string; image: string } }) => (
+          renderItem={({ item }: { item: { id: number; name: string; type: string; image: string, process: string } }) => (
             <Pressable onPress={function () {
               router.push(`/fish/${item.id}`)
             }}>
@@ -54,6 +54,7 @@ export default function HomeScreen() {
                 type={item.type ?? ""}
                 locate={item.locate ?? ""}
                 imgUri={item.image ?? ""}
+                process={item.process ?? ""}
               />
             </Pressable>
           )}

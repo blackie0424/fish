@@ -38,8 +38,10 @@ export default function FishDetailScreen() {
                     <FishCard
                         id={fishData.id}
                         name={fishData.name ?? ""}
-                        category={fishData.type ?? ""}
+                        type={fishData.type ?? ""}
+                        locate={fishData.locate ?? ""}
                         imgUri={fishData.image ?? ""}
+                        process={fishData.process ?? ""}
                     />
 
                     <View style={styles.advanceView}>
