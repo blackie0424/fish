@@ -17,7 +17,7 @@ export default function CreateFishScreen() {
         fishName, setFishName,
         locate, setSelectedLocation,
         fishType, setSelectedType,
-        selectedProcessing, setSelectedProcessing,
+        process, setSelectedProcessing,
         setImageName,
         isDisalbed, setDisalbeButton,
         handleSubmit,
@@ -65,7 +65,7 @@ export default function CreateFishScreen() {
             <Text style={styles.title}>oyod kano rahet</Text>
             <SelectionGroup options={types} selected={fishType} onSelect={setSelectedType} />
             <Text style={styles.title}>魚的處理方式</Text>
-            <SelectionGroup options={processingOptions} selected={selectedProcessing} onSelect={setSelectedProcessing} />
+            <SelectionGroup options={processingOptions} selected={process} onSelect={setSelectedProcessing} />
             {/* 確定按鈕 */}
             <TouchableOpacity
                 style={[styles.button, isDisalbed && { backgroundColor: "#ccc" }]}
