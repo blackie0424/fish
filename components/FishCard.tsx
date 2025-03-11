@@ -30,10 +30,13 @@ export function FishCard(props: FishCardProps) {
                 <Text style={styles.text}>{props.name}</Text>
             </View>
             <View style={styles.locateView}>
-                <Text style={[styles.locateText, styles.text]}>{props.locate}</Text>
+                <Text style={[styles.text, styles.locateText,]}>{props.locate}</Text>
             </View>
             <View style={props.type === "rahet" ? styles.rahetView : styles.oyodView}>
-                <Text style={[styles.categoryText, styles.text]}>{props.type}</Text>
+                <Text style={[styles.text, styles.categoryText]}>{props.type}</Text>
+            </View>
+            <View style={styles.processView}>
+                <Text style={[styles.text, styles.processText]}>jingisisi</Text>
             </View>
         </View>
     );
@@ -44,7 +47,7 @@ const deviceWidth = Math.round(Dimensions.get("window").width);
 const styles = StyleSheet.create({
     cardView: {
         width: deviceWidth - 10,
-        height: 240,
+        height: 290,
         borderRadius: 20,
         backgroundColor: "#E5C29F",
         alignItems: "center",
@@ -63,31 +66,29 @@ const styles = StyleSheet.create({
         alignContent: "center",
         textAlign: "center",
         lineHeight: 40,
+        fontSize: 26,
+        color: "#000",
     },
     nameView: {
-        minWidth: 80,
+        width: deviceWidth - 10,
         height: 40,
-        backgroundColor: "#EFF9F5",
-        borderRadius: 50,
+        backgroundColor: "#FFFFFF",
         position: "absolute",
-        left: 10,
-        top: 190,
-        opacity: 0.9,
+        top: 180,
+        opacity: 0.8,
     },
     locateView: {
-        width: 80,
+        width: 120,
         height: 40,
         backgroundColor: "#FFF9F5",
         borderRadius: 50,
         position: "absolute",
-        right: 85,
-        top: 190,
+        left: 10,
+        top: 240,
         opacity: 0.9,
     },
     locateText: {
-        alignContent: "center",
-        textAlign: "center",
-        lineHeight: 40,
+        fontSize: 20,
     },
     rahetView: {
         width: 70,
@@ -95,8 +96,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#AAF8F5",
         borderRadius: 50,
         position: "absolute",
-        right: 10,
-        top: 190,
+        left: 140,
+        top: 240,
         opacity: 0.9,
     },
     oyodView: {
@@ -105,13 +106,24 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFD1DC",
         borderRadius: 50,
         position: "absolute",
-        right: 10,
-        top: 190,
+        left: 140,
+        top: 240,
         opacity: 0.9,
     },
     categoryText: {
-        alignContent: "center",
-        textAlign: "center",
-        lineHeight: 40,
+        fontSize: 20,
+    },
+    processView: {
+        width: 90,
+        height: 40,
+        backgroundColor: "#CCC1DC",
+        borderRadius: 50,
+        position: "absolute",
+        left: 220,
+        top: 240,
+        opacity: 0.9,
+    },
+    processText: {
+        fontSize: 20,
     },
 });
