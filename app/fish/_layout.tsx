@@ -38,15 +38,7 @@ export default function FishStackLayout() {
           name="index"
           options={{
             headerLeft: () => (
-              <FontAwesome
-                name="home"
-                size={26}
-                color={iconColor}
-                style={{
-                  left: 10
-                }}
-                onPress={() => router.push("/")}
-              />
+              <></>
             )
           }}
         />
