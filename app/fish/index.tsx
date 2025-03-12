@@ -10,13 +10,14 @@ import useGetFishs from "@/hooks/useGetFishs"
 
 
 export default function HomeScreen() {
-  const { fishs, isLoading, getFishsFromAPI, error } = useGetFishs();
+  const { fishs, isLoading, fetchFishs, error } = useGetFishs();
   const router = useRouter();
   // 用來判斷是否需要刷新資料
   const { refresh } = useLocalSearchParams();
 
   useEffect(() => {
-    getFishsFromAPI();
+    fetchFishs();
+
     // 清除 refresh 狀態，避免一直重新請求
     if (refresh === "true") {
       router.replace("/fish");  // 跳轉到相同頁面來移除 refresh 狀態
