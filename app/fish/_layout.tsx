@@ -87,31 +87,44 @@ export default function FishStackLayout() {
             tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color={iconColor} />,
             tabBarStyle: { display: "none" },
             headerRight: () => (
-              <Button
-                onPress={() => {
-                  if (imageUriForAll === "" || imageUriForAll === null) {
-                    alert('請先選擇一張圖片!');
-                  } else {
-                    router.push("/fish/create")
-                  }
-                }}
-                title="下一步"
-                color={iconColor}
-              />
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log("touch from pickImage... go back");
+                    if (imageUriForAll === "" || imageUriForAll === null) {
+                      alert('請先選擇一張圖片!');
+                    } else {
+                      setTimeout(() => router.push("/fish/create"), 0);
+                    }
+                  }}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  color={iconColor}
+                >
+                  <FontAwesome
+                    name="arrow-right"
+                    size={32}
+                    color={iconColor}
+                    style={{ left: 10 }}
+                  />
+                </TouchableOpacity>
+              </View>
             ),
             headerLeft: () => (
-              <FontAwesome
-                name="times"
-                size={32}
-                color={iconColor}
-                style={{
-                  left: 10
-                }}
+              <TouchableOpacity
                 onPress={() => {
+                  console.log("touch from pickImage... go next");
                   setImageUriForAll("");
-                  router.push("/fish");
+                  setTimeout(() => router.push("/fish"), 0);
                 }}
-              />
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} // 增加觸控區域
+              >
+                <FontAwesome
+                  name="times"
+                  size={32}
+                  color={iconColor}
+                  style={{ left: 10 }}
+                />
+              </TouchableOpacity>
             )
           }}
         />
