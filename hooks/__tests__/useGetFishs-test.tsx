@@ -154,8 +154,6 @@ describe('useGetFishs', () => {
                 expect(screen.getByTestId('fishs').textContent).toBe('1');
             });
 
-
-
             // 第二次模擬404， 模擬按鈕點擊，觸發第二次 fetchFishs
             fireEvent.click(screen.getByTestId('fetch-button'));
             expect(screen.getByTestId('loading').textContent).toBe('true');
@@ -174,38 +172,40 @@ describe('useGetFishs', () => {
 
         });
 
-        //         // test('should keep fishs empty when get 404 and 500 Http Code', async () => {
-        //         //     // 第一次模擬500
-        //         //     global.fetch = jest.fn().mockResolvedValueOnce({
-        //         //         ok: false,
-        //         //         status: 500,
-        //         //         statusText: "Internal Server Error"
-        //         //     });
+        test('should keep fishs empty when get 404 and 500 Http Code', async () => {
+            // 第一次模擬500
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: false,
+                status: 500,
+                statusText: "Internal Server Error"
+            });
 
-        //         //     render(<TestComponentForAPI />);
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click(); // 第一次點擊
-        //         //     });
+            render(<TestComponentForAPI />);
+            expect(screen.getByTestId('loading').textContent).toBe('true');
 
-        //         //     expect(screen.getByTestId('error').textContent).toBe('抱歉，系統出了點問題，請稍後再試');
-        //         //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //         //     expect(screen.getByTestId('fishs').textContent).toBe('0');
+            await waitFor(() => {
+                expect(screen.getByTestId('error').textContent).toBe('抱歉，系統出了點問題，請稍後再試');
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('0');
+            });
 
-        //         //     // 第二次模擬404
-        //         //     global.fetch = jest.fn().mockResolvedValueOnce({
-        //         //         ok: false,
-        //         //         status: 404,
-        //         //         statusText: "Not Found"
-        //         //     });
+            // 第二次模擬404
+            fireEvent.click(screen.getByTestId('fetch-button'));
+            expect(screen.getByTestId('loading').textContent).toBe('true');
 
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click(); // 第二次點擊
-        //         //     });
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: false,
+                status: 404,
+                statusText: "Not Found"
+            });
 
-        //         //     expect(screen.getByTestId('error').textContent).toBe('找不到資料');
-        //         //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //         //     expect(screen.getByTestId('fishs').textContent).toBe('0');
-        //         // });
+            await waitFor(() => {
+                expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('0');
+            });
+
+        });
 
         //         // test('should update fishs with new data on second successful fetch', async () => {
         //         //     // 第一次成功
