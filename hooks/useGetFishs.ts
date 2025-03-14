@@ -5,27 +5,15 @@ import localStorageService from "@/services/locatStroageService";
 
 
 export default function useGetFishs() {
-    const [fishs, setFishs] = useState([]);
+    const [fishs, setFishs] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
-    // 從 API 獲取資料
-    const getFishsFromAPI = async () => {
-        try {
-            const fishsData = await fishService.getFishs();
-            return fishsData.reverse();
-        } catch (error) {
-            console.log('Get fishs data has some problem 1:', error);
-            throw error; // 由外部 catch 處理
-        }
-    };
 
     // 獲取資料的邏輯（從 AsyncStorage 或 API）
     const fetchFishs = async () => {
         try {
             setIsLoading(true);
             setError(null);
-
             // 從 AsyncStorage 獲取資料
             const storedData = await localStorageService.getData('fishs');
             if (storedData) {
@@ -33,13 +21,14 @@ export default function useGetFishs() {
                 console.log('Data fetched from AsyncStorage');
             } else {
                 // 如果 AsyncStorage 無資料，從 API 獲取
-                const apiData = await getFishsFromAPI();
+                const apiData = await fishService.getFishs();
                 setFishs(apiData);
-                console.log(apiData);
                 await localStorageService.storeData('fishs', apiData);
                 console.log('Data fetched from API and stored in AsyncStorage');
             }
         } catch (error) {
+            setError(null);
+            console.log("!!!!!!!!" + error.message);
             if (error.message === 'HTTP error! status: 404') {
                 setError('找不到資料');
             } else if (error.message === 'HTTP error! status: 500') {
