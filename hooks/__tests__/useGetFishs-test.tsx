@@ -7,9 +7,9 @@ jest.mock('@/services/locatStroageService', () => ({
     clearData: jest.fn(),
 }));
 
-
 describe('useGetFishs', () => {
     describe('focus in API', () => {
+        const originalFetch = global.fetch; // 保存原始 fetch
         const TestComponentForAPI = () => {
             const { fishs, isLoading, error, fetchFishs } = useGetFishs();
             return (
@@ -24,6 +24,10 @@ describe('useGetFishs', () => {
 
         beforeEach(() => {
             jest.clearAllMocks();
+        });
+
+        afterEach(() => {
+            global.fetch = originalFetch; // 恢復原始 fetch
         });
 
         test('should update state when fetching succeeds', async () => {
@@ -102,37 +106,36 @@ describe('useGetFishs', () => {
 
         });
 
-        //         // test('should keep fishs empty when fetching fails with 500', async () => {
-        //         //     global.fetch = jest.fn().mockResolvedValue({
-        //         //         ok: false,
-        //         //         status: 500,
-        //         //         statusText: 'Internal Server Error',
-        //         //     });
+        test('should keep fishs empty when fetching fails with 500', async () => {
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: false,
+                status: 500,
+                statusText: 'Internal Server Error',
+            });
 
-        //         //     render(<TestComponentForAPI />);
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click();
-        //         //     });
+            render(<TestComponentForAPI />);
+            expect(screen.getByTestId('loading').textContent).toBe('true');
 
-        //         //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //         //     expect(screen.getByTestId('fishs').textContent).toBe('0');
-        //         //     expect(screen.getByTestId('error').textContent).toBe('抱歉，系統出了點問題，請稍後再試');
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('0');
+                expect(screen.getByTestId('error').textContent).toBe('抱歉，系統出了點問題，請稍後再試');
+            });
+        });
 
-        //         // });
+        // test('should keep fishs empty when fetch failure', async () => {
+        //     global.fetch = jest.fn().mockRejectedValue(new Error("Network Error"));
 
-        //         // test('should keep fishs empty when fetch failure', async () => {
-        //         //     global.fetch = jest.fn().mockRejectedValue(new Error("Network Error"));
+        //     render(<TestComponentForAPI />);
+        //     await act(async () => {
+        //         await screen.getByText('Fetch').click();
+        //     });
 
-        //         //     render(<TestComponentForAPI />);
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click();
-        //         //     });
+        //     expect(screen.getByTestId('loading').textContent).toBe('false');
+        //     expect(screen.getByTestId('fishs').textContent).toBe('0');
+        //     expect(screen.getByTestId('error').textContent).toBe('網路錯誤，請檢查網路連線後再試');
 
-        //         //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //         //     expect(screen.getByTestId('fishs').textContent).toBe('0');
-        //         //     expect(screen.getByTestId('error').textContent).toBe('網路錯誤，請檢查網路連線後再試');
-
-        //         // });
+        // });
 
         //         // test('should keep data on second fetch fail', async () => {
         //         //     // 第一次模擬成功
