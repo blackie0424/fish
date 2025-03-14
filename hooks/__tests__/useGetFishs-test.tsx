@@ -123,19 +123,19 @@ describe('useGetFishs', () => {
             });
         });
 
-        // test('should keep fishs empty when fetch failure', async () => {
-        //     global.fetch = jest.fn().mockRejectedValue(new Error("Network Error"));
+        test('should keep fishs empty when fetch failure due to network error', async () => {
+            global.fetch = jest.fn().mockRejectedValue(new Error("Network Error"));
 
-        //     render(<TestComponentForAPI />);
-        //     await act(async () => {
-        //         await screen.getByText('Fetch').click();
-        //     });
+            render(<TestComponentForAPI />);
+            expect(screen.getByTestId('loading').textContent).toBe('true');
 
-        //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //     expect(screen.getByTestId('fishs').textContent).toBe('0');
-        //     expect(screen.getByTestId('error').textContent).toBe('網路錯誤，請檢查網路連線後再試');
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('0');
+                expect(screen.getByTestId('error').textContent).toBe('網路錯誤，請檢查網路連線後再試');
+            });
 
-        // });
+        });
 
         //         // test('should keep data on second fetch fail', async () => {
         //         //     // 第一次模擬成功
