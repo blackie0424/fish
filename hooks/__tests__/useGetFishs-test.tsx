@@ -207,36 +207,39 @@ describe('useGetFishs', () => {
 
         });
 
-        //         // test('should update fishs with new data on second successful fetch', async () => {
-        //         //     // 第一次成功
-        //         //     global.fetch = jest.fn().mockResolvedValueOnce({
-        //         //         ok: true,
-        //         //         json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
-        //         //     });
+        test('should update fishs with new data on second successful fetch', async () => {
+            // 第一次成功
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
+            });
 
-        //         //     render(<TestComponentForAPI />);
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click(); // 第一次點擊
-        //         //     });
+            render(<TestComponentForAPI />);
+            expect(screen.getByTestId('loading').textContent).toBe('true');
 
-        //         //     expect(screen.getByTestId('error').textContent).toBe('no error');
-        //         //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //         //     expect(screen.getByTestId('fishs').textContent).toBe('1');
 
-        //         //     // 第二次成功
-        //         //     global.fetch = jest.fn().mockResolvedValueOnce({
-        //         //         ok: true,
-        //         //         json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }, { id: 2, name: 'Ivey' }] }),
-        //         //     });
+            await waitFor(() => {
+                expect(screen.getByTestId('error').textContent).toBe('no error');
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('1');
+            });
 
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click(); // 第二次點擊
-        //         //     });
+            // 第二次成功
+            fireEvent.click(screen.getByTestId('fetch-button'));
+            expect(screen.getByTestId('loading').textContent).toBe('true');
 
-        //         //     expect(screen.getByTestId('error').textContent).toBe('no error');
-        //         //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //         //     expect(screen.getByTestId('fishs').textContent).toBe('2');
-        //         // });
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }, { id: 2, name: 'Ivey' }] }),
+            });
+
+            await waitFor(() => {
+                expect(screen.getByTestId('error').textContent).toBe('no error');
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('2');
+            });
+
+        });
     });
 
 
