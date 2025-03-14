@@ -50,23 +50,25 @@ describe('useGetFishs', () => {
 
         });
 
-        // test('should keep fishs empty when fetching fails with 404', async () => {
-        //     global.fetch = jest.fn().mockResolvedValue({
-        //         ok: false,
-        //         status: 404,
-        //         statusText: 'Not Found',
-        //     });
+        test('should keep fishs empty when fetching fails with 404', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                status: 404,
+                statusText: 'Not Found',
+            });
 
-        //     render(<TestComponentForAPI />);
-        //     await act(async () => {
-        //         await screen.getByText('Fetch').click();
-        //     });
+            render(<TestComponentForAPI />);
+            //fetch 正在執行
+            expect(screen.getByTestId('loading').textContent).toBe('true');
+            expect(screen.getByTestId('fishs').textContent).toBe('0');
 
-        //     expect(screen.getByTestId('loading').textContent).toBe('false');
-        //     expect(screen.getByTestId('fishs').textContent).toBe('0');
-        //     expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+            await waitFor(async () => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('0');
+                expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+            });
 
-        // });
+        });
 
         //         // test('should reset error on second fetch', async () => {
         //         //     // 第一次模擬 404

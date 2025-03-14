@@ -28,7 +28,6 @@ export default function useGetFishs() {
             }
         } catch (error) {
             setError(null);
-            console.log("!!!!!!!!" + error.message);
             if (error.message === 'HTTP error! status: 404') {
                 setError('找不到資料');
             } else if (error.message === 'HTTP error! status: 500') {
@@ -38,7 +37,6 @@ export default function useGetFishs() {
             } else {
                 setError('發生預期外的錯誤，請稍後再試');
             }
-            console.error('Error fetching fish data:', error);
         } finally {
             setIsLoading(false);
         }
