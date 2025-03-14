@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import useGetFishs from '../useGetFishs';
 
 jest.mock('@/services/locatStroageService', () => ({
@@ -17,7 +17,7 @@ describe('useGetFishs', () => {
                     <span data-testid="loading">{isLoading.toString()}</span>
                     <span data-testid="fishs">{fishs.length}</span>
                     <span data-testid="error">{error || 'no error'}</span>
-                    <button onClick={fetchFishs}>Fetch</button>
+                    <button onClick={fetchFishs} data-testid="fetch-button">Fetch</button>
                 </div>
             );
         };
@@ -70,35 +70,37 @@ describe('useGetFishs', () => {
 
         });
 
-        //         // test('should reset error on second fetch', async () => {
-        //         //     // 第一次模擬 404
-        //         //     global.fetch = jest.fn().mockResolvedValueOnce({
-        //         //         ok: false,
-        //         //         status: 404,
-        //         //         statusText: 'Not Found',
-        //         //     });
+        test('should reset error on second successful fetch after initial failure', async () => {
+            // 第一次模擬 404
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: false,
+                status: 404,
+                statusText: 'Not Found',
+            });
 
-        //         //     render(<TestComponentForAPI />);
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click(); // 第一次點擊
-        //         //     });
+            render(<TestComponentForAPI />);
+            await waitFor(() => {
+                expect(screen.getByTestId('error').textContent).toBe('找不到資料');
+            });
 
-        //         //     expect(screen.getByTestId('error').textContent).toBe('找不到資料');
 
-        //         //     // 第二次模擬成功
-        //         //     global.fetch = jest.fn().mockResolvedValueOnce({
-        //         //         ok: true,
-        //         //         json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
-        //         //     });
+            // 第二次模擬成功
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({ message: "success", data: [{ id: 1, name: 'cilat' }] }),
+            });
 
-        //         //     await act(async () => {
-        //         //         await screen.getByText('Fetch').click(); // 第二次點擊
-        //         //     });
+            // 模擬按鈕點擊，觸發第二次 fetchFishs
+            fireEvent.click(screen.getByTestId('fetch-button'));
+            expect(screen.getByTestId('loading').textContent).toBe('true');
 
-        //         //     // 如果沒重置，這會失敗，因為 error 還是 "找不到資料"
-        //         //     expect(screen.getByTestId('error').textContent).toBe('no error');
-        //         //     expect(screen.getByTestId('fishs').textContent).toBe('1');
-        //         // });
+            await waitFor(async () => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('error').textContent).toBe('no error');
+                expect(screen.getByTestId('fishs').textContent).toBe('1');
+            });
+
+        });
 
         //         // test('should keep fishs empty when fetching fails with 500', async () => {
         //         //     global.fetch = jest.fn().mockResolvedValue({
