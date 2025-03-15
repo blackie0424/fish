@@ -37,8 +37,6 @@ describe('useGetFishs', () => {
             });
 
             render(<TestComponentForAPI />);
-            expect(screen.getByTestId('loading').textContent).toBe('true');
-            expect(screen.getByTestId('fishs').textContent).toBe('0');
 
             //fetch 正在執行
             expect(screen.getByTestId('loading').textContent).toBe('true');
