@@ -13,9 +13,14 @@ type FishObject = {
 };
 
 describe('API module', () => {
+    const originalFetch = global.fetch; // 保存原始 fetch
 
     beforeEach(() => {
         fetchMock.resetMocks(); // 重置 fetch mock 狀態，避免影響其他測試
+    });
+
+    afterEach(() => {
+        global.fetch = originalFetch;
     });
     // 測試 getFishs 相關案例
     describe('getFishs - Fetch Fish List', () => {
