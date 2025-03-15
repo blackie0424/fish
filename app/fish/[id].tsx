@@ -11,18 +11,13 @@ import useGetFish from "@/hooks/useGetFish";
 export default function FishDetailScreen() {
     const { id } = useLocalSearchParams();
     const {
-        setFishId,
         fishData,
-        isLoading, setIsLoading,
-        getFishDataFromAPI, clearFishData
+        isLoading,
+        fetchFish
     } = useGetFish();
 
     useEffect(() => {
-        clearFishData();
-        setFishId(id);
-        console.log("call get fish data by fish id is:" + id);
-        setIsLoading(true);
-        getFishDataFromAPI();
+        fetchFish();
     }, [id]);
 
     return (

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import fishService from "@/services/fishService";
+import localStorageService from "@/services/locatStroageService";
+
 
 import { useLocalSearchParams } from "expo-router";
 
@@ -11,13 +13,21 @@ export default function useGetFish() {
     const [error, setError] = useState<string | null>(null);
 
     console.log("get fish id:" + id);
-    const getFishDataFromAPI = async () => {
+    const fetchFish = async () => {
         try {
             setIsLoading(true);
             setError(null);
-            console.log("call get fish api by fish id:" + id);
-            const apiData = await fishService.getFish(id);
-            setFishData(apiData);
+            const storedData = await localStorageService.getData('fish' + id);
+            if (storedData) {
+                setFishData(storedData);
+                console.log('the fish data fetched from AsyncStorage');
+            } else {
+                console.log("the fish data fetched from api by fish id:" + id);
+                const apiData = await fishService.getFish(id);
+                setFishData(apiData);
+                await localStorageService.storeData('fish' + id, apiData);
+                console.log('Data fetched from API and stored in AsyncStorage');
+            }
         } catch (error) {
             console.error(error);
             setError(error);
@@ -27,20 +37,14 @@ export default function useGetFish() {
     };
 
     useEffect(() => {
-        getFishDataFromAPI();
+        fetchFish();
     }, []);
-
-    const clearFishData = async () => {
-        setFishData(null);
-        setIsLoading(false);
-    }
 
     return {
         fishId, setFishId,
         fishData,
         isLoading, setIsLoading,
         error,
-        getFishDataFromAPI,
-        clearFishData
+        fetchFish
     };
 }
