@@ -1,40 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import fishService from "@/services/fishService";
 
 import { useLocalSearchParams } from "expo-router";
 
 export default function useGetFish() {
-    const { id } = useLocalSearchParams(); // 取得網址中的 id
+    const { id } = useLocalSearchParams() as unknown as { id: number }; // 取得網址中的 id
     const [fishId, setFishId] = useState(id);
-    const [fishData, setFishData] = useState(null);
+    const [fishData, setFishData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const API_URL = `${process.env.EXPO_PUBLIC_API_URL}fish/${id}`;
+    const [error, setError] = useState<string | null>(null);
 
     console.log("get fish id:" + id);
     const getFishDataFromAPI = async () => {
         try {
-            const res = await fetch(API_URL)
-            console.log("call get fish api by fish id:" + fishId);
-            if (!res.ok) throw new Error("something error!" + id);
-            const data = await res.json();
-            setFishData(data.data);
-
+            setIsLoading(true);
+            setError(null);
+            console.log("call get fish api by fish id:" + id);
+            const apiData = await fishService.getFish(id);
+            setFishData(apiData);
         } catch (error) {
             console.error(error);
+            setError(error);
         } finally {
             setIsLoading(false);
         }
     };
 
+    useEffect(() => {
+        getFishDataFromAPI();
+    }, []);
+
     const clearFishData = async () => {
-        setFishId("");
         setFishData(null);
         setIsLoading(false);
     }
 
     return {
-        setFishId,
+        fishId, setFishId,
         fishData,
         isLoading, setIsLoading,
+        error,
         getFishDataFromAPI,
         clearFishData
     };
