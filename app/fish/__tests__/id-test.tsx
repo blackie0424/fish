@@ -7,6 +7,12 @@ jest.mock('expo-router', () => ({
     useLocalSearchParams: jest.fn(),
 }));
 
+jest.mock('@/services/locatStroageService', () => ({
+    storeData: jest.fn(),
+    getData: jest.fn().mockResolvedValue(null),
+    clearData: jest.fn(),
+}));
+
 describe('FishDetailScreen automatically loads the fish data', () => {
     // 每次測試前重置 mock
     beforeEach(() => {
