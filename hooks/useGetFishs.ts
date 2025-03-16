@@ -42,6 +42,27 @@ export default function useGetFishs() {
         }
     };
 
+    const onRefresh = async () => {
+        console.log("refresh fish list");
+        // const mockdata = {
+        //     id: 122,
+        //     name: "ibow",
+        //     type: "rahet",
+        //     locate: "Iraraley",
+        //     process: "isisan",
+        //     image: "https://etycehppghhlxqpdvlga.supabase.co/storage/v1/object/public/tao_among_storage/images/1742053444_072B0235-1F8F-4DC0-9C80-55DCACD2E5B2.png"
+        // };
+        // const oldFishs = await localStorageService.getData('fishs') || [];
+        // const isDuplicate = oldFishs.some((fish: any) => fish.id === mockdata.id);
+        // if (!isDuplicate) {
+        //     console.log("~~~~~~" + oldFishs);
+        //     const updatedFishs = [mockdata, ...oldFishs];
+        //     console.log("!!!!!!" + updatedFishs);
+        //     setFishs(updatedFishs);
+        //     await localStorageService.storeData('fishs', updatedFishs);
+        // }
+        // localStorageService.delAData('fishs');
+    };
     // 初始載入時觸發
     useEffect(() => {
         //localStorageService.delAData('fishs');
@@ -53,5 +74,6 @@ export default function useGetFishs() {
         isLoading,
         error,
         fetchFishs,
+        onRefresh
     };
 }

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, FlatList, Pressable, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, FlatList, Pressable, Text, RefreshControl } from "react-native";
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
 import { FishCard } from "@/components/FishCard";
@@ -9,11 +9,13 @@ import SkeletonFishCard from "@/components/SkeletonFishCard"
 import useGetFishs from "@/hooks/useGetFishs"
 
 
+
 export default function HomeScreen() {
-  const { fishs, isLoading, fetchFishs, error } = useGetFishs();
+  const { fishs, isLoading, fetchFishs, onRefresh, error } = useGetFishs();
   const router = useRouter();
   // 用來判斷是否需要刷新資料
   const { refresh } = useLocalSearchParams();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     fetchFishs();
@@ -59,6 +61,9 @@ export default function HomeScreen() {
               />
             </Pressable>
           )}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       )}
     </View>
