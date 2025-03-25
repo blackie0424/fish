@@ -363,4 +363,43 @@ describe('API module', () => {
 
     });
 
+    describe('update Fishs - update the fishs', () => {
+        test('get update fishs data when trigger onRefresh event', async () => {
+
+            const mockLastUpdateTime = 1742044359;
+            const mockFishs = {
+                "message": "success",
+                "updateTime": 1742044359,
+                "data": [
+                    {
+                        "id": 999,
+                        "name": "ibow",
+                        "type": "rahet",
+                        "locate": "Iraraley",
+                        "image": "https://etycehppghhlxqpdvlga.supabase.co/storage/v1/object/public/tao_among_storage/images/1742053444_072B0235-1F8F-4DC0-9C80-55DCACD2E5B2.png",
+                        "created_at": "2025-03-14 13:18:54",
+                        "updated_at": "2025-03-14 13:18:54"
+                    }
+                ]
+            }
+
+            fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
+
+            // 模擬 fetch 回傳的 API 資料
+            const result = await FishService.updateFishs(mockLastUpdateTime);
+
+            // 驗證 fetch 是否被正確呼叫
+            expect(fetchMock).toHaveBeenCalledWith(
+                Fishs_API_URL + "?since=1742044359", expect.objectContaining({ method: 'GET' }));
+
+            // 驗證回傳的資料是否與 mockFishs 相同
+            expect(result).toEqual(mockFishs);
+
+            // 驗證回傳的資料是否與 mockFishs.data 相同
+            expect(result.data).toEqual(mockFishs.data);
+
+        })
+
+    });
+
 });

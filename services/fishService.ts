@@ -57,7 +57,23 @@ const Fish = {
             console.log("Create the fish has some problem in fishService.ts");
             throw error;
         }
-    }
+    },
+    updateFishs: async (lastUpdateTime: number) => {
+        //1. 送出update 請求
+        try {
+            const response = await fetch(API_URL + "?since=" + lastUpdateTime, { method: "GET" });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+
+            return data;
+        } catch (error) {
+            console.log("update fishs has some problem in fishService.ts");
+            throw error;
+        }
+    },
+
 
 }
 
