@@ -22,6 +22,8 @@ export default function HomeScreen() {
 
     // 清除 refresh 狀態，避免一直重新請求
     if (refresh === "true") {
+      console.log("refresh is true");
+      onRefresh();
       router.replace("/fish");  // 跳轉到相同頁面來移除 refresh 狀態
     }
   }, [refresh]);
