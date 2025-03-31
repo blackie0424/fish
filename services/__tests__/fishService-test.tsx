@@ -60,7 +60,7 @@ describe('API module', () => {
                 Fishs_API_URL, expect.objectContaining({ method: 'GET' }));
 
             // 驗證回傳的資料是否與 mockFishs.data 相同
-            expect(result).toEqual(mockFishs.data);
+            expect(result.data).toEqual(mockFishs.data);
         });
 
         test('should fetch empty fishes data successfully', async () => {
@@ -80,9 +80,8 @@ describe('API module', () => {
                 Fishs_API_URL, expect.objectContaining({ method: 'GET' }));
 
             // 驗證回傳的資料是否與 mockFishs.data 相同
-            console.log(result);
-            expect(result).toEqual(mockFishs.data);
-            expect(result).toBeNull();
+            expect(result.data).toEqual(mockFishs.data);
+            expect(result.data).toBeNull();
         });
 
         test('should throw an error when fetch fishs fails', async () => {

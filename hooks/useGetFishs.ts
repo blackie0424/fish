@@ -22,10 +22,10 @@ export default function useGetFishs() {
                 console.log('Data fetched from AsyncStorage');
             } else {
                 // 如果 AsyncStorage 無資料，從 API 獲取
-                const apiData = await fishService.getFishs();
-                setFishs(apiData);
-                await localStorageService.storeData('fishs', apiData);
-                await localStorageService.storeData('lastUpdateTime', Date.now());
+                const res = await fishService.getFishs();
+                setFishs(res.data);
+                await localStorageService.storeData('fishs', res.data);
+                await localStorageService.storeData('lastUpdateTime', res.lastUpdateTime);
                 console.log('Data fetched from API and stored in AsyncStorage');
             }
         } catch (error) {
