@@ -400,6 +400,31 @@ describe('API module', () => {
 
         })
 
+        test('get error messgae when send invalid data to onRefresh event handler', async () => {
+
+            const mockLastUpdateTimeIsInvalid = "invalidTime";
+            const mockFishs = {
+                "message": "Invalid since parameter",
+                "data": null
+            }
+
+            fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
+
+            // 模擬 fetch 回傳的 API 資料
+            const result = await FishService.updateFishs(mockLastUpdateTimeIsInvalid);
+
+            // 驗證 fetch 是否被正確呼叫
+            expect(fetchMock).toHaveBeenCalledWith(
+                Fishs_API_URL + "?since=invalidTime", expect.objectContaining({ method: 'GET' }));
+
+            // 驗證回傳的資料是否與 mockFishs 相同
+            expect(result).toEqual(mockFishs);
+
+            // 驗證回傳的資料是否與 mockFishs.data 相同
+            expect(result.data).toEqual(mockFishs.data);
+
+        })
+
     });
 
 });
