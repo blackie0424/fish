@@ -434,21 +434,20 @@ describe('API module', () => {
                 "data": null
             }
 
-            fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
+            fetchMock.mockResponseOnce(JSON.stringify(mockFishs), {
+                status: 400 // 模擬 400 錯誤
+            });
 
-            // 模擬 fetch 回傳的 API 資料
-            const result = await FishService.fetchFishsSince(mockLastUpdateTimeIsInvalid);
 
-            // 驗證 fetch 是否被正確呼叫
+            await expect(FishService.fetchFishsSince(mockLastUpdateTimeIsInvalid)).
+                rejects.toThrow(
+                    'HTTP error! status: 400'
+                );
+
             expect(fetchMock).toHaveBeenCalledWith(
-                Fishs_API_URL + "?since=invalidTime", expect.objectContaining({ method: 'GET' }));
-
-            // 驗證回傳的資料是否與 mockFishs 相同
-            expect(result).toEqual(mockFishs);
-
-            // 驗證回傳的資料是否與 mockFishs.data 相同
-            expect(result.data).toEqual(mockFishs.data);
-
+                Fishs_API_URL + '?since=invalidTime',
+                expect.objectContaining({ method: 'GET' })
+            );
         })
 
     });
