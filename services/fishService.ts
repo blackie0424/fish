@@ -61,6 +61,11 @@ const Fish = {
     fetchFishsSince: async (lastUpdateTime: number) => {
         //1. 送出update 請求
         try {
+            // 檢查 lastUpdateTime 是否為數字
+            if (typeof lastUpdateTime !== 'number' || isNaN(lastUpdateTime)) {
+                throw new Error('Invalid lastUpdateTime: must be a number');
+            }
+
             const response = await fetch(API_URL + "?since=" + lastUpdateTime, { method: "GET" });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,7 +74,7 @@ const Fish = {
 
             return data;
         } catch (error) {
-            console.log("update fishs has some problem in fishService.ts");
+            console.log("fetchFishsSince has some problem in fishService.ts");
             throw error;
         }
     },

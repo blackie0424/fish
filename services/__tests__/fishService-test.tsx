@@ -426,28 +426,15 @@ describe('API module', () => {
 
         })
 
-        test('get error messgae when send invalid data to onRefresh event handler', async () => {
+        test('throws an error when sending invalid lastUpdateTime to fetchFishsSince', async () => {
 
             const mockLastUpdateTimeIsInvalid = "invalidTime";
-            const mockFishs = {
-                "message": "Invalid since parameter",
-                "data": null
-            }
 
-            fetchMock.mockResponseOnce(JSON.stringify(mockFishs), {
-                status: 400 // 模擬 400 錯誤
-            });
-
-
-            await expect(FishService.fetchFishsSince(mockLastUpdateTimeIsInvalid)).
+            await expect(FishService.fetchFishsSince(mockLastUpdateTimeIsInvalid as any)).
                 rejects.toThrow(
-                    'HTTP error! status: 400'
+                    'Invalid lastUpdateTime: must be a number'
                 );
 
-            expect(fetchMock).toHaveBeenCalledWith(
-                Fishs_API_URL + '?since=invalidTime',
-                expect.objectContaining({ method: 'GET' })
-            );
         })
 
     });
