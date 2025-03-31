@@ -400,6 +400,32 @@ describe('API module', () => {
 
         })
 
+        test('returns an empty data array when triggering the onRefresh event with no new data to update', async () => {
+
+            const mockLastUpdateTime = 1742044359;
+            const mockFishs = {
+                "message": "No data available",
+                "updateTime": 1742044359,
+                "data": []
+            }
+
+            fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
+
+            // 模擬 fetch 回傳的 API 資料
+            const result = await FishService.updateFishs(mockLastUpdateTime);
+
+            // 驗證 fetch 是否被正確呼叫
+            expect(fetchMock).toHaveBeenCalledWith(
+                Fishs_API_URL + "?since=1742044359", expect.objectContaining({ method: 'GET' }));
+
+            // 驗證回傳的資料是否與 mockFishs.data 相同
+            expect(result.data).toEqual(mockFishs.data);
+
+            // 驗證回傳的資料是否與 mockFishs.message 相同
+            expect(result.message).toEqual('No data available');
+
+        })
+
         test('get error messgae when send invalid data to onRefresh event handler', async () => {
 
             const mockLastUpdateTimeIsInvalid = "invalidTime";
