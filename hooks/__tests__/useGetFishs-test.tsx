@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import useGetFishs from '../useGetFishs';
+import localStorageService from '@/services/locatStroageService';
 
 jest.mock('@/services/locatStroageService', () => ({
     storeData: jest.fn(),
@@ -238,7 +239,84 @@ describe('useGetFishs', () => {
             });
 
         });
+
+
     });
 
+    describe('useGetFishs Hook - onRefresh handler', () => {
+        const initialFishs = [
+            { id: 1, name: 'fish1', type: 'type1', locate: 'loc1', image: 'fish1.png' },
+            { id: 2, name: 'fish2', type: 'type2', locate: 'loc2', image: 'fish2.png' },
+            { id: 3, name: 'fish3', type: 'type3', locate: 'loc3', image: 'fish3.png' },
+        ];
 
+        const originalFetch = global.fetch; // 保存原始 fetch
+        const TestComponentForAPI = () => {
+            const { fishs, isLoading, error, onRefresh } = useGetFishs();
+            return (
+                <div>
+                    <span data-testid="loading">{isLoading.toString()}</span>
+                    <span data-testid="fishs">{fishs.length}</span>
+                    <span data-testid="error">{error || 'no error'}</span>
+                    <button onClick={onRefresh} data-testid="refresh-button">Refresh</button>
+                </div>
+            );
+        };
+
+        beforeEach(() => {
+            jest.clearAllMocks();
+            // 模擬 AsyncStorage 返回初始的 3 筆資料
+            (localStorageService.getData as jest.Mock).mockImplementation((key) => {
+                if (key === 'fishs') {
+                    return Promise.resolve(initialFishs);
+                }
+                return Promise.resolve(null);
+            });
+
+            (localStorageService.storeData as jest.Mock).mockResolvedValue(undefined);
+        });
+
+        afterEach(() => {
+            jest.restoreAllMocks(); // 恢復所有模擬
+        });
+
+        test('should append one new fish to fishs when onRefresh is triggered successfully', async () => {
+            const mockFishsResponse = {
+                message: 'success',
+                updateTime: 1742044359,
+                data: [
+                    { id: 4, name: 'ibow', type: 'rahet', locate: 'iraraley', process: 'isisan', image: 'ibow.png' },
+                ],
+            };
+
+            // 模擬 global.fetch
+            global.fetch = jest.fn().mockResolvedValueOnce({
+                ok: true,
+                json: async () => mockFishsResponse,
+            });
+
+            render(<TestComponentForAPI />);
+
+            // 等待初始載入完成
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('3');
+                expect(screen.getByTestId('error').textContent).toBe('no error');
+            });
+
+            // 觸發 onRefresh
+            fireEvent.click(screen.getByTestId('refresh-button'));
+
+            // 檢查載入中狀態
+            expect(screen.getByTestId('loading').textContent).toBe('true');
+
+            // 預期 fishs 應該從 3 筆變為 4 筆
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+                expect(screen.getByTestId('fishs').textContent).toBe('4');
+                expect(screen.getByTestId('error').textContent).toBe('no error');
+            });
+
+        });
+    });
 });
