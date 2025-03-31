@@ -386,7 +386,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await FishService.updateFishs(mockLastUpdateTime);
+            const result = await FishService.fetchFishsSince(mockLastUpdateTime);
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
@@ -412,7 +412,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await FishService.updateFishs(mockLastUpdateTime);
+            const result = await FishService.fetchFishsSince(mockLastUpdateTime);
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(
@@ -437,7 +437,7 @@ describe('API module', () => {
             fetchMock.mockResponseOnce(JSON.stringify(mockFishs));
 
             // 模擬 fetch 回傳的 API 資料
-            const result = await FishService.updateFishs(mockLastUpdateTimeIsInvalid);
+            const result = await FishService.fetchFishsSince(mockLastUpdateTimeIsInvalid);
 
             // 驗證 fetch 是否被正確呼叫
             expect(fetchMock).toHaveBeenCalledWith(

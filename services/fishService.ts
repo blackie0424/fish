@@ -58,7 +58,7 @@ const Fish = {
             throw error;
         }
     },
-    updateFishs: async (lastUpdateTime: number) => {
+    fetchFishsSince: async (lastUpdateTime: number) => {
         //1. 送出update 請求
         try {
             const response = await fetch(API_URL + "?since=" + lastUpdateTime, { method: "GET" });
