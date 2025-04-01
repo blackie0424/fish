@@ -8,6 +8,7 @@ import SkeletonFishDetail from "@/components/SkeletonFishDetail";
 import useGetFish from "@/hooks/useGetFish";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useRouter } from 'expo-router';
 
 
 
@@ -16,6 +17,7 @@ export default function FishDetailScreen() {
     const colorScheme = useColorScheme();
     const backgroundColor = colorScheme === 'dark' ? '#003F5E' : '#FFFFFF';
     const iconColor = backgroundColor === '#003F5E' ? '#FFFFFF' : '#000000';
+    const router = useRouter();
 
     const { id } = useLocalSearchParams();
     const {
@@ -61,9 +63,10 @@ export default function FishDetailScreen() {
                     <Text>{fishData.description}</Text>
                     <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
                         <TouchableOpacity
+                            onPress={() => router.push("/fish/notes")}
                             style={styles.notesButton}
                         >
-                            <FontAwesome name="sticky-note" size={24} />
+                            <FontAwesome name="sticky-note" size={24} color={iconColor} />
                         </TouchableOpacity>
                     </View>
                 </View>

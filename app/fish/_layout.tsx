@@ -21,7 +21,8 @@ export default function FishStackLayout() {
   const showAddButton = !(
     pathname === "/fish/create" ||
     pathname === "/fish/pickImage" ||
-    /^\/fish\/\d+$/.test(pathname)
+    /^\/fish\/\d+$/.test(pathname) ||
+    pathname === "/fish/notes"
   );
 
   return (
