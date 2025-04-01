@@ -2,33 +2,48 @@
 import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, Dimensions, Image } from "react-native";
 import SelectionGroup from "@/components/SelectGroup";
 import { useImage } from '@/context/ImageContext';
+import { useLocalSearchParams } from 'expo-router';
+import { useState } from "react";
+import { FishCard } from "@/components/FishCard";
+
 
 
 export default function FishNotesScreen() {
     const { imageUriForAll } = useImage();
-    const noteType = ["外觀特徵", "分布地區", "傳統價值", "經驗分享", "相關故事", "游棲生態"];
+    const noteTypes = ["外觀特徵", "分布地區", "傳統價值", "經驗分享", "相關故事", "游棲生態"];
+    const { id, fishName, type, process, locate, imageUrl } = useLocalSearchParams();
+    const [note] = useState<string | null>(null);
+    const [noteType, setNoteType] = useState<string | null>(null);
+
+
+
+
 
     return (
         <View style={styles.container} >
-
-            {/* ✅ 預覽圖片 */}
-            {imageUriForAll && <Image source={{ uri: imageUriForAll }} style={styles.preview} />}
-            <View style={styles.separator} />
+            <FishCard
+                id={id}
+                name={fishName}
+                type={type}
+                locate={locate}
+                imgUri={imageUrl}
+                process={process}
+            />
             <Text style={styles.title}>筆記</Text>
             <TextInput
                 style={styles.input}
-                // value={fishName}
+                value={note}
                 // onChangeText={setFishName}
                 placeholder="請填寫您要記錄的內容"
             />
             {/* 分類 */}
             <Text style={styles.title}>分類</Text>
-            <SelectionGroup options={noteType} />
+            <SelectionGroup options={noteTypes} selected={noteType} onSelect={setNoteType} />
 
 
             {/* 確定按鈕 */}
             <TouchableOpacity
-                style={[styles.button, { backgroundColor: "#ccc" }]}
+                style={[styles.button]}
                 onPress={() => {
                     // setDisalbeButton(true);
                     // handleSubmit();
@@ -48,24 +63,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
-        padding: 10,
-    },
-    preview: {
-        width: "100%",
-        height: 200,
-        resizeMode: "contain"
-    },
-    separator: {
-        borderBottomWidth: 1,
-        borderBottomColor: "#999",
-        marginVertical: 10,
     },
     title: {
-        marginBottom: 10,
+        marginTop: 5,
+        marginBottom: 5,
+        left: 10,
         fontSize: 20
     },
     input: {
-        height: 200,
+        height: 180,
         borderWidth: 1,
         borderColor: "#ccc",
         padding: 10,

@@ -63,7 +63,19 @@ export default function FishDetailScreen() {
                     <Text>{fishData.description}</Text>
                     <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
                         <TouchableOpacity
-                            onPress={() => router.push("/fish/notes")}
+                            onPress={() => router.push(
+                                {
+                                    pathname: "/fish/notes",
+                                    params: {
+                                        id: id,
+                                        fishName: fishData.name,
+                                        imageUrl: fishData.image,
+                                        type: fishData.type,
+                                        process: fishData.process,
+                                        locate: fishData.locate
+                                    },
+                                }
+                            )}
                             style={styles.notesButton}
                         >
                             <FontAwesome name="sticky-note" size={24} color={iconColor} />

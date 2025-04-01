@@ -64,6 +64,26 @@ export default function FishStackLayout() {
           }}
         />
         <Stack.Screen
+          name="notes"
+          options={{
+            href: null,
+            tabBarStyle: { display: "none" },
+            headerLeft: () => (
+              <FontAwesome
+                name="arrow-left"
+                size={20}
+                color={iconColor}
+                style={{
+                  left: 10
+                }}
+                onPress={() => {
+                  router.back();
+                }}
+              />
+            )
+          }}
+        />
+        <Stack.Screen
           name="[id]"
           options={{
             href: null,
