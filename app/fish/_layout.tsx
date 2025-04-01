@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter, usePathname } from 'expo-router';
+import { useRouter, usePathname, useLocalSearchParams } from 'expo-router';
 import { Stack } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
@@ -17,13 +17,12 @@ export default function FishStackLayout() {
 
   const pathname = usePathname(); // 獲取當前路徑
 
-  // 定義需要顯示「新增魚類」按鈕的頁面
-  let showAddButton = false;
-  if (pathname === "/fish/create" || pathname === "/fish/pickImage") {
-    showAddButton = false;
-  } else {
-    showAddButton = true;
-  }
+  // 定義不需要顯示「新增魚類」按鈕的頁面
+  const showAddButton = !(
+    pathname === "/fish/create" ||
+    pathname === "/fish/pickImage" ||
+    /^\/fish\/\d+$/.test(pathname)
+  );
 
   return (
     <>
