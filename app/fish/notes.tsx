@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     input: {
-        height: 180,
+        height: 160,
         borderWidth: 1,
         borderColor: "#ccc",
         padding: 10,
