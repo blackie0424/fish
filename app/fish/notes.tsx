@@ -12,7 +12,7 @@ export default function FishNotesScreen() {
     const { imageUriForAll } = useImage();
     const noteTypes = ["外觀特徵", "分布地區", "傳統價值", "經驗分享", "相關故事", "游棲生態"];
     const { id, fishName, type, process, locate, imageUrl } = useLocalSearchParams();
-    const [note] = useState<string | null>(null);
+    const [note, setNote] = useState<string | null>(null);
     const [noteType, setNoteType] = useState<string | null>(null);
 
 
@@ -32,8 +32,11 @@ export default function FishNotesScreen() {
             <Text style={styles.title}>筆記</Text>
             <TextInput
                 style={styles.input}
+                multiline={true} // 啟用多行輸入
+                numberOfLines={5} // 初始顯示 5 行
+                textAlignVertical="top" // 文字從頂部開始（Android 需要）
                 value={note}
-                // onChangeText={setFishName}
+                onChangeText={setNote}
                 placeholder="請填寫您要記錄的內容"
             />
             {/* 分類 */}
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     input: {
-        height: 160,
+        height: 150,
         borderWidth: 1,
         borderColor: "#ccc",
         padding: 10,
