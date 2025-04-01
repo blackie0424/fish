@@ -14,17 +14,15 @@ export default function HomeScreen() {
   const { fishs, isLoading, fetchFishs, onRefresh, error } = useGetFishs();
   const router = useRouter();
   // 用來判斷是否需要刷新資料
-  const { refresh } = useLocalSearchParams();
+  const { shouldRefresh } = useLocalSearchParams();
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    // 清除 refresh 狀態，避免一直重新請求
-    if (refresh === "true") {
-      console.log("refresh is true");
+    if (shouldRefresh === "true") {
+      console.log("shouldRefresh is true, triggering onRefresh");
       onRefresh();
-      router.replace("/fish");  // 跳轉到相同頁面來移除 refresh 狀態
     }
-  }, [refresh]);
+  }, [shouldRefresh]);
 
   const skeletonData = Array(3).fill({});
 

@@ -41,7 +41,10 @@ export default function useCreateFish() {
             setImageName("");
             setImageUriForAll("");
             alert("魚資料已成功新增！");
-            route.push("/fish?refresh=true");
+            route.push({
+                pathname: "/fish",
+                params: { shouldRefresh: "true" }, // 通過 params 傳遞
+            });
         } catch (error) {
             alert('新增魚資料失敗，請稍後再試。');
             route.push("/fish");
