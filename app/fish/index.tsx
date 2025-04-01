@@ -18,8 +18,6 @@ export default function HomeScreen() {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    fetchFishs();
-
     // 清除 refresh 狀態，避免一直重新請求
     if (refresh === "true") {
       console.log("refresh is true");
