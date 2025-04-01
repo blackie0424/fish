@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList, Text } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
 import { Loading } from "@/components/Loading";
 import { FishCard } from "@/components/FishCard";
 import SkeletonFishDetail from "@/components/SkeletonFishDetail";
 import useGetFish from "@/hooks/useGetFish";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useColorScheme } from '@/hooks/useColorScheme';
+
+
 
 
 export default function FishDetailScreen() {
+    const colorScheme = useColorScheme();
+    const backgroundColor = colorScheme === 'dark' ? '#003F5E' : '#FFFFFF';
+    const iconColor = backgroundColor === '#003F5E' ? '#FFFFFF' : '#000000';
+
     const { id } = useLocalSearchParams();
     const {
         fishData,
@@ -51,9 +59,18 @@ export default function FishDetailScreen() {
                     </View>
 
                     <Text>{fishData.description}</Text>
+                    <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
+                        <TouchableOpacity
+                            style={styles.notesButton}
+                        >
+                            <FontAwesome name="sticky-note" size={24} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
-            )}
+
+            )
+            }
 
         </View >
     );
@@ -98,5 +115,20 @@ const styles = StyleSheet.create({
         top: '50%',
         left: '50%',
         transform: [{ translateX: -25 }, { translateY: -25 }],
+    },
+    tabBar: {
+        position: "absolute",
+        bottom: -30,
+        right: 20,
+        width: 50,
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 30,
+    },
+    notesButton: {
+        padding: 10,
+        backgroundColor: "rgba(0, 0, 0, 0.1)", // 輕微背景，視設計調整
+        borderRadius: 30,
     },
 });
