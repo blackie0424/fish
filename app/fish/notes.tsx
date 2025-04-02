@@ -1,17 +1,11 @@
 import { useState } from "react";
 import {
-    StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Button,
-    Alert,
+    StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert
 } from "react-native";
 import { useLocalSearchParams, router } from 'expo-router';
 
 import SelectionGroup from "@/components/SelectGroup";
-import { useImage } from '@/context/ImageContext';
 import { FishCard } from "@/components/FishCard";
-
-
-
-
 
 export default function FishNotesScreen() {
     const { id, fishName, type, process, locate, imageUrl } = useLocalSearchParams();
