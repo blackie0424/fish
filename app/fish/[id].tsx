@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text, ScrollView } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 import { Loading } from "@/components/Loading";
 import { FishCard } from "@/components/FishCard";
 import SkeletonFishDetail from "@/components/SkeletonFishDetail";
-import useGetFish from "@/hooks/useGetFish";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { useRouter } from 'expo-router';
-
-
+import useGetFish from "@/hooks/useGetFish";
 
 
 export default function FishDetailScreen() {
