@@ -97,6 +97,20 @@ const styles = StyleSheet.create({
         flex: 1, // Ensures the container takes up the full screen
         backgroundColor: "#003F5E",
     },
+
+    loadingView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(197, 196, 196, 0.5)",
+    },
+
+    loadingOverlay: {
+        ...StyleSheet.absoluteFillObject, // Covers the entire screen
+        backgroundColor: "rgba(197, 196, 196, 0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
     advanceView: {
         margin: 10,
         padding: 10,
@@ -125,18 +139,6 @@ const styles = StyleSheet.create({
     descriptionText: {
         fontSize: 20,
         marginHorizontal: 20, // Add margin to create equal spacing on both sides
-    },
-    loadingView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
-    loadingOverlay: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: [{ translateX: -25 }, { translateY: -25 }],
     },
 
     tabBar: {
