@@ -9,6 +9,7 @@ import useGetFish from "@/hooks/useGetFish";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useRouter } from 'expo-router';
+import localStorageService from "@/services/locatStroageService";
 
 
 
@@ -48,17 +49,16 @@ export default function FishDetailScreen() {
                         imgUri={fishData.image ?? ""}
                         process={fishData.process ?? ""}
                     />
-
-                    <View style={styles.advanceView}>
-                        {/* 分布地區的資料 */}
-                        <View style={styles.descriptionView}>
-                            <Text style={styles.descriptionText}>yanan da</Text>
-                        </View>
-                        {/* 游棲生態的資料 */}
-                        <View style={styles.descriptionView}>
-                            <Text style={styles.descriptionText}>kamoamong da</Text>
-                        </View>
-                    </View>
+                    {fishData.notes && fishData.notes.length > 0 && (
+                        fishData.notes.map((note, index) => (
+                            <View key={index} style={styles.advanceView}>
+                                <View style={styles.descriptionView}>
+                                    <Text style={styles.descriptionTitle}>{note.note_type}</Text>
+                                    <Text style={styles.descriptionText}>{note.note}</Text>
+                                </View>
+                            </View>
+                        ))
+                    )}
 
                     <Text>{fishData.description}</Text>
                     <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
@@ -82,11 +82,8 @@ export default function FishDetailScreen() {
                         </TouchableOpacity>
                     </View>
                 </View>
-
-
             )
             }
-
         </View >
     );
 
@@ -95,13 +92,10 @@ export default function FishDetailScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        flex: 1, // Ensures the container takes up the full screen
         backgroundColor: "#003F5E",
     },
     advanceView: {
-        height: 300,
         margin: 10,
         padding: 10,
         backgroundColor: "#E5C29F",
@@ -110,30 +104,37 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 }
     },
     descriptionView: {
-        width: 200,
-        height: 35,
+        alignItems: "flex-start", // Changed to flex-start to align content to the top-left
+    },
+    
+    descriptionTitle: {
+        width: 120,
+        height: 40,
+        marginBottom: 10, // Adjusted to create space below the title
+        lineHeight: 40,
         borderRadius: 50,
         opacity: 0.9,
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        marginBottom: 100,
         backgroundColor: "#FFF9F5",
-
-    },
-    descriptionText: {
         textAlign: "center",
         fontSize: 20,
-    },
-    loadingOverlay: {
+        paddingHorizontal: 20, // Add padding to ensure text doesn't touch the edges
+        },
+
+        descriptionText: {
+        fontSize: 20,
+        marginHorizontal: 20, // Add margin to create equal spacing on both sides
+        },
+
+        loadingOverlay: {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: [{ translateX: -25 }, { translateY: -25 }],
-    },
-    tabBar: {
+        },
+
+        tabBar: {
         position: "absolute",
-        bottom: -30,
+        bottom: -180, // Adjusted to prevent large empty space
         right: 20,
         width: 50,
         height: 50,
