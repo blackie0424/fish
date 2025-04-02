@@ -29,7 +29,7 @@ const Fish = {
             }
             const data = await response.json();
 
-            return data.data;
+            return data;
         } catch (error) {
             console.log("Get the fish data has some problem in fishService.ts");
             throw error;

@@ -24,8 +24,10 @@ export default function useGetFish() {
             } else {
                 console.log("the fish data fetched from api by fish id:" + id);
                 const apiData = await fishService.getFish(id);
-                setFishData(apiData);
-                await localStorageService.storeData('fish' + id, apiData);
+                console.log(apiData.lastUpdateTime, apiData);
+                setFishData(apiData.data);
+                await localStorageService.storeData('fish' + id, apiData.data);
+                await localStorageService.storeData('fish' + id + 'lastUpdateTime', apiData.lastUpdateTime);
                 console.log('Data fetched from API and stored in AsyncStorage');
             }
         } catch (error) {
