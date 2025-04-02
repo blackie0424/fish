@@ -33,9 +33,11 @@ export default function FishDetailScreen() {
     return (
         <View style={styles.container}>
             {isLoading ? (
-                <View>
+                <View style={styles.loadingView}>
                     <SkeletonFishDetail />
-                    <Loading style={styles.loadingOverlay} />
+                    <View style={styles.loadingOverlay}>
+                        <Loading />
+                    </View>
                 </View>
             ) : (
 
@@ -61,7 +63,6 @@ export default function FishDetailScreen() {
                         )}
                     </ScrollView>
 
-                    <Text>{fishData.description}</Text>
                     <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
                         <TouchableOpacity
                             onPress={() => router.push(
@@ -124,6 +125,11 @@ const styles = StyleSheet.create({
     descriptionText: {
         fontSize: 20,
         marginHorizontal: 20, // Add margin to create equal spacing on both sides
+    },
+    loadingView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
     },
 
     loadingOverlay: {

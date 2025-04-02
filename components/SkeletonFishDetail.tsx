@@ -16,7 +16,6 @@ const SkeletonFishDetail = () => (
         {/* 模仿 advanceView */}
         <View style={styles.skeletonAdvanceView}>
             <View style={styles.skeletonDescriptionView} />
-            <View style={styles.skeletonDescriptionView} />
         </View>
     </View>
 );
