@@ -154,7 +154,7 @@ describe('API module', () => {
                 `${Fishs_API_URL}/${mockFishId}`, expect.objectContaining({ method: 'GET' }));
 
             // 驗證回傳的資料是否與 mockFishs.data 相同
-            expect(result).toEqual(mockFishs.data);
+            expect(result.data).toEqual(mockFishs.data);
         });
 
         test('should fetch empty fish data successfully for a non-existent ID', async () => {
@@ -176,8 +176,8 @@ describe('API module', () => {
 
             // 驗證回傳的資料是否與 mockFishs.data 相同
             console.log(result);
-            expect(result).toEqual(mockFishs.data);
-            expect(result).toBeNull();
+            expect(result.data).toEqual(mockFishs.data);
+            expect(result.data).toBeNull();
         });
 
         test('should throw an error when fetch the fish data fails', async () => {
