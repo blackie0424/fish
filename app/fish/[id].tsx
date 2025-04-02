@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, View, TouchableOpacity, Text, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
 import { Loading } from "@/components/Loading";
@@ -9,7 +9,6 @@ import useGetFish from "@/hooks/useGetFish";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useRouter } from 'expo-router';
-import localStorageService from "@/services/locatStroageService";
 
 
 
@@ -49,16 +48,18 @@ export default function FishDetailScreen() {
                         imgUri={fishData.image ?? ""}
                         process={fishData.process ?? ""}
                     />
-                    {fishData.notes && fishData.notes.length > 0 && (
-                        fishData.notes.map((note, index) => (
-                            <View key={index} style={styles.advanceView}>
-                                <View style={styles.descriptionView}>
-                                    <Text style={styles.descriptionTitle}>{note.note_type}</Text>
-                                    <Text style={styles.descriptionText}>{note.note}</Text>
+                    <ScrollView>
+                        {fishData.notes && fishData.notes.length > 0 && (
+                            fishData.notes.map((note, index) => (
+                                <View key={index} style={styles.advanceView}>
+                                    <View style={styles.descriptionView}>
+                                        <Text style={styles.descriptionTitle}>{note.note_type}</Text>
+                                        <Text style={styles.descriptionText}>{note.note}</Text>
+                                    </View>
                                 </View>
-                            </View>
-                        ))
-                    )}
+                            ))
+                        )}
+                    </ScrollView>
 
                     <Text>{fishData.description}</Text>
                     <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     descriptionView: {
         alignItems: "flex-start", // Changed to flex-start to align content to the top-left
     },
-    
+
     descriptionTitle: {
         width: 120,
         height: 40,
@@ -118,21 +119,21 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 20,
         paddingHorizontal: 20, // Add padding to ensure text doesn't touch the edges
-        },
+    },
 
-        descriptionText: {
+    descriptionText: {
         fontSize: 20,
         marginHorizontal: 20, // Add margin to create equal spacing on both sides
-        },
+    },
 
-        loadingOverlay: {
+    loadingOverlay: {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: [{ translateX: -25 }, { translateY: -25 }],
-        },
+    },
 
-        tabBar: {
+    tabBar: {
         position: "absolute",
         bottom: -180, // Adjusted to prevent large empty space
         right: 20,
