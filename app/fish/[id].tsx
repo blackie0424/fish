@@ -41,7 +41,7 @@ export default function FishDetailScreen() {
                 </View>
             ) : (
 
-                <View>
+                <View style={styles.dataView}>
                     <FishCard
                         id={fishData.id}
                         name={fishData.name ?? ""}
@@ -111,6 +111,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    dataView: {
+        flex: 1,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        paddingBottom: 20,
+    },
     advanceView: {
         margin: 10,
         padding: 10,
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
 
     tabBar: {
         position: "absolute",
-        bottom: -180, // Adjusted to prevent large empty space
+        bottom: 20,
         right: 20,
         width: 50,
         height: 50,
