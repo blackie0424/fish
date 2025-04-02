@@ -19,7 +19,7 @@ export default function FishNotesScreen() {
     const [note, setNote] = useState<string | null>(null);
     const [noteType, setNoteType] = useState<string | null>(null);
     const [loading, setLoading] = useState(false); // 提交狀態
-
+    const [isDisalbed, setDisalbed] = useState(false);
 
     const noteTypes = ["外觀特徵", "分布地區", "傳統價值", "經驗分享", "相關故事", "游棲生態"];
 
@@ -94,10 +94,12 @@ export default function FishNotesScreen() {
 
             {/* 確定按鈕 */}
             <TouchableOpacity
-                style={[styles.button]}
+                style={[styles.button, isDisalbed && { backgroundColor: "#ccc" }]}
                 onPress={() => {
+                    setDisalbed(true);
                     handleSubmit();
                 }}
+                disabled={isDisalbed}
             >
                 <Text style={styles.buttonText}>新增筆記</Text>
             </TouchableOpacity>
