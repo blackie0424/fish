@@ -1,22 +1,70 @@
+import { useState } from "react";
+import {
+    StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Button,
+    Alert,
+} from "react-native";
+import { useLocalSearchParams, router } from 'expo-router';
 
-import { StyleSheet, View, Text, ScrollView, TextInput, TouchableOpacity, Dimensions, Image } from "react-native";
 import SelectionGroup from "@/components/SelectGroup";
 import { useImage } from '@/context/ImageContext';
-import { useLocalSearchParams } from 'expo-router';
-import { useState } from "react";
 import { FishCard } from "@/components/FishCard";
 
 
 
+
+
 export default function FishNotesScreen() {
-    const { imageUriForAll } = useImage();
-    const noteTypes = ["外觀特徵", "分布地區", "傳統價值", "經驗分享", "相關故事", "游棲生態"];
     const { id, fishName, type, process, locate, imageUrl } = useLocalSearchParams();
+
     const [note, setNote] = useState<string | null>(null);
     const [noteType, setNoteType] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false); // 提交狀態
 
 
+    const noteTypes = ["外觀特徵", "分布地區", "傳統價值", "經驗分享", "相關故事", "游棲生態"];
 
+    const handleSubmit = async () => {
+        if (!note || !noteType) {
+            Alert.alert("Error", "Please fill in both note and note type.");
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const response = await fetch(`https://tao-among.vercel.app/prefix/api/fish/${id}/note`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    note: note,
+                    note_type: noteType,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // 成功（201）
+                Alert.alert("Success", "Note added successfully!");
+                router.back(); // 返回 /fish/[id] 頁面
+            } else {
+                // 處理錯誤
+                if (response.status === 404) {
+                    Alert.alert("Error", "Fish not found.");
+                } else if (response.status === 422) {
+                    Alert.alert("Error", "Validation failed: " + result.message);
+                } else {
+                    Alert.alert("Error", result.message || "Failed to add note.");
+                }
+            }
+        } catch (error) {
+            Alert.alert("Error", "Network error: " + error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
     return (
@@ -48,8 +96,7 @@ export default function FishNotesScreen() {
             <TouchableOpacity
                 style={[styles.button]}
                 onPress={() => {
-                    // setDisalbeButton(true);
-                    // handleSubmit();
+                    handleSubmit();
                 }}
             >
                 <Text style={styles.buttonText}>新增筆記</Text>
