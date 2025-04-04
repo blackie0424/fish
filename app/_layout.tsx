@@ -37,6 +37,7 @@ export default function RootLayout() {
           <Tabs.Screen name="fish" options={{
             headerShown: false,
             title: "nivasilan ko a among",
+            headerTitleAlign: "center",
             headerBackButtonDisplayMode: "minimal",
             tabBarStyle: { display: "none" },
           }}

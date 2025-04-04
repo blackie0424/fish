@@ -29,6 +29,7 @@ export default function FishStackLayout() {
     <>
       <Stack screenOptions={{
         title: "nivasilan ko a among",
+        headerTitleAlign: "center",
         headerShown: true,
         headerBackButtonDisplayMode: "minimal",
         gestureEnabled: true, // 確保右滑手勢啟用
