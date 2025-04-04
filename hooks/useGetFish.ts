@@ -53,7 +53,6 @@ export default function useGetFish() {
     };
 
     const onRefresh = async () => {
-        console.log("~~~~~onRefresh");
         try {
             setIsLoading(true);
             setError(null);
