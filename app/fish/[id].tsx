@@ -147,12 +147,12 @@ const styles = StyleSheet.create({
         opacity: 0.9,
         backgroundColor: "#FFF9F5",
         textAlign: "center",
-        fontSize: 20,
+        fontSize: 18,
         paddingHorizontal: 20, // Add padding to ensure text doesn't touch the edges
     },
 
     descriptionText: {
-        fontSize: 20,
+        fontSize: 18,
         marginHorizontal: 20, // Add margin to create equal spacing on both sides
     },
 
