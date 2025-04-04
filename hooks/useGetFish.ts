@@ -60,7 +60,7 @@ export default function useGetFish() {
             console.log("refresh the fish  note - onRefresh triggered");
             const response = await fishService.fetchNotesSince(id, lastUpdateTime);
             setLastUpdateTime(response.lastUpdateTime);
-            await localStorageService.storeData('lastUpdateTime', response.lastUpdateTime);
+            await localStorageService.storeData('fish' + id + 'lastUpdateTime', response.lastUpdateTime);
 
             setNotes((prevNotes) => {
                 const newNotes = response.data.filter((newNote: any) => {
@@ -75,7 +75,7 @@ export default function useGetFish() {
                     // 直接在這裡執行後續邏輯
                     if (updatedNotes.length > 0) {
                         console.log("Updating AsyncStorage with:", updatedNotes);
-                        localStorageService.storeData('fishs' + id + 'notes', updatedNotes).catch((storageError) => {
+                        localStorageService.storeData('fish' + id + 'notes', updatedNotes).catch((storageError) => {
                             console.error("Error updating AsyncStorage:", storageError);
                             setNotes(prevNotes); // 恢復舊狀態
                             setError('無法更新本地儲存，請稍後再試');
