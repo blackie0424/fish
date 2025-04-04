@@ -42,7 +42,10 @@ export default function FishNotesScreen() {
             if (response.ok) {
                 // 成功（201）
                 Alert.alert("Success", "Note added successfully!");
-                router.back(); // 返回 /fish/[id] 頁面
+                router.push({
+                    pathname: `/fish/${id}`,
+                    params: { shouldRefresh: "true" }, // 通過 params 傳遞
+                });
             } else {
                 // 處理錯誤
                 if (response.status === 404) {

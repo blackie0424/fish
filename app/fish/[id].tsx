@@ -19,7 +19,8 @@ export default function FishDetailScreen() {
 
     const [refreshing, setRefreshing] = useState(false);
 
-    const { id } = useLocalSearchParams();
+    const { id, shouldRefresh } = useLocalSearchParams();
+
     const {
         fishData, notes,
         isLoading,
@@ -27,8 +28,11 @@ export default function FishDetailScreen() {
     } = useGetFish();
 
     useEffect(() => {
-        fetchFish();
-    }, [id]);
+        if (shouldRefresh === "true") {
+            console.log("shouldRefresh is true, triggering onRefresh");
+            onRefresh();
+        }
+    }, [shouldRefresh]);
 
     return (
         <View style={styles.container}>
