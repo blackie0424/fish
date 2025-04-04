@@ -5,6 +5,11 @@ interface FishObject {
     image?: string; // 可選
 }
 
+interface NoteObject {
+    note: string; // 必填
+    note_type?: string; // 必填
+}
+
 const API_URL = "https://tao-among.vercel.app/prefix/api/fish";
 
 const Fish = {
@@ -95,6 +100,33 @@ const Fish = {
             return data;
         } catch (error) {
             console.log("fetchNotesSince has some problem in fishService.ts");
+            throw error;
+        }
+    },
+    createNote: async (fishId: string, fishNote: NoteObject) => {
+
+        if (!fishNote.note || fishNote.note.trim() === '') throw new Error('The note is required.');
+        if (!fishNote.note_type || fishNote.note_type.trim() === '') throw new Error('The note type is required.');
+
+        console.log(fishNote);
+
+        try {
+            const response = await fetch(API_URL + "/" + fishId + "/note", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(fishNote),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("Response text:", result.message);
+            return result;
+        } catch (error) {
+            console.log("Create the fish note has some problem in fishService.ts");
             throw error;
         }
     },
