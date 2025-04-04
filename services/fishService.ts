@@ -78,6 +78,26 @@ const Fish = {
             throw error;
         }
     },
+    fetchNotesSince: async (id: number, lastUpdateTime: number) => {
+        //1. 送出update 請求
+        try {
+            // 檢查 lastUpdateTime 是否為數字
+            if (typeof lastUpdateTime !== 'number' || isNaN(lastUpdateTime)) {
+                throw new Error('Invalid lastUpdateTime: must be a number');
+            }
+
+            const response = await fetch(API_URL + "/" + id + "/notes?since=" + lastUpdateTime, { method: "GET" });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+
+            return data;
+        } catch (error) {
+            console.log("fetchNotesSince has some problem in fishService.ts");
+            throw error;
+        }
+    },
 
 
 }

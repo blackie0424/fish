@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, TouchableOpacity, Text, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, TouchableOpacity, Text, ScrollView, RefreshControl } from "react-native";
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
 import { Loading } from "@/components/Loading";
@@ -17,11 +17,13 @@ export default function FishDetailScreen() {
     const iconColor = backgroundColor === '#003F5E' ? '#FFFFFF' : '#000000';
     const router = useRouter();
 
+    const [refreshing, setRefreshing] = useState(false);
+
     const { id } = useLocalSearchParams();
     const {
-        fishData,
+        fishData, notes,
         isLoading,
-        fetchFish
+        fetchFish, onRefresh
     } = useGetFish();
 
     useEffect(() => {
@@ -48,9 +50,13 @@ export default function FishDetailScreen() {
                         imgUri={fishData.image ?? ""}
                         process={fishData.process ?? ""}
                     />
-                    <ScrollView>
-                        {fishData.notes && fishData.notes.length > 0 && (
-                            fishData.notes.map((note, index) => (
+                    <ScrollView
+                        refreshControl={
+                            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                        }
+                    >
+                        {notes && notes.length > 0 && (
+                            notes.map((note, index) => (
                                 <View key={index} style={styles.advanceView}>
                                     <View style={styles.descriptionView}>
                                         <Text style={styles.descriptionTitle}>{note.note_type}</Text>
@@ -59,6 +65,7 @@ export default function FishDetailScreen() {
                                 </View>
                             ))
                         )}
+
                     </ScrollView>
 
                     <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
