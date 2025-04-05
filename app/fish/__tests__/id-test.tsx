@@ -4,6 +4,11 @@ import { useLocalSearchParams } from 'expo-router';
 
 // Mock expo-router
 jest.mock('expo-router', () => ({
+    useRouter: () => ({
+        push: jest.fn(),
+        back: jest.fn(),
+        // 根據需要模擬其他方法
+    }),
     useLocalSearchParams: jest.fn(),
 }));
 
@@ -13,11 +18,17 @@ jest.mock('@/services/locatStroageService', () => ({
     clearData: jest.fn(),
 }));
 
+// Mock expo-font
+jest.mock("expo-font", () => ({
+    loadAsync: jest.fn(), // 模擬字體加載
+    isLoaded: jest.fn(() => true), // 模擬字體已加載
+}));
+
 describe('FishDetailScreen automatically loads the fish data', () => {
     // 每次測試前重置 mock
     beforeEach(() => {
         global.fetch = jest.fn();
-        useLocalSearchParams.mockReturnValue({ id: '1' });
+        (useLocalSearchParams as jest.Mock).mockReturnValue({ id: "1" });
     });
 
     // 測試自動載入成功
