@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, TouchableOpacity, Text, ScrollView, RefreshControl } from "react-native";
+import { StyleSheet, View, Pressable, Text, ScrollView, RefreshControl } from "react-native";
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
 import { Loading } from "@/components/Loading";
@@ -73,7 +73,7 @@ export default function FishDetailScreen() {
                     </ScrollView>
 
                     <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
-                        <TouchableOpacity
+                        <Pressable
                             onPress={() => router.push(
                                 {
                                     pathname: "/fish/notes",
@@ -90,7 +90,7 @@ export default function FishDetailScreen() {
                             style={styles.notesButton}
                         >
                             <FontAwesome name="sticky-note" size={24} color={iconColor} />
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                 </View>
             )

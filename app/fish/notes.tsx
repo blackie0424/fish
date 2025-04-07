@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-    StyleSheet, View, Text, TextInput, TouchableOpacity, Dimensions, Alert
+    StyleSheet, ScrollView, Text, TextInput, TouchableOpacity, Dimensions, Pressable
 } from "react-native";
 import { useLocalSearchParams, router } from 'expo-router';
 
@@ -21,7 +21,7 @@ export default function FishNotesScreen() {
     const noteTypes = ["外觀特徵", "分布地區", "傳統價值", "經驗分享", "相關故事", "游棲生態"];
 
     return (
-        <View style={styles.container} >
+        <ScrollView style={styles.container} >
             <FishCard
                 id={id}
                 name={fishName}
@@ -46,7 +46,7 @@ export default function FishNotesScreen() {
 
 
             {/* 確定按鈕 */}
-            <TouchableOpacity
+            <Pressable
                 style={[styles.button, isDisalbed && { backgroundColor: "#ccc" }]}
                 onPress={() => {
                     setDisalbed(true);
@@ -55,8 +55,8 @@ export default function FishNotesScreen() {
                 disabled={isDisalbed}
             >
                 <Text style={styles.buttonText}>新增筆記</Text>
-            </TouchableOpacity>
-        </View >
+            </Pressable>
+        </ScrollView >
     )
 }
 
