@@ -10,14 +10,16 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.chungyueh.fish"
+      "bundleIdentifier": "com.chungyueh.fish",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
       },
-      "package": "com.chungyueh.fish"
+      "package": "com.chungyueh.fish",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
