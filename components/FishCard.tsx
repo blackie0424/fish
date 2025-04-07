@@ -34,15 +34,15 @@ export function FishCard(props: FishCardProps) {
                     <Text style={[styles.text, styles.locateText,]}>{props.locate}</Text>
                 </View>
             }
+            {props.process &&
+                <View style={styles.processView}>
+                    <Text style={[styles.text, styles.processText]}>{props.process}</Text>
+                </View>
+            }
             {props.type &&
 
                 <View style={props.type === "rahet" ? styles.rahetView : styles.oyodView}>
                     <Text style={[styles.text, styles.categoryText]}>{props.type}</Text>
-                </View>
-            }
-            {props.process &&
-                <View style={styles.processView}>
-                    <Text style={[styles.text, styles.processText]}>{props.process}</Text>
                 </View>
             }
         </View >
