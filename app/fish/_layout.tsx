@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Button, View, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
 import { useRouter, usePathname, useLocalSearchParams } from 'expo-router';
 import { Stack } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -108,36 +108,35 @@ export default function FishStackLayout() {
             tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color={iconColor} />,
             tabBarStyle: { display: "none" },
             headerRight: () => (
-              <View>
-                <TouchableOpacity
-                  onPress={() => {
-                    console.log("touch from pickImage... go back");
-                    if (imageUriForAll === "" || imageUriForAll === null) {
-                      alert('請先選擇一張圖片!');
-                    } else {
-                      setTimeout(() => router.push("/fish/create"), 0);
-                    }
-                  }}
-                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              <Pressable
+                onPress={() => {
+                  console.log("touch from pickImage... go back");
+                  if (imageUriForAll === "" || imageUriForAll === null) {
+                    alert('請先選擇一張圖片!');
+                  } else {
+                    router.push("/fish/create");
+                  }
+                }}
+                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+                color={iconColor}
+              >
+                <FontAwesome
+                  name="arrow-right"
+                  size={32}
                   color={iconColor}
-                >
-                  <FontAwesome
-                    name="arrow-right"
-                    size={32}
-                    color={iconColor}
-                    style={{ left: 10 }}
-                  />
-                </TouchableOpacity>
-              </View>
+                  style={{ left: 10 }}
+                />
+              </Pressable>
             ),
             headerLeft: () => (
-              <TouchableOpacity
+              <Pressable
                 onPress={() => {
                   console.log("touch from pickImage... go next");
                   setImageUriForAll("");
-                  setTimeout(() => router.push("/fish"), 0);
+                  router.push("/fish");
                 }}
-                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} // 增加觸控區域
+                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+                color={iconColor}
               >
                 <FontAwesome
                   name="times"
@@ -145,19 +144,19 @@ export default function FishStackLayout() {
                   color={iconColor}
                   style={{ left: 10 }}
                 />
-              </TouchableOpacity>
+              </Pressable>
             )
           }}
         />
       </Stack>
       {showAddButton && (
         <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
-          <TouchableOpacity
+          <Pressable
             onPress={() => router.push("/fish/pickImage")}
             style={styles.addButton}
           >
             <FontAwesome name="plus" size={24} color={iconColor} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       )}
     </>
