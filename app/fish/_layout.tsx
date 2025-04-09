@@ -124,7 +124,7 @@ export default function FishStackLayout() {
                   name="arrow-right"
                   size={32}
                   color={iconColor}
-                  style={{ left: 10 }}
+                  style={{ marginHorizontal: 10 }}
                 />
               </Pressable>
             ),
@@ -142,7 +142,7 @@ export default function FishStackLayout() {
                   name="times"
                   size={32}
                   color={iconColor}
-                  style={{ left: 10 }}
+                  style={{ marginHorizontal: 10 }}
                 />
               </Pressable>
             )
