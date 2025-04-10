@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, ScrollView } from "react-native";
 
 import SelectionGroup from "@/components/SelectGroup";
 import useCreateFish from "@/hooks/useCreateFish";
 
-import { useImage } from '@/context/ImageContext';
 import useUploadImage from '@/hooks/useUploadImage';
 
+import { useLocalSearchParams } from "expo-router";
 
 
 export default function CreateFishScreen() {
-    const { imageUriForAll } = useImage();
+    const { imageUri } = useLocalSearchParams();
 
     const { uploadImage } = useUploadImage();
     const {
@@ -30,7 +30,7 @@ export default function CreateFishScreen() {
         if (!hasUploaded.current) {
             hasUploaded.current = true;
             setDisalbeButton(true); // 開始上傳，圖片上傳中，分享按鈕不可按
-            uploadImage().then((res) => {
+            uploadImage(imageUri as string).then((res) => {
                 console.log("after upload get res info:" + res);
                 setImageName(res || "default.png"); // 確保有值
             }).catch((err) => {
@@ -50,7 +50,7 @@ export default function CreateFishScreen() {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
             {/* ✅ 預覽圖片 */}
-            {imageUriForAll && <Image source={{ uri: imageUriForAll }} style={styles.preview} />}
+            {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
             <View style={styles.separator} />
             {/* 魚名稱輸入框 */}
             <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>
