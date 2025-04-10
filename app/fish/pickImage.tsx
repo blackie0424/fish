@@ -17,9 +17,9 @@ const pickImagePage = () => {
                 imageUri ? (
                     <TouchableOpacity
                         onPress={async () => {
-                            const newUri = await persistImage(imageUri);
-                            console.log('Passing imageUri:', newUri);
-                            navigation.navigate('create', { imageUri: newUri });
+                            // const newUri = await persistImage(imageUri);
+                            // console.log('Passing imageUri:', newUri);
+                            navigation.navigate('create', { imageUri: imageUri });
                         }}
                         style={{ marginRight: 10 }}
                     >
