@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, TouchableOpacity, Image, Text, Button } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import usePickImage from '@/hooks/usePickImage';
 
@@ -28,7 +28,7 @@ const pickImagePage = () => {
                         }}
                         style={{ marginRight: 10, padding: 10 }} // 增加觸控範圍
                     >
-                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步4</Text>
+                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步5</Text>
                     </TouchableOpacity>
                 ) : null,
         });
