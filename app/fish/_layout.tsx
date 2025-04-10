@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, View, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
-import { useRouter, usePathname, useLocalSearchParams } from 'expo-router';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { useRouter, usePathname } from 'expo-router';
 import { Stack } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
@@ -118,14 +118,9 @@ export default function FishStackLayout() {
                   }
                 }}
                 hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-                color={iconColor}
+                style={styles.headerButton}
               >
-                <FontAwesome
-                  name="arrow-right"
-                  size={32}
-                  color={iconColor}
-                  style={{ marginHorizontal: 10 }}
-                />
+                <Text style={[styles.headerText, { color: iconColor }]}>下一步</Text>
               </Pressable>
             ),
             headerLeft: () => (
@@ -136,14 +131,9 @@ export default function FishStackLayout() {
                   router.push("/fish");
                 }}
                 hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-                color={iconColor}
+                style={styles.headerButton}
               >
-                <FontAwesome
-                  name="times"
-                  size={32}
-                  color={iconColor}
-                  style={{ marginHorizontal: 10 }}
-                />
+                <Text style={[styles.headerText, { color: iconColor }]}>取消</Text>
               </Pressable>
             )
           }}
@@ -178,5 +168,15 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "rgba(0, 0, 0, 0.1)", // 輕微背景，視設計調整
     borderRadius: 30,
+  },
+  headerButton: {
+    padding: 10, // 增加觸控區域
+    marginHorizontal: 10, // 與邊緣保持距離
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 18, // 文字大小
+    fontWeight: "bold", // 文字加粗
   },
 });
