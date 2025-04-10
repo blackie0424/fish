@@ -7,11 +7,12 @@ import useCreateFish from "@/hooks/useCreateFish";
 import useUploadImage from '@/hooks/useUploadImage';
 
 import { useLocalSearchParams } from "expo-router";
+import * as FileSystem from 'expo-file-system';
 
 
 export default function CreateFishScreen() {
     const { imageUri } = useLocalSearchParams();
-
+    console.log("~~~~~imageUri: " + imageUri);
     const { uploadImage } = useUploadImage();
     const {
         fishName, setFishName,
@@ -25,6 +26,18 @@ export default function CreateFishScreen() {
 
     // 使用 useRef 作為標誌，確保上傳只執行一次
     const hasUploaded = useRef(false);
+
+    useEffect(() => {
+        const checkFile = async () => {
+            try {
+                const info = await FileSystem.getInfoAsync(imageUri);
+                console.log('File exists:', info.exists, 'URI:', imageUri);
+            } catch (error) {
+                console.error('File check error:', error);
+            }
+        };
+        checkFile();
+    }, [imageUri]);
 
     useEffect(() => {
         if (!hasUploaded.current) {
@@ -50,7 +63,7 @@ export default function CreateFishScreen() {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
             {/* ✅ 預覽圖片 */}
-            {imageUri && <Image source={{ uri: imageUri }} style={styles.preview} />}
+            {typeof imageUri === "string" && <Image source={{ uri: imageUri }} style={styles.preview} />}
             <View style={styles.separator} />
             {/* 魚名稱輸入框 */}
             <Text style={styles.title}>魚類名稱，建議以羅馬拼音書寫</Text>

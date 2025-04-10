@@ -6,8 +6,8 @@ import usePickImage from '@/hooks/usePickImage';
 const pickImagePage = () => {
     const navigation = useNavigation();
     const {
-        imageUri, setImageUri,
-        pickImage,
+        imageUri,
+        pickImage, persistImage
     } = usePickImage();
 
     // 動態設置右上角的「下一步」按鈕
@@ -17,8 +17,10 @@ const pickImagePage = () => {
                 imageUri ? (
                     <Button
                         title="下一步"
-                        onPress={() => {
-                            navigation.navigate('create', { imageUri: imageUri });
+                        onPress={async () => {
+                            const newUri = await persistImage(imageUri); // 複製到持久化目錄
+                            console.log('Passing imageUri:', newUri);
+                            navigation.navigate('create', { imageUri: newUri }); // 傳遞新路徑
                         }}
                     />
                 ) : null,

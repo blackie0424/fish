@@ -1,30 +1,34 @@
-import React, { useState, useEffect } from 'react';
-
-import { useImage } from '@/context/ImageContext';
+import React from 'react';
 
 
 export default function useUploadImage() {
     const API_URL = `${process.env.EXPO_PUBLIC_API_URL}upload`;
 
-
     // 這是上傳圖片的函數
     const uploadImage = async (imageUri: string) => {
 
-        const localUri = imageUri.replace('file://', ''); // 處理 URI 的問題
-        const filename = localUri.split('/').pop(); // 取得檔名
-        console.log("imageUriForAll is:" + imageUri);
+
+        const localUri = imageUri; // 保留原始 URI，不移除 file://
+        console.log("localUri: " + localUri);
+        const filename = localUri.split('/').pop() || 'default.png'; // 確保有預設檔名
+        console.log("filename: " + filename);
+        const match = /\.(\w+)$/.exec(filename);
+        console.log("match: " + match);
+        const type = match ? `image/${match[1]}` : 'image/jpeg'; // 動態取得 MIME 類型
+        console.log("type: " + type);
 
         const formData = new FormData();
         formData.append('image', {
             uri: localUri,
-            name: filename
+            name: filename,
+            type, // 明確指定 MIME 類型
         });
-
+        console.log("formData: " + formData);
         const requestOptions = {
             method: "POST",
             body: formData
         };
-
+        console.log("requestOptions: " + requestOptions);
         try {
             const response = await fetch(API_URL, requestOptions);
             const responseData = await response.json();
@@ -36,7 +40,7 @@ export default function useUploadImage() {
                 return "default.png";
             }
         } catch (error) {
-            console.error(error);
+            console.error("WDWDWDWD" + error);
             return "default.png";
         }
     };

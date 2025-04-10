@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+
 
 
 export default function usePickImage() {
@@ -27,9 +29,27 @@ export default function usePickImage() {
         }
     };
 
+    // 將圖片複製到持久化目錄
+    const persistImage = async (imageUri) => {
+        const filename = imageUri.split('/').pop() || 'default.png'; // 確保有預設檔名
+
+        const persistentUri = `${FileSystem.documentDirectory}${filename}`;
+        try {
+            await FileSystem.copyAsync({
+                from: imageUri,
+                to: persistentUri,
+            });
+            console.log('Image copied to persistent URI:', persistentUri);
+            return persistentUri;
+        } catch (error) {
+            console.error('Error copying image:', error);
+            return imageUri; // 如果複製失敗，退回原始 URI
+        }
+    };
+
     return {
         imageUri, setImageUri,
-        pickImage,
+        pickImage, persistImage
     };
 }
 
