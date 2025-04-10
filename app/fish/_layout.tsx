@@ -4,18 +4,18 @@ import { useRouter, usePathname } from 'expo-router';
 import { Stack } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-import { useImage } from '@/context/ImageContext';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 
 export default function FishStackLayout() {
   const router = useRouter();
-  const { imageUriForAll, setImageUriForAll } = useImage();
   const colorScheme = useColorScheme();
   const backgroundColor = colorScheme === 'dark' ? '#003F5E' : '#FFFFFF';
   const iconColor = backgroundColor === '#003F5E' ? '#FFFFFF' : '#000000';
 
   const pathname = usePathname(); // 獲取當前路徑
+
+
 
   // 定義不需要顯示「新增魚類」按鈕的頁面
   const showAddButton = !(
@@ -43,27 +43,7 @@ export default function FishStackLayout() {
             )
           }}
         />
-        <Stack.Screen
-          name="create"
-          options={{
-            href: null,
-            tabBarStyle: { display: "none" },
-            headerLeft: () => (
-              <FontAwesome
-                name="arrow-left"
-                size={20}
-                color={iconColor}
-                style={{
-                  left: 10
-                }}
-                onPress={() => {
-                  setImageUriForAll("");
-                  router.push("/fish/pickImage");
-                }}
-              />
-            )
-          }}
-        />
+        <Stack.Screen name="create" options={{ title: "新增魚類資料" }} />
         <Stack.Screen
           name="notes"
           options={{
@@ -101,43 +81,7 @@ export default function FishStackLayout() {
             )
           }}
         />
-        <Stack.Screen
-          name="pickImage"
-          options={{
-            title: "",
-            tabBarIcon: ({ color }) => <FontAwesome size={20} name="plus" color={iconColor} />,
-            tabBarStyle: { display: "none" },
-            headerRight: () => (
-              <Pressable
-                onPress={() => {
-                  console.log("touch from pickImage... go back");
-                  if (imageUriForAll === "" || imageUriForAll === null) {
-                    alert('請先選擇一張圖片!');
-                  } else {
-                    router.push("/fish/create");
-                  }
-                }}
-                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-                style={styles.headerButton}
-              >
-                <Text style={[styles.headerText, { color: iconColor }]}>下一步2</Text>
-              </Pressable>
-            ),
-            headerLeft: () => (
-              <Pressable
-                onPress={() => {
-                  console.log("touch from pickImage... go next");
-                  setImageUriForAll("");
-                  router.push("/fish");
-                }}
-                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-                style={styles.headerButton}
-              >
-                <Text style={[styles.headerText, { color: iconColor }]}>取消2</Text>
-              </Pressable>
-            )
-          }}
-        />
+        <Stack.Screen name="pickImage" options={{ title: "選擇圖片" }} />
       </Stack>
       {showAddButton && (
         <View style={[styles.tabBar, { backgroundColor: backgroundColor }]}>
