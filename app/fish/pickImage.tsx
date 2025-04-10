@@ -23,7 +23,7 @@ const pickImagePage = () => {
                         }}
                         style={{ marginRight: 10 }}
                     >
-                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步</Text>
+                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步2</Text>
                     </TouchableOpacity>
                 ) : null,
         });
