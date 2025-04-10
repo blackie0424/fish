@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Button, Image } from 'react-native';
+import { View, Button, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import usePickImage from '@/hooks/usePickImage';
 
@@ -18,9 +18,16 @@ const pickImagePage = () => {
                     <Button
                         title="下一步"
                         onPress={async () => {
-                            const newUri = await persistImage(imageUri); // 複製到持久化目錄
-                            console.log('Passing imageUri:', newUri);
-                            navigation.navigate('create', { imageUri: newUri }); // 傳遞新路徑
+                            try {
+                                Alert.alert('提示', '下一步按鈕被點擊'); // 測試點 1
+                                const newUri = await persistImage(imageUri);
+                                console.log('Passing imageUri:', newUri);
+                                navigation.navigate('create', { imageUri: newUri });
+                                Alert.alert('提示', '導航已觸發'); // 測試點 2
+                            } catch (error) {
+                                console.error('Navigation error:', error);
+                                Alert.alert('錯誤', '操作失敗: ' + error.message);
+                            }
                         }}
                     />
                 ) : null,
