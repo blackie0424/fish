@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Button, Image, Alert } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import usePickImage from '@/hooks/usePickImage';
 
@@ -15,21 +15,16 @@ const pickImagePage = () => {
         navigation.setOptions({
             headerRight: () =>
                 imageUri ? (
-                    <Button
-                        title="下一步"
+                    <TouchableOpacity
                         onPress={async () => {
-                            try {
-                                Alert.alert('提示', '下一步按鈕被點擊'); // 測試點 1
-                                const newUri = await persistImage(imageUri);
-                                console.log('Passing imageUri:', newUri);
-                                navigation.navigate('create', { imageUri: newUri });
-                                Alert.alert('提示', '導航已觸發'); // 測試點 2
-                            } catch (error) {
-                                console.error('Navigation error:', error);
-                                Alert.alert('錯誤', '操作失敗: ' + error.message);
-                            }
+                            const newUri = await persistImage(imageUri);
+                            console.log('Passing imageUri:', newUri);
+                            navigation.navigate('create', { imageUri: newUri });
                         }}
-                    />
+                        style={{ marginRight: 10 }}
+                    >
+                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步</Text>
+                    </TouchableOpacity>
                 ) : null,
         });
     }, [imageUri, navigation]);
