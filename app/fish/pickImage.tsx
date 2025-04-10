@@ -12,18 +12,23 @@ const pickImagePage = () => {
 
     // 動態設置右上角的「下一步」按鈕
     useEffect(() => {
+        console.log('Navigation object:', navigation); // 檢查 navigation
         navigation.setOptions({
             headerRight: () =>
                 imageUri ? (
                     <TouchableOpacity
-                        onPress={async () => {
-                            // const newUri = await persistImage(imageUri);
-                            // console.log('Passing imageUri:', newUri);
-                            navigation.navigate('create', { imageUri: imageUri });
+                        onPress={() => {
+                            console.log('Pressed, passing imageUri:', imageUri);
+                            if (navigation && typeof navigation.navigate === 'function') {
+                                navigation.navigate('create', { imageUri });
+                                Alert.alert('提示', '導航觸發');
+                            } else {
+                                Alert.alert('錯誤', '導航物件無效');
+                            }
                         }}
-                        style={{ marginRight: 10 }}
+                        style={{ marginRight: 10, padding: 10 }} // 增加觸控範圍
                     >
-                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步3</Text>
+                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步4</Text>
                     </TouchableOpacity>
                 ) : null,
         });
