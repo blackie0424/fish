@@ -120,7 +120,7 @@ export default function FishStackLayout() {
                 hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
                 style={styles.headerButton}
               >
-                <Text style={[styles.headerText, { color: iconColor }]}>下一步</Text>
+                <Text style={[styles.headerText, { color: iconColor }]}>下一步2</Text>
               </Pressable>
             ),
             headerLeft: () => (
@@ -133,7 +133,7 @@ export default function FishStackLayout() {
                 hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
                 style={styles.headerButton}
               >
-                <Text style={[styles.headerText, { color: iconColor }]}>取消</Text>
+                <Text style={[styles.headerText, { color: iconColor }]}>取消2</Text>
               </Pressable>
             )
           }}

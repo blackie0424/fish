@@ -5,7 +5,8 @@
     "version": "1.0.0",
     "updates": {
       "enabled": true,
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/519b9677-1871-4b93-bddc-834c8e708acb"
     },
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -43,6 +44,7 @@
       "eas": {
         "projectId": "519b9677-1871-4b93-bddc-834c8e708acb"
       }
-    }
+    },
+    "runtimeVersion": "1.0.0"
   }
 }
