@@ -9,7 +9,7 @@
       "url": "https://u.expo.dev/519b9677-1871-4b93-bddc-834c8e708acb"
     },
     "orientation": "portrait",
-    "icon": "/assets/images/icon.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -22,14 +22,14 @@
       "package": "com.chungyueh.fish",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "/assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "/assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router"
