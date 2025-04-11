@@ -6,6 +6,8 @@ import * as FileSystem from 'expo-file-system';
 
 export default function usePickImage() {
     const [imageUri, setImageUri] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
 
     // 這是處理選擇圖片的函數
     const pickImage = async () => {
@@ -30,11 +32,14 @@ export default function usePickImage() {
     };
 
     // 將圖片複製到持久化目錄
-    const persistImage = async (imageUri) => {
+    const persistImage = async (imageUri: string) => {
         const filename = imageUri.split('/').pop() || 'default.png'; // 確保有預設檔名
-
         const persistentUri = `${FileSystem.documentDirectory}${filename}`;
+
+
         try {
+            throw (new Error("test error box"));
+
             await FileSystem.copyAsync({
                 from: imageUri,
                 to: persistentUri,
@@ -42,13 +47,14 @@ export default function usePickImage() {
             console.log('Image copied to persistent URI:', persistentUri);
             return persistentUri;
         } catch (error) {
-            console.error('Error copying image:', error);
+            setError('Error copying image in usePickImages:' + error);
             return imageUri; // 如果複製失敗，退回原始 URI
         }
     };
 
     return {
         imageUri, setImageUri,
+        error,
         pickImage, persistImage
     };
 }

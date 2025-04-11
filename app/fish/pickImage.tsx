@@ -7,6 +7,7 @@ const pickImagePage = () => {
     const navigation = useNavigation();
     const {
         imageUri,
+        error,
         pickImage, persistImage
     } = usePickImage();
 
@@ -19,12 +20,8 @@ const pickImagePage = () => {
                     <TouchableOpacity
                         onPress={() => {
                             console.log('Pressed, passing imageUri:', imageUri);
-                            if (navigation && typeof navigation.navigate === 'function') {
-                                navigation.navigate('create', { imageUri });
-                                Alert.alert('提示', '導航觸發');
-                            } else {
-                                Alert.alert('錯誤', '導航物件無效');
-                            }
+                            persistImage(imageUri);
+                            //navigation.navigate('create', { imageUri });
                         }}
                         style={{ marginRight: 10, padding: 10 }} // 增加觸控範圍
                     >
@@ -36,6 +33,7 @@ const pickImagePage = () => {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {error && <Text style={{ color: 'red' }}>{error}</Text>}
             {imageUri && <Image source={{ uri: imageUri }} style={{ width: "100%", height: 200, resizeMode: "contain" }} />}
             <Button title="選擇圖片" onPress={pickImage} />
         </View>
