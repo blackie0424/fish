@@ -18,14 +18,15 @@ const pickImagePage = () => {
             headerRight: () =>
                 imageUri ? (
                     <TouchableOpacity
-                        onPress={async () => {
+                        onPressIn={async () => {
                             console.log('Pressed, passing imageUri:', imageUri);
-                            persistImage(imageUri);
-                            //navigation.navigate('create', { imageUri });
+                            persistImage(imageUri).then(newUri => {
+                                navigation.navigate('create', { imageUri: newUri });
+                            });
                         }}
                         style={{ marginRight: 10, padding: 10 }} // 增加觸控範圍
                     >
-                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步10</Text>
+                        <Text style={{ color: '#007AFF', fontSize: 16 }}>下一步</Text>
                     </TouchableOpacity>
                 ) : null,
         });
