@@ -39,7 +39,6 @@ export default function usePickImage() {
 
         try {
             throw (new Error("test error box"));
-
             await FileSystem.copyAsync({
                 from: imageUri,
                 to: persistentUri,
