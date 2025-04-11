@@ -64,23 +64,7 @@ export default function FishStackLayout() {
             )
           }}
         />
-        <Stack.Screen
-          name="[id]"
-          options={{
-            href: null,
-            headerLeft: () => (
-              <FontAwesome
-                name="arrow-left"
-                size={20}
-                color={iconColor}
-                style={{
-                  left: 10
-                }}
-                onPress={() => router.push("/fish")}
-              />
-            )
-          }}
-        />
+        <Stack.Screen name="[id]" options={{ title: "魚類詳細資料" }} />
         <Stack.Screen name="pickImage" options={{ title: "選擇圖片" }} />
       </Stack>
       {showAddButton && (
