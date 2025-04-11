@@ -44,26 +44,9 @@ export default function FishStackLayout() {
           }}
         />
         <Stack.Screen name="create" options={{ title: "新增魚類資料" }} />
-        <Stack.Screen
-          name="notes"
-          options={{
-            href: null,
-            tabBarStyle: { display: "none" },
-            headerLeft: () => (
-              <FontAwesome
-                name="arrow-left"
-                size={20}
-                color={iconColor}
-                style={{
-                  left: 10
-                }}
-                onPress={() => {
-                  router.back();
-                }}
-              />
-            )
-          }}
-        />
+
+        <Stack.Screen name="notes" options={{ title: "新增魚類詳細資料" }} />
+
         <Stack.Screen name="[id]" options={{ title: "魚類詳細資料" }} />
         <Stack.Screen name="pickImage" options={{ title: "選擇圖片" }} />
       </Stack>
