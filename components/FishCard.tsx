@@ -37,7 +37,7 @@ const deviceWidth = Math.round(Dimensions.get("window").width);
 const styles = StyleSheet.create({
     cardView: {
         width: deviceWidth - 10,
-        height: 290,
+        height: 220,
         borderRadius: 20,
         backgroundColor: "#E5C29F",
         alignItems: "center",
@@ -66,5 +66,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 180,
         opacity: 0.8,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
 });
