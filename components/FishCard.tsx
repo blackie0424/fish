@@ -8,7 +8,6 @@ import { Image as ExpoImage } from "expo-image";
 interface FishCardProps {
     id: number;
     name: string;
-    category: string;
     imgUri: string;
 }
 
@@ -29,22 +28,6 @@ export function FishCard(props: FishCardProps) {
             <View style={styles.nameView}>
                 <Text style={styles.text}>{props.name}</Text>
             </View>
-            {props.locate &&
-                < View style={styles.locateView}>
-                    <Text style={[styles.text, styles.locateText,]}>{props.locate}</Text>
-                </View>
-            }
-            {props.process &&
-                <View style={styles.processView}>
-                    <Text style={[styles.text, styles.processText]}>{props.process}</Text>
-                </View>
-            }
-            {props.type &&
-
-                <View style={props.type === "rahet" ? styles.rahetView : styles.oyodView}>
-                    <Text style={[styles.text, styles.categoryText]}>{props.type}</Text>
-                </View>
-            }
         </View >
     );
 }
@@ -83,54 +66,5 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 180,
         opacity: 0.8,
-    },
-    locateView: {
-        width: 120,
-        height: 40,
-        backgroundColor: "#FFF9F5",
-        borderRadius: 50,
-        position: "absolute",
-        left: 10,
-        top: 240,
-        opacity: 0.9,
-    },
-    locateText: {
-        fontSize: 20,
-    },
-    rahetView: {
-        width: 70,
-        height: 40,
-        backgroundColor: "#AAF8F5",
-        borderRadius: 50,
-        position: "absolute",
-        left: 140,
-        top: 240,
-        opacity: 0.9,
-    },
-    oyodView: {
-        width: 70,
-        height: 40,
-        backgroundColor: "#FFD1DC",
-        borderRadius: 50,
-        position: "absolute",
-        left: 140,
-        top: 240,
-        opacity: 0.9,
-    },
-    categoryText: {
-        fontSize: 20,
-    },
-    processView: {
-        width: 90,
-        height: 40,
-        backgroundColor: "#CCC1DC",
-        borderRadius: 50,
-        position: "absolute",
-        left: 220,
-        top: 240,
-        opacity: 0.9,
-    },
-    processText: {
-        fontSize: 20,
     },
 });

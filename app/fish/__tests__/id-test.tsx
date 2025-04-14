@@ -57,8 +57,6 @@ describe('FishDetailScreen automatically loads the fish data', () => {
         });
 
         expect(screen.getByText('Ivey')).toBeTruthy(); // FishCard 顯示資料
-        expect(screen.getByText('oyod')).toBeTruthy(); // FishCard 顯示資料
-        expect(screen.getByText('Iraraley')).toBeTruthy(); // FishCard 顯示資料
         expect(screen.queryByText('找不到資料')).toBeNull(); // 沒有404錯誤
         expect(screen.queryByText('抱歉，系統出了點問題，請稍後再試')).toBeNull(); // 沒有500錯誤
         expect(screen.queryByText('目前沒有資料')).toBeNull(); // 沒有資料可以提供的情境未發生
@@ -91,8 +89,6 @@ describe('FishDetailScreen automatically loads the fish data', () => {
         });
 
         expect(screen.getByText('Ivey')).toBeTruthy(); // FishCard 顯示資料
-        expect(screen.getByText('oyod')).toBeTruthy(); // FishCard 顯示資料
-        expect(screen.getByText('Iraraley')).toBeTruthy(); // FishCard 顯示資料
         expect(screen.queryByTestId('skeleton-fish-detail')).toBeNull();
     });
 
